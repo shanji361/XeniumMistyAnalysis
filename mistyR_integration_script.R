@@ -494,7 +494,7 @@ pathway_view_data <- as_tibble(pathway_scores)
 #---------------------------------------------
 #PREP DATA FOR MISTY ANALYSIS:
 
-# Assume order of cells in pathway_view_data matches expression data
+# order of cells in pathway_view_data matches expression data
 if(length(rownames(pathway_view_data)) == 0) {
       rownames(pathway_view_data) <- colnames(expression)
 }
@@ -864,7 +864,7 @@ for (i in seq(1, length(top_hallmarks), by = 4)) {
   print(combined_plot)
 }
 
-# Also create plots for the cell types from PAGE analysis
+# create plots for the cell types from PAGE analysis
 cell_types <- c("Alveolar_TypeI", "Alveolar_TypeII", "B_cell", 
                 "Bcell_PB", "Bcells_memory", "Ciliated", 
                 "Dendritic", "Endothelial", "Fibroblast", 
@@ -892,6 +892,5 @@ dev.off()
 #SAVE UPDATED GIOTTO OBJECT 
 
 final_visium_lungcancer <- visium_lungcancer
-# Save the updated Giotto object
 saveGiotto(final_visium_lungcancer, "results/misty/final_visium_lungcancer_object", overwrite = TRUE)
 
