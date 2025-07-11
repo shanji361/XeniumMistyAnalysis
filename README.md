@@ -119,9 +119,8 @@ violinPlot(g,
 )
 ``` 
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/10-violinPlot.png")
-```
+![Violin Plot](images/xenium_lung_cancer_misty/10-violinPlot.png)
+
 
 # 6. Cell Type Annotation
 ## 6.1 Manual Cell Type Assignment
@@ -266,9 +265,8 @@ misty_results_com_path_act %>%
   plot_improvement_stats("gain.R2") 
 ```
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/com_path_act_IntraGain .png")
-```
+![IntraGain](images/xenium_lung_cancer_misty/com_path_act_IntraGain.png)
+
 
 ```{r, eval=FALSE}
 
@@ -277,9 +275,8 @@ misty_results_com_path_act %>%
   plot_view_contributions()
 ```
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/ com_path_act_Contributions.png")
-```
+![Contributions](images/xenium_lung_cancer_misty/com_path_act_Contributions.png)
+
 
 ```{r, eval=FALSE}
 # Plot interaction heatmap
@@ -288,9 +285,8 @@ misty_results_com_path_act %>%
 ```
 
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/ com_path_act_Juxta.png")
-```
+![Juxta](images/xenium_lung_cancer_misty/com_path_act_Juxta.png)
+
 
 
 ## 8.3 Alternative MISTy Analysis (Bypass Intra)
@@ -309,18 +305,15 @@ misty_results_com_path_act_linear %>%
   plot_view_contributions()
 ```
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/ com_path_act_linear_Gain.png")
-```
+![Linear Gain](images/xenium_lung_cancer_misty/com_path_act_linear_Gain.png)
+
 
 ```{r, eval=FALSE}
 misty_results_com_path_act_linear %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE) 
 ```
+![Linear Juxta](images/xenium_lung_cancer_misty/com_path_act_linear_Juxta.png)
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/com_path_act_linear_Juxta .png")
-```
 
 # 9. Visualization and Results
 ## 9.1 Add Normalized Pathway Data to Giotto Object
@@ -345,9 +338,8 @@ spatPlot2D(xenium_lungcancer_test,
            cell_color_gradient = c("blue", "orange"))
 ```
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/11-spatPlot2D .png")
-```
+![2D Spatial Plot 11](images/xenium_lung_cancer_misty/11-spatPlot2D.png)
+
 
 ### Pathway Activity Visualization
 ```{r, eval=FALSE}
@@ -362,9 +354,8 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "red"))
 ```
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/12-spatFeatPlot2D .png")
-```
+![2D Spatial Feature Plot 12](images/xenium_lung_cancer_misty/12-spatFeatPlot2D.png)
+
 
 ```{r, eval=FALSE}
 # Highlight specific cell types (e.g., B cells)
@@ -376,9 +367,8 @@ spatPlot2D(xenium_lungcancer_test,
            point_size = 1.3)
 ```
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/13-spatPlot2D .png")
-```
+![2D Spatial Plot 13](images/xenium_lung_cancer_misty/13-spatPlot2D.png)
+
 
 ```{r, eval=FALSE}
 # Plot VEGF and WNT pathways
@@ -391,9 +381,8 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 2,  
                cell_color_gradient = c("blue", "green"))
 ```
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/14-spatFeatPlot2D .png")
-```
+![2D Spatial Feature Plot 14](images/xenium_lung_cancer_misty/14-spatFeatPlot2D.png)
+
 
 ```{r, eval=FALSE}
 # Plot TNF-alpha and TRAIL pathways
@@ -406,9 +395,8 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 2,  
                cell_color_gradient = c("blue", "green"))
 ```
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/15-spatFeatPlot2D .png")
-```
+![2D Spatial Feature Plot 15](images/xenium_lung_cancer_misty/15-spatFeatPlot2D.png)
+
 
 ```{r, eval=FALSE}
 # Plot TGF-beta and Androgen pathways
@@ -421,9 +409,8 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 2,  
                cell_color_gradient = c("blue", "green"))
 ```
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/16-spatFeatPlot2D .png")
-```
+![2D Spatial Feature Plot 16](images/xenium_lung_cancer_misty/16-spatFeatPlot2D.png)
+
 
 ```{r, eval=FALSE}
 # Plot NF-kB and p53 pathways
@@ -436,9 +423,8 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 2,  
                cell_color_gradient = c("blue", "green"))
 ```
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/17-spatFeatPlot2D .png")
-```
+![2D Spatial Feature Plot 17](images/xenium_lung_cancer_misty/17-spatFeatPlot2D.png)
+
 
 ```{r, eval=FALSE}
 # Plot EGFR and Estrogen pathways
@@ -452,9 +438,8 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "green"))
 ```
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/18-spatFeatPlot2D .png")
-```
+![2D Spatial Feature Plot 18](images/xenium_lung_cancer_misty/18-spatFeatPlot2D.png)
+
 
 ```{r, eval=FALSE}
 devtools::session_info()
