@@ -264,9 +264,7 @@ misty_results_com_path_act %>%
   plot_improvement_stats("intra.R2") %>%
   plot_improvement_stats("gain.R2") 
 ```
-
 ![IntraGain](com_path_act_IntraGain.png)
-
 
 ```{r, eval=FALSE}
 
@@ -274,20 +272,14 @@ misty_results_com_path_act %>%
 misty_results_com_path_act %>% 
   plot_view_contributions()
 ```
-
 ![Contributions](com_path_act_Contributions.png)
-
 
 ```{r, eval=FALSE}
 # Plot interaction heatmap
 misty_results_com_path_act %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE)
 ```
-
-
 ![Juxta](com_path_act_Juxta.png)
-
-
 
 ## 8.3 Alternative MISTy Analysis (Bypass Intra)
 Running MISTy analysis without intraview self-prediction.
@@ -304,17 +296,12 @@ misty_results_com_path_act_linear %>%
   plot_improvement_stats("gain.R2") %>%
   plot_view_contributions()
 ```
-
 ![Linear Gain](com_path_act_linear_Gain.png)
-
-
 ```{r, eval=FALSE}
 misty_results_com_path_act_linear %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE) 
 ```
 ![Linear Juxta](com_path_act_linear_Juxta.png)
-
-
 # 9. Visualization and Results
 ## 9.1 Add Normalized Pathway Data to Giotto Object
 ```{r, eval=FALSE}
@@ -337,10 +324,7 @@ spatPlot2D(xenium_lungcancer_test,
            point_alpha = 0.8, 
            cell_color_gradient = c("blue", "orange"))
 ```
-
 ![2D Spatial Plot 11](11-spatPlot2D.png)
-
-
 ### Pathway Activity Visualization
 ```{r, eval=FALSE}
 # Plot TRAIL pathway activity
@@ -353,10 +337,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 1, 
                cell_color_gradient = c("blue", "red"))
 ```
-
 ![2D Spatial Feature Plot 12](12-spatFeatPlot2D.png)
-
-
 ```{r, eval=FALSE}
 # Highlight specific cell types (e.g., B cells)
 spatPlot2D(xenium_lungcancer_test,
@@ -366,10 +347,7 @@ spatPlot2D(xenium_lungcancer_test,
            show_image = TRUE,
            point_size = 1.3)
 ```
-
 ![2D Spatial Plot 13](13-spatPlot2D.png)
-
-
 ```{r, eval=FALSE}
 # Plot VEGF and WNT pathways
 spatFeatPlot2D(xenium_lungcancer_test,
@@ -382,8 +360,6 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "green"))
 ```
 ![2D Spatial Feature Plot 14](14-spatFeatPlot2D.png)
-
-
 ```{r, eval=FALSE}
 # Plot TNF-alpha and TRAIL pathways
 spatFeatPlot2D(xenium_lungcancer_test,
@@ -396,8 +372,6 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "green"))
 ```
 ![2D Spatial Feature Plot 15](15-spatFeatPlot2D.png)
-
-
 ```{r, eval=FALSE}
 # Plot TGF-beta and Androgen pathways
 spatFeatPlot2D(xenium_lungcancer_test,
@@ -410,8 +384,6 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "green"))
 ```
 ![2D Spatial Feature Plot 16](16-spatFeatPlot2D.png)
-
-
 ```{r, eval=FALSE}
 # Plot NF-kB and p53 pathways
 spatFeatPlot2D(xenium_lungcancer_test,
@@ -424,8 +396,6 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "green"))
 ```
 ![2D Spatial Feature Plot 17](17-spatFeatPlot2D.png)
-
-
 ```{r, eval=FALSE}
 # Plot EGFR and Estrogen pathways
 spatFeatPlot2D(xenium_lungcancer_test,
@@ -437,10 +407,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 2,  
                cell_color_gradient = c("blue", "green"))
 ```
-
 ![2D Spatial Feature Plot 18](18-spatFeatPlot2D.png)
-
-
 ```{r, eval=FALSE}
 devtools::session_info()
 ```
