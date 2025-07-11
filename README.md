@@ -119,7 +119,7 @@ violinPlot(g,
 )
 ``` 
 
-![Violin Plot](images/xenium_lung_cancer_misty/10-violinPlot.png)
+![Violin Plot](10-violinPlot.png)
 
 
 # 6. Cell Type Annotation
@@ -265,7 +265,7 @@ misty_results_com_path_act %>%
   plot_improvement_stats("gain.R2") 
 ```
 
-![IntraGain](images/xenium_lung_cancer_misty/com_path_act_IntraGain.png)
+![IntraGain](com_path_act_IntraGain.png)
 
 
 ```{r, eval=FALSE}
@@ -275,7 +275,7 @@ misty_results_com_path_act %>%
   plot_view_contributions()
 ```
 
-![Contributions](images/xenium_lung_cancer_misty/com_path_act_Contributions.png)
+![Contributions](com_path_act_Contributions.png)
 
 
 ```{r, eval=FALSE}
@@ -285,7 +285,7 @@ misty_results_com_path_act %>%
 ```
 
 
-![Juxta](images/xenium_lung_cancer_misty/com_path_act_Juxta.png)
+![Juxta](com_path_act_Juxta.png)
 
 
 
@@ -305,14 +305,14 @@ misty_results_com_path_act_linear %>%
   plot_view_contributions()
 ```
 
-![Linear Gain](images/xenium_lung_cancer_misty/com_path_act_linear_Gain.png)
+![Linear Gain](com_path_act_linear_Gain.png)
 
 
 ```{r, eval=FALSE}
 misty_results_com_path_act_linear %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE) 
 ```
-![Linear Juxta](images/xenium_lung_cancer_misty/com_path_act_linear_Juxta.png)
+![Linear Juxta](com_path_act_linear_Juxta.png)
 
 
 # 9. Visualization and Results
@@ -338,7 +338,7 @@ spatPlot2D(xenium_lungcancer_test,
            cell_color_gradient = c("blue", "orange"))
 ```
 
-![2D Spatial Plot 11](images/xenium_lung_cancer_misty/11-spatPlot2D.png)
+![2D Spatial Plot 11](11-spatPlot2D.png)
 
 
 ### Pathway Activity Visualization
@@ -354,7 +354,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "red"))
 ```
 
-![2D Spatial Feature Plot 12](images/xenium_lung_cancer_misty/12-spatFeatPlot2D.png)
+![2D Spatial Feature Plot 12](12-spatFeatPlot2D.png)
 
 
 ```{r, eval=FALSE}
@@ -367,7 +367,7 @@ spatPlot2D(xenium_lungcancer_test,
            point_size = 1.3)
 ```
 
-![2D Spatial Plot 13](images/xenium_lung_cancer_misty/13-spatPlot2D.png)
+![2D Spatial Plot 13](13-spatPlot2D.png)
 
 
 ```{r, eval=FALSE}
@@ -381,7 +381,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 2,  
                cell_color_gradient = c("blue", "green"))
 ```
-![2D Spatial Feature Plot 14](images/xenium_lung_cancer_misty/14-spatFeatPlot2D.png)
+![2D Spatial Feature Plot 14](14-spatFeatPlot2D.png)
 
 
 ```{r, eval=FALSE}
@@ -395,7 +395,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 2,  
                cell_color_gradient = c("blue", "green"))
 ```
-![2D Spatial Feature Plot 15](images/xenium_lung_cancer_misty/15-spatFeatPlot2D.png)
+![2D Spatial Feature Plot 15](15-spatFeatPlot2D.png)
 
 
 ```{r, eval=FALSE}
@@ -409,7 +409,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 2,  
                cell_color_gradient = c("blue", "green"))
 ```
-![2D Spatial Feature Plot 16](images/xenium_lung_cancer_misty/16-spatFeatPlot2D.png)
+![2D Spatial Feature Plot 16](16-spatFeatPlot2D.png)
 
 
 ```{r, eval=FALSE}
@@ -423,7 +423,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cow_n_col = 2,  
                cell_color_gradient = c("blue", "green"))
 ```
-![2D Spatial Feature Plot 17](images/xenium_lung_cancer_misty/17-spatFeatPlot2D.png)
+![2D Spatial Feature Plot 17](17-spatFeatPlot2D.png)
 
 
 ```{r, eval=FALSE}
@@ -438,7 +438,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "green"))
 ```
 
-![2D Spatial Feature Plot 18](images/xenium_lung_cancer_misty/18-spatFeatPlot2D.png)
+![2D Spatial Feature Plot 18](18-spatFeatPlot2D.png)
 
 
 ```{r, eval=FALSE}
