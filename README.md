@@ -72,9 +72,8 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 - Mini: 6000,    7000,      -2200,     -1400    (xmin, xmax, ymin, ymax)
 ```
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/xenium_lung_cancer_misty/he.png")
-```
+![H&E Image](he.png)
+
 
 # 4. Giotto Object Creation 
 
