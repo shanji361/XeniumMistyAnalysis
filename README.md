@@ -44,7 +44,7 @@ library(msigdbr)
 library(decoupleR)
 library(SummarizedExperiment)
 ```
-# 3. Data Download and Setup
+# 3. Data Setup
 ## 3.1 Configure Paths and Download Data
 Setting up data paths and downloading the Xenium lung cancer dataset.
 ```{r, eval=FALSE}
