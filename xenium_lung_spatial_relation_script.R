@@ -36,10 +36,6 @@ library(decoupleR)
 library(mistyR)
 
 
-
-
-
-
 # set up paths
 data_path <- "/Users/juesh/UROP/data/xenium_lung"
 save_dir <- '/Users/juesh/UROP/results/xenium_lung'
@@ -101,7 +97,6 @@ ex <- x$load_expression()
 featType(ex)
 
 force(g)
-
 
 
 featType(ex[[2]]) <- c("NegControlProbe")
@@ -544,5 +539,6 @@ spatFeatPlot2D(xenium_lungcancer_test,
                point_size = 0.8,
                cow_n_col = 2,  
                cell_color_gradient =  c("blue", "green"))
+
 
 
