@@ -116,9 +116,11 @@ res_scran <- findMarkers_one_vs_all(g,
 rankgenes_scran <- res_scran[order(cluster, ranking), head(.SD, 2), by = cluster]
 
 # Create violin plots for top marker genes
+
 violinPlot(g, 
-           feats = topgenes_scran$feats, 
-           cluster_column = "leiden_clus"
+           feats = unique(rankgenes_scran$feats), #unique
+           cluster_column = "leiden_clus", 
+           save_param = list(base_height = 20,base_width = 10)
 )
 ``` 
 
@@ -132,18 +134,18 @@ Based on marker gene analysis, manually assign cell types to clusters.
 ```{r, eval=FALSE}
 # Define cell types based on marker gene analysis
 cell_types <- c(
-  "CD8+ T cell",        # CD8A, CD3D, CD3E, CD2, GZMK, CTLA4
-  "Alveolar epithelial cell",  # EPCAM, SFTA2, KRT7, GPRC5A, EGFR
-  "Fibroblast",         # PDGFRA, FBN1, LTBP2, COL5A2, VCAN
-  "Macrophage",         # CD68, CD14, MS4A4A, CD163, MRC1
-  "B cell",             # MS4A1, CD19, CD79A, BANK1, IRF8
-  "Ciliated cell",      # FOXJ1, DNAAF1, CFAP53, CCDC39, SOX2
-  "Endothelial cell",   # VWF, PECAM1, CD34, CLEC14A, EGFL7
-  "Basal epithelial cell",  # SOX2, CYP4B1, TSPAN19, MET, EHF
-  "Club cell",          # GPRC5A, CYP2B6, CFTR, ADAM28, AGR3
-  "Smooth muscle cell", # ACTA2, MYH11, CNN1, MYLK, DES
-  "Plasma cell",        # MZB1, SLAMF7, PRDM1, CD27, TNFRSF17
-  "Mast cell"           # KIT, CPA3, MS4A2, HPGDS, IL1RL1
+  "NK / T cells",      
+  "Alveolar Epithelial cells (LUAD CANCER)", 
+  "Stromal (Fibroblasts/ Pericytes)",      
+  "Myeloid (Macrophages / Monocytes) and Dendritic cells",      
+  "B cells",           
+  "Bronchial Epithelial (Ciliated) cells",     
+  "Endothelial cells", 
+  "Basal cells",      
+  "Alveolar Epithelial cells (LUAD CANCER)",
+  "Smooth muscle cells", 
+  "Plasma cells",     
+  "Granulocytes (Mast)"         
 )
 
 # Assign names to cell types vector
@@ -154,7 +156,7 @@ g <- annotateGiotto(gobject = g,
                     spat_unit = "cell", 
                     annotation_vector = cell_types,
                     cluster_column = 'leiden_clus', 
-                    name = 'subannot_clus')
+                    name = 'broad_celltypes')
 
 # Store annotated object
 xenium_lungcancer_test <- g
