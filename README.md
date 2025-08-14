@@ -104,15 +104,16 @@ We now continue from the step of identifying **cluster-specific marker genes** u
 # 5. Marker Gene Analysis
 ## 5.1 Find Cluster-Specific Markers
 ```{r, eval=FALSE}
-# Find marker genes using scran method
+# # Identifying marker genes for each cluster using the scran method,
+# so that we can assign a likely cell type to each cluster based on known marker gene expression.
 res_scran <- findMarkers_one_vs_all(g, 
                                     cluster_column = "leiden_clus", 
                                     method = "scran",
                                     expression_values = "normalized"
 )
 
-# Get top 2 genes per cluster
-topgenes_scran <- res_scran[, head(.SD, 2), by = 'cluster']
+#Sort the marker genes by cluster and, within each cluster, select the top two ranked marker genes.
+rankgenes_scran <- res_scran[order(cluster, ranking), head(.SD, 2), by = cluster]
 
 # Create violin plots for top marker genes
 violinPlot(g, 
