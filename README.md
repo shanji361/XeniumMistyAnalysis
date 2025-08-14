@@ -236,18 +236,27 @@ composition_xenium <- as_tibble(cell_type_onehot)
 ```
 # 8. MISTy Analysis
 
-#' MISTy Analysis: Multi-view Interactions in Spatial Transcriptomics
-#' This analysis uses MISTy to investigate how cell-type composition and pathway activity 
-#' contribute to spatial gene expression patterns in human lung Xenium data.
-#'
-#' Citation:
-#' Tanevski, J., Flores, R.O.R., Gabor, A. et al. (2022). Explainable multiview framework 
-#' for dissecting spatial relationships from highly multiplexed data. Genome Biology, 23, 97. 
-#' https://doi.org/10.1186/s13059-022-02663-5
-#'
-#' Tutorial reference:
-#' Workflow guidance adapted from: 
-#' https://saezlab.github.io/mistyR/articles/FunctionalAndStructuralPipeline.html
+<small>
+MISTy Analysis: Multi-view Interactions in Spatial Transcriptomics.  
+This analysis uses MISTy to investigate how cell-type composition and pathway activity  
+contribute to spatial gene expression patterns in human lung Xenium data.
+</small>
+
+<details>
+<summary><strong>Citation</strong></summary>
+
+Tanevski, J., Flores, R.O.R., Gabor, A. et al. (2022). *Explainable multiview framework for dissecting spatial relationships from highly multiplexed data*. Genome Biology, 23, 97.  
+[https://doi.org/10.1186/s13059-022-02663-5](https://doi.org/10.1186/s13059-022-02663-5)
+
+</details>
+
+<details>
+<summary><strong>Tutorial reference</strong></summary>
+
+Workflow guidance adapted from:  
+[https://saezlab.github.io/mistyR/articles/FunctionalAndStructuralPipeline.html](https://saezlab.github.io/mistyR/articles/FunctionalAndStructuralPipeline.html)
+
+</details>
 
 
 ## 8.1 Create MISTy Views
