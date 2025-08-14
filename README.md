@@ -236,11 +236,7 @@ composition_xenium <- as_tibble(cell_type_onehot)
 ```
 # 8. MISTy Analysis
 
-<small>
-MISTy Analysis: Multi-view Interactions in Spatial Transcriptomics.  
-This analysis uses MISTy to investigate how cell-type composition and pathway activity  
-contribute to spatial gene expression patterns in human lung Xenium data.
-</small>
+MISTy (Multi-view Interactions in Spatial Transcriptomics) is a computational framework designed to explore how different biological factors interact within spatially resolved transcriptomics data. This analysis applies MISTy to human lung Xenium data to examine how variations in cell-type composition and pathway activity shape spatial gene expression patterns.
 
 <details>
 <summary><strong>Citation</strong></summary>
