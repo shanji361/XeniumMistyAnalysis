@@ -241,7 +241,7 @@ g <- runUMAP(g,
              n_neighbors = 40 # default
 )
 
-plotPCA(g)
+Giotto::plotPCA(g)
 plotUMAP(g)
 
 
@@ -577,6 +577,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                point_size = 0.8,
                cow_n_col = 2,  
                cell_color_gradient =  c("blue", "green"))
+
 
 
 
