@@ -339,21 +339,50 @@ GiottoVisuals::dotPlot(
 )
 
 
+# Representative single marker genes for broad cell types
+single_marker_genes <- c(
+  "CD3E",     # NK / T cells
+  "SFTA2",    # Alveolar epithelial (AT2-like / LUAD cancer)
+  "PDGFRA",   # Fibroblasts / Stromal
+  "CD68",     # Myeloid (Macrophages/Monocytes/DCs)
+  "MS4A1",    # B cells
+  "FOXJ1",    # Ciliated epithelial
+  "PECAM1",   # Endothelial cells
+  "SOX2",     # Basal cells
+  "ACTA2",    # Smooth muscle
+  "MZB1",     # Plasma cells
+  "KIT"       # Mast cells
+)
+
+
+
+
+dimFeatPlot2D(g, 
+              expression_values = "normalized", 
+              feats = single_marker_genes, 
+              dim_reduction_to_use = "umap", 
+              cow_n_col = 2, 
+              point_size = 0.2, 
+              cell_color_gradient = c("blue", "green"), 
+              save_param = list(base_height = 10, base_width = 6))
+
+
 
 cell_types <- c(
-  "CD8+ T cell",      # IL7R, TRAC, CD3E, CD8A, GZMA, PRDM1
-  "Epithelial cell",  # EPCAM, KRT7, GPRC5A, CYP2B6, CFTR
-  "Fibroblast",       # PDGFRA, FBN1, LTBP2, THY1, VCAN
-  "Macrophage",       # CD68, CD14, MS4A6A, CD163, AIF1
-  "B cell",           # MS4A1, CD19, CD79A, BANK1, IRF8
-  "Ciliated cell",    # FOXJ1, DNAAF1, CFAP53, CCDC39, SOX2
-  "Endothelial cell", # VWF, PECAM1, CD34, EGFL7, ADGRL4
-  "Club cell",        # SCGB1A1, GPRC5A, CYP2F1, ADAM28, AGR3, EHF
-  "Epithelial cell 2", # EPCAM, KRT7, GPRC5A, CFTR, CYP2B6
-  "Smooth muscle cell", # ACTA2, MYH11, CNN1, MYLK, DES
-  "Plasma cell",      # MZB1, SLAMF7, PRDM1, CD27, TNFRSF17
-  "Mast cell"         # KIT, CPA3, MS4A2, HPGDS, IL1RL1
+  "NK / T cells",      
+  "Alveolar Epithelial cells (LUAD CANCER)",  #Type 1, Type 2
+  "Stromal (Fibroblasts/ Pericytes)",      
+  "Myeloid (Macrophages / Monocytes) and Dendritic cells",      
+  "B cells",           
+  "Bronchial Epithelial (Ciliated) cells", #tumor?  tumor possibility exists but needs further context
+  "Endothelial cells", 
+  "Basal cells",      #could be transformed in some tumors (?)
+  "Alveolar Epithelial cells (LUAD CANCER)",
+  "Smooth muscle cells", 
+  "Plasma cells",     
+  "Granulocytes (Mast)"         
 )
+
 
 # Assign numeric names to the vector
 names(cell_types) <- 1:length(cell_types)
@@ -577,6 +606,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                point_size = 0.8,
                cow_n_col = 2,  
                cell_color_gradient =  c("blue", "green"))
+
 
 
 
