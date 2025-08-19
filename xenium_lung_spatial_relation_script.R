@@ -57,7 +57,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
       exdir = data_path)
 
 
-
+#-------------------------------------------------------------------------- Giotto Workshop 2024 Tutorial Starts Here ----------------------------------------------------------------
 g <- createGiottoXeniumObject(xenium_dir = data_path)
 
 # set instructions for save directory and to save the plots to disk
@@ -273,6 +273,9 @@ spatInSituPlotPoints(g,
                      show_image = TRUE,
                      image_name = "HE"
 )
+
+#-------------------------------------------------------------------------- Giotto Workshop 2024 Tutorial Ends Here ----------------------------------------------------------------
+
 
 # scran marker gene
 res_scran <- findMarkers_one_vs_all(g, 
@@ -606,6 +609,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                point_size = 0.8,
                cow_n_col = 2,  
                cell_color_gradient =  c("blue", "green"))
+
 
 
 
