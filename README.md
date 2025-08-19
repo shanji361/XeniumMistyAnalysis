@@ -124,7 +124,7 @@ violinPlot(g,
 )
 ``` 
 
-![Violin Plot](10-violinPlot.png)
+![Violin Plot](violinPlot-10.png)
 
 
 # 6. Cell Type Annotation
