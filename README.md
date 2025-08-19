@@ -205,7 +205,7 @@ dimFeatPlot2D(g,
 
 ```
 
-![Dimension Features Plot 2D](20-dimFeatPlot.png)
+![Dimension Features Plot 2D](20-dimFeatPlot2D.png)
 
 ```{r, eval=FALSE}
 # Define cell types based on marker gene analysis
