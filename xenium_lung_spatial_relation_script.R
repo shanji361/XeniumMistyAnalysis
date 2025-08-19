@@ -285,9 +285,11 @@ res_scran <- findMarkers_one_vs_all(g,
 topgenes_scran <- res_scran[, head(.SD, 2), by = 'cluster']
 
 
+
 violinPlot(g, 
-           feats = topgenes_scran$feats, 
-           cluster_column = "leiden_clus"
+           feats = unique(rankgenes_scran$feats), 
+           cluster_column = "leiden_clus", 
+           save_param = list(base_height = 20,base_width = 10)
 )
 
 
@@ -299,6 +301,42 @@ violinPlot(g,
 #   file_name = 'GPTQuery_Scran.txt'
 # )
 
+
+GiottoVisuals::dotPlot(
+  g,
+  spat_unit = "cell",
+  feats = c(   "FOXJ1", "DNAAF1", "SCGB2A1", #Bronchial Epithelial (Ciliated/ Club)
+               "VWF", "PECAM1",              #Endothelial
+               "PDGFRA", "COL5A2",           #Fibroblast  
+               "PDGFRB",                     #Pericyte
+               "MYH11", "ACTA2",             #Smooth Muscle
+               "SOX2",                       #Basal cells
+               "SFTA2", "ACE2",              #Alveolar Epithelial Type 2 
+               "AGER", "PDPN",               #Alveolar Epithelial Type 1
+               "ERBB2", "EGFR", "EPCAM", "KRT7", #LUAD Cancer
+               "MET",  "MYC",                #Oncogenes
+               "NKG7", "CD3E",               #NKcell/ Tcells
+               "MS4A1", "CD19", "CD79A", "MZB1", #Bcell/ Plasma 
+               "CD68", "MRC1", "CD14",       #Macrophage (Tissue-Resident: Alveolar, Interstitial) / Monocytes
+               "CD83", "CD86",               #Dendritic 
+               "KIT", "MS4A2"                #Granulocytes (Mast/ etc...)
+               ), 
+  cluster_column = "leiden_clus",
+  dot_size = function(x) mean(x != 0) * 100,
+  dot_size_threshold = 0,
+  dot_scale = 6,
+  dot_color = mean,
+  dot_color_gradient = c("royalblue3", 'orangered', "yellow"),
+  gradient_style = "s",
+  expression_values = "normalized",
+  show_legend = TRUE,
+  legend_text = 10,
+  legend_symbol_size = 2,
+  background_color = "white",
+  axis_text = 10, 
+  default_save_name = "dotPlot",
+  save_param = list(base_height = 8,base_width = 5)
+)
 
 
 
@@ -539,6 +577,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                point_size = 0.8,
                cow_n_col = 2,  
                cell_color_gradient =  c("blue", "green"))
+
 
 
 
