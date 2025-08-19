@@ -176,6 +176,38 @@ GiottoVisuals::dotPlot(
 
 
 ```{r, eval=FALSE}
+# Representative single marker genes for broad cell types
+single_marker_genes <- c(
+  "CD3E",     # NK / T cells
+  "SFTA2",    # Alveolar epithelial (AT2-like / LUAD cancer)
+  "PDGFRA",   # Fibroblasts / Stromal
+  "CD68",     # Myeloid (Macrophages/Monocytes/DCs)
+  "MS4A1",    # B cells
+  "FOXJ1",    # Ciliated epithelial
+  "PECAM1",   # Endothelial cells
+  "SOX2",     # Basal cells
+  "ACTA2",    # Smooth muscle
+  "MZB1",     # Plasma cells
+  "KIT"       # Mast cells
+)
+
+
+
+
+dimFeatPlot2D(g, 
+              expression_values = "normalized", 
+              feats = single_marker_genes, 
+              dim_reduction_to_use = "umap", 
+              cow_n_col = 2, 
+              point_size = 0.2, 
+              cell_color_gradient = c("blue", "green"), 
+              save_param = list(base_height = 10, base_width = 6))
+
+```
+
+![Dimension Features Plot 2D](20-dimFeatPlot.png)
+
+```{r, eval=FALSE}
 # Define cell types based on marker gene analysis
 cell_types <- c(
   "NK / T cells",      
