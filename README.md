@@ -132,7 +132,7 @@ violinPlot(g,
 
 Manual cell type assignment was guided by the identification of cluster-specific marker genes using the scran method. To ensure that these predicted assignments accurately reflected the underlying biology, expression patterns were validated using dot plots and UMAP-based visualizations.
 
-In the dot plot, the Y-axis represents marker genes corresponding to major cell types, while the X-axis shows cluster numbers (1–12) identified from the analysis. Dot size indicates the percentage of cells within a cluster expressing a given gene (with reference values of 25%, 50%, and 75%), and dot color reflects the average expression level of the gene in that cluster, scaled from approximately 2 to 8 (normalized expression values). By comparing these patterns, clusters could be assigned to broad cell types.
+In the dot plot, the Y-axis represents marker genes corresponding to major cell types, while the X-axis shows cluster numbers (1–12) identified from the analysis. Dot size indicates the percentage of cells within a cluster expressing a given gene (with reference values of 25%, 50%, and 75%), and dot color reflects the average expression level of the gene in that cluster, scaled from 0.0 to 8.0 (normalized expression values). By comparing these patterns, clusters could be assigned to broad cell types.
 
 
 
