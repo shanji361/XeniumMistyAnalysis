@@ -129,7 +129,7 @@ violinPlot(g,
 
 # 6. Cell Type Annotation
 ## 6.1 Manual Cell Type Assignment
-Based on marker gene analysis, manually assign cell types to clusters.
+Manual cell type assignment was carried out by examining the expression of known marker genes across clusters using dot plots and UMAP feature plots. In the dot plot, the Y-axis represents marker genes corresponding to major cell types, while the X-axis shows cluster numbers (1–12) identified from the analysis. Dot size indicates the percentage of cells within a cluster expressing a given gene (with reference values of 25%, 50%, and 75%), and dot color reflects the average expression level of the gene in that cluster, scaled from approximately 2 to 8 (normalized expression values). By comparing these patterns, clusters could be assigned to broad cell types.
 
 
 
@@ -174,6 +174,8 @@ GiottoVisuals::dotPlot(
 ```
 ![Dot Plot](19-dotPlot.png)
 
+
+To complement the cluster-level overview from the dot plot, a smaller panel of representative marker genes (e.g., CD3E for T cells, SFTA2 for alveolar AT2 cells, PDGFRA for fibroblasts, CD68 for myeloid cells) was visualized using dimFeatPlot2D() on the UMAP. In these plots, the X and Y axes correspond to coordinates from the dimensional reduction (UMAP), each dot represents a single cell positioned based on transcriptional similarity, and the color scale (blue to green) indicates the expression level of the gene (0.0 to 10.0 normalized counts), with blue representing low or no expression and green representing high expression. Together, the dot plot and dimFeatPlot2D plots provide complementary perspectives that enabled manual annotation of clusters with their putative biological cell types.
 
 ```{r, eval=FALSE}
 # Representative single marker genes for broad cell types
