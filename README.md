@@ -268,7 +268,7 @@ setnames(geometry, c("sdimx", "sdimy"), c("row", "col"))
 expression <- as.matrix(xenium_lungcancer_test@expression$cell$rna$raw[])
 ```
 ## 7.2 Run PROGENy Pathway Analysis
-
+We use PROGENy to estimate pathway activity scores for each cell in the human lung cancer sample, capturing functional signaling rather than just gene expression. These activity scores are provided to MISTy later, which models how cells influence each other and contribute to the tumor microenvironment. By combining pathway activity with spatial coordinates, MISTy can estimate cell-cell interactions and functional contributions based on physical proximity and tissue context. 
 ```{r, eval=FALSE}
 # Get PROGENy model for human
 model <- get_progeny(organism = "human", top = 500)
