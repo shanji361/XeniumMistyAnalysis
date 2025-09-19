@@ -386,11 +386,11 @@ The `final_misty_views` object integrates **five complementary spatial views**, 
 
 ### Spatial Views  
 
-1. **intra** – captures each cell’s intrinsic features (self-identity and composition).  
-2. **juxta.path.20** – represents the average pathway activity of immediate neighbors within a 20 μm radius.  
-3. **para.path.50** – summarizes pathway activity in the broader regional environment within a 50 μm radius.  
-4. **juxta.composition.20** – describes the cell-type composition of immediate neighbors within 20 μm.  
-5. **para.composition.50** – characterizes the cell-type composition of the broader environment within 50 μm.  
+1. **intra** – Measures how well each cell's intrinsic features (predictors) predict that same cell's target features (self-prediction).
+2. **juxta.path.20** – Measures how well pathway activity within 20μm neighborhoods (predictors) predicts target features at focal points.
+3. **para.path.50** – Measures how well pathway activity within 50μm neighborhoods (predictors) predicts target features at focal points.
+4. **juxta.composition.20** –  Measures how well cell composition within 20μm neighborhoods (predictors) predicts target features at focal points.
+5. **para.composition.50** – Measures how well cell composition within 50μm neighborhoods (predictors) predicts target features at focal points.
 
 Together, these views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
 ```{r, eval = FALSE}
