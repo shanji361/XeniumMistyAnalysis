@@ -525,15 +525,13 @@ spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "
                feats = "trail", gradient_style = "sequential", 
                cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
                background_color = "black", point_size = 1)
-```
-![30-SpatFeatPlot2D](30-spatFeatPlot2D.png)
-
-```{r, eval = FALSE}
 spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
            cell_color = "subannot_clus", select_cell_groups = "B cells",
            point_size = 1, other_point_size = 1, other_cell_color = "#434343",
            background_color = "black")
 ```
+![30-SpatFeatPlot2D](30-spatFeatPlot2D.png)
+
 ![29-SpatPlot2D](29-spatPlot2D.png)
 
 
@@ -543,16 +541,15 @@ spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "
                feats = "egfr", gradient_style = "sequential", 
                cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
                background_color = "black", point_size = 1)
-```
-![28-SpatFeatPlot2D](28-spatFeatPlot2D.png)
 
-```{r, eval = FALSE}
 spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
            cell_color = "subannot_clus", select_cell_groups = "Alveolar Epithelial cells (LUAD CANCER)",
            point_size = 1, other_point_size = 1, other_cell_color = "#434343",
            background_color = "black")
 
 ```
+![28-SpatFeatPlot2D](28-spatFeatPlot2D.png)
+
 ![27-SpatPlot2D](27-spatPlot2D.png)
 
 ```{r, eval = FALSE}
@@ -607,15 +604,14 @@ spatPlot2D(xenium_lungcancer_test, spat_unit = "cell",
            cell_color = "subannot_clus", select_cell_groups = "NK / T cells",
            point_size = 1, other_point_size = 1, other_cell_color = "#434343",
            background_color = "black")
-
-```
-![NK/T Cells](20-spatPlot2D.png)
-```{r, eval = FALSE}
 spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny",
                feats = "nfkb", gradient_style = "sequential",
                cell_color_gradient = c("royalblue3", "orangered", "yellow"),
                background_color = "black", point_size = 1)
+
 ```
+![NK/T Cells](20-spatPlot2D.png)
+
 ![NFKB](19-spatFeatPlot2D.png)
 ```{r, eval=FALSE}
 devtools::session_info()
