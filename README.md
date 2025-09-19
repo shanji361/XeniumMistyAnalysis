@@ -545,21 +545,22 @@ misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
 
 ```
-
-```{r, eval = FALSE}
 Example: NK/T cells and NFκB pathway (immune activation near tumor borders).
+```{r, eval = FALSE}
 spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny",
                feats = "nfkb", gradient_style = "sequential",
                cell_color_gradient = c("royalblue3", "orangered", "yellow"),
                background_color = "black", point_size = 1)
-
+```
+![NFKB](19_spatFeatPlot2D)
+```{r, eval = FALSE}
 spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
            cell_color = "subannot_clus", select_cell_groups = "NK / T cells",
            point_size = 1, other_point_size = 1, other_cell_color = "#434343",
            background_color = "black")
 
 ```
-
+![NK/T Cells](20_spatPlot2D)
 ```{r, eval=FALSE}
 devtools::session_info()
 ```
