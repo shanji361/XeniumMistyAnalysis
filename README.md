@@ -441,11 +441,11 @@ misty_results_complete %>%
 ![33-CompleteContributions](33-completeContributions.png)
 
 ## 8.5 Local Scale Predictions (20μm)
-Pathway → Pathway
+Pathway → Cell
 Cell → Cell
 
 ```{r, eval = FALSE}
-#Pathway-pathway (juxta):
+
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE)
 ```
@@ -465,7 +465,7 @@ misty_results_complete %>%
 
 
 ## 8.6 Regional Scale Predictions (50μm)
-Pathway → Pathway
+Pathway → Cell
 Cell → Cell
 
 ```{r, eval = FALSE}
