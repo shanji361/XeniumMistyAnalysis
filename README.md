@@ -243,7 +243,7 @@ g <- annotateGiotto(gobject = g,
 xenium_lungcancer_test <- g
 ```
 # 7. Pathway Activity Analysis
-## 7.1 Prepare Data for Pathway Analysis
+## 7.1 Prepare Data
 ```{r, eval=FALSE}
 # Extract raw expression matrix
 raw_matrix <- xenium_lungcancer_test@expression$cell$rna$raw[]
