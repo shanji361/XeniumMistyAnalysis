@@ -440,15 +440,19 @@ misty_results_complete %>%
   plot_interaction_heatmap(view = "para.composition.50", clean = TRUE)
 ```
 
-# 9 Extended MISTy Anlysis
-The final final_misty_views object includes five complementary spatial views that capture both intrinsic and contextual information:
+# 9. Extended MISTy Analysis  
 
-intra – A cell’s own intrinsic composition (identity).
-juxta.path.20 – Neighboring pathway activity within ≤20 μm.
-para.path.50 – Regional pathway activity within ≤50 μm.
-juxta.composition.20 – Neighboring cell-type composition within ≤20 μm.
-para.composition.50 – Regional cell-type composition within ≤50 μm.
+The `final_misty_views` object integrates **five complementary spatial views**, enabling the simultaneous assessment of both intrinsic and contextual determinants of pathway activity. These views are defined as follows:  
 
+## Spatial Views  
+
+1. **intra** – captures each cell’s intrinsic features (self-identity and composition).  
+2. **juxta.path.20** – represents the average pathway activity of immediate neighbors within a 20 μm radius.  
+3. **para.path.50** – summarizes pathway activity in the broader regional environment within a 50 μm radius.  
+4. **juxta.composition.20** – describes the cell-type composition of immediate neighbors within 20 μm.  
+5. **para.composition.50** – characterizes the cell-type composition of the broader environment within 50 μm.  
+
+Together, these views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
 ```{r, eval = FALSE}
 run_misty(
   views = final_misty_views,
