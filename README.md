@@ -546,13 +546,7 @@ misty_results_complete_linear %>%
 
 ```
 Example: NK/T cells and NFκB pathway (immune activation near tumor borders).
-```{r, eval = FALSE}
-spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny",
-               feats = "nfkb", gradient_style = "sequential",
-               cell_color_gradient = c("royalblue3", "orangered", "yellow"),
-               background_color = "black", point_size = 1)
-```
-![NFKB](19-spatFeatPlot2D.png)
+
 ```{r, eval = FALSE}
 spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
            cell_color = "subannot_clus", select_cell_groups = "NK / T cells",
@@ -561,6 +555,13 @@ spatPlot2D(xenium_lungcancer_test, spat_unit = "cell",
 
 ```
 ![NK/T Cells](20-spatPlot2D.png)
+```{r, eval = FALSE}
+spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny",
+               feats = "nfkb", gradient_style = "sequential",
+               cell_color_gradient = c("royalblue3", "orangered", "yellow"),
+               background_color = "black", point_size = 1)
+```
+![NFKB](19-spatFeatPlot2D.png)
 ```{r, eval=FALSE}
 devtools::session_info()
 ```
