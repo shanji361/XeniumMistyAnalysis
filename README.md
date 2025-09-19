@@ -552,7 +552,7 @@ spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "
                cell_color_gradient = c("royalblue3", "orangered", "yellow"),
                background_color = "black", point_size = 1)
 ```
-![NFKB](19_spatFeatPlot2D)
+![NFKB](19_spatFeatPlot2D.png)
 ```{r, eval = FALSE}
 spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
            cell_color = "subannot_clus", select_cell_groups = "NK / T cells",
@@ -560,7 +560,7 @@ spatPlot2D(xenium_lungcancer_test, spat_unit = "cell",
            background_color = "black")
 
 ```
-![NK/T Cells](20_spatPlot2D)
+![NK/T Cells](20_spatPlot2D.png)
 ```{r, eval=FALSE}
 devtools::session_info()
 ```
