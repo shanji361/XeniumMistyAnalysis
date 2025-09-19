@@ -338,7 +338,7 @@ Workflow guidance adapted from:
 
 ## 8.1 Create MISTy Views
 
-Spatial views for MISTy are set with the juxtaview at 20 μm to capture immediate neighbors (approximately the average cell diameter) and the paraview at 50 μm to capture a broader regional context. These views are then combined to assess spatial variance in pathway activity across the sample: intra.R2 represents the percentage of variance explained by direct neighbors alone, while gain.R2 represents the additional percentage of variance explained by the broader spatial environment.
+Spatial views for MISTy are set with the juxtaview at 20 μm (approximately the average cell diameter) to capture immediate neighbors and the paraview at 50 μm to capture a broader regional context. These views are then combined to assess spatial variance in pathway activity across the sample: intra.R2 represents the spatial variance of pathway activity across all cells in the tissue that can be explained by each cell's own intrinsic features, while gain.R2 represents the additional percentage of variance explained when spatial context is added to the model, including both immediate neighbors (juxtaview) and broader spatial environment (paraview).
 
 ```{r, eval=FALSE}
 # Create intraview from cell-type composition
@@ -379,13 +379,13 @@ misty_results_com_path_act %>%
     measure = "gain.R2" 
   )
 
-
 ```
 ![IntraGain](com_path_act_IntraGain.png)
 
 ```{r, eval=FALSE}
 
 # Plot view contributions
+#Shows which spatial view (intra, juxta, para) was most important overall
 misty_results_com_path_act %>% 
   plot_view_contributions()
 ```
