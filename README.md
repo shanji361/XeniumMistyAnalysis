@@ -518,9 +518,9 @@ misty_results_complete %>%
 
 ![31-CompleteJuxtaComposition20](31-completeJuxtaComposition20.png)
 
-Example: B cells and TRAIL pathway (immune-mediated apoptosis).
-```{r, eval = FALSE}
 
+```{r, eval = FALSE}
+#Example: B cells and TRAIL pathway (immune-mediated apoptosis).
 spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny", 
                feats = "trail", gradient_style = "sequential", 
                cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
@@ -536,10 +536,9 @@ spatPlot2D(xenium_lungcancer_test, spat_unit = "cell",
 ```
 ![29-SpatPlot2D](29-spatPlot2D.png)
 
-Example: LUAD cancer cells and EGFR pathway (oncogenic signaling).
 
 ```{r, eval = FALSE}
-
+#Example: LUAD cancer cells and EGFR pathway (oncogenic signaling).
 spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny", 
                feats = "egfr", gradient_style = "sequential", 
                cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
@@ -601,9 +600,9 @@ misty_results_complete_linear %>%
 ```
 ![CompleteJuxtaComposition20](21-completeJuxtaComposition20.png)
 
-Example: NK/T cells and NFκB pathway (immune activation near tumor borders).
 
 ```{r, eval = FALSE}
+#Example: NK/T cells and NFκB pathway (immune activation near tumor borders).
 spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
            cell_color = "subannot_clus", select_cell_groups = "NK / T cells",
            point_size = 1, other_point_size = 1, other_cell_color = "#434343",
