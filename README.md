@@ -518,9 +518,8 @@ misty_results_complete %>%
 
 ![31-CompleteJuxtaComposition20](31-completeJuxtaComposition20.png)
 
+Example: B cells and TRAIL pathway (immune-mediated apoptosis).
 ```{r, eval = FALSE}
-
-#Example: B cells and TRAIL pathway (immune-mediated apoptosis).
 
 spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny", 
                feats = "trail", gradient_style = "sequential", 
@@ -537,8 +536,9 @@ spatPlot2D(xenium_lungcancer_test, spat_unit = "cell",
 ```
 ![29-SpatPlot2D](29-spatPlot2D.png)
 
-```{r, eval = FALSE}
 Example: LUAD cancer cells and EGFR pathway (oncogenic signaling).
+
+```{r, eval = FALSE}
 
 spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny", 
                feats = "egfr", gradient_style = "sequential", 
