@@ -441,8 +441,8 @@ misty_results_complete %>%
 ![33-CompleteContributions](33-completeContributions.png)
 
 ## 8.5 Local Scale Predictions (20μm)
-Pathway → Cell
-Cell → Cell
+
+This section shows pathway-to-cell and cell-to-cell interaction MISTy plots at the local 20μm scale, capturing immediate neighborhood effects.
 
 ```{r, eval = FALSE}
 
@@ -465,8 +465,7 @@ misty_results_complete %>%
 
 
 ## 8.6 Regional Scale Predictions (50μm)
-Pathway → Cell
-Cell → Cell
+This section shows pathway-to-cell and cell-to-cell interaction MISTy plots at the regional 50μm scale, capturing broader neighborhood effects.
 
 ```{r, eval = FALSE}
 #Pathway-pathway (para):
