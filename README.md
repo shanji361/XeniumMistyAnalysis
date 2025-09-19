@@ -449,6 +449,9 @@ misty_results_complete %>%
 ```
 ![32-CompleteJuxtaPath20](32-completeJuxtaPath20.png)
 
+Heatmap showing how well cell type composition within 20μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Color intensity represents importance values: darker colors indicate stronger positive predictive relationships, lighter colors indicate negative relationships, and white indicates no predictive relationship. Each cell represents the predictive strength of a neighborhood cell type for a focal cell type.
+Interpretation Example: The dark colored square at the intersection between stromal cells (predictor) and NKT cells (target) indicates that focal points with many stromal cells within their 20μm neighborhood are highly predictive of having high NKT cell abundance at that central location. 
+
 ```{r, eval = FALSE}
 #Cell type–pathway (juxta):
 misty_results_complete %>%
