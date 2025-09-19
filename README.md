@@ -381,7 +381,7 @@ misty_results_com_path_act %>%
 
 ```
 ![IntraGain](com_path_act_IntraGain.png)
-# 8.3 Extend Views with Cell Type Composition 
+## 8.3 Extend Views with Cell Type Composition 
 ```{r, eval = FALSE}
 # Create composition neighborhood views
 comp_neighborhood_views <- create_initial_view(composition_xenium) %>%
@@ -414,7 +414,7 @@ misty_results_complete %>%
 misty_results_complete %>% 
   plot_view_contributions()
 ```
-# 8.4 Heatmaps of Interactions
+## 8.4 Heatmaps of Interactions
 
 ```{r, eval = FALSE}
 # Neighbor pathway activity → pathway activity
@@ -440,7 +440,7 @@ misty_results_complete %>%
   plot_interaction_heatmap(view = "para.composition.50", clean = TRUE)
 ```
 
-## 9 Extended MISTy Anlysis
+# 9 Extended MISTy Anlysis
 The final final_misty_views object includes five complementary spatial views that capture both intrinsic and contextual information:
 
 intra – A cell’s own intrinsic composition (identity).
@@ -459,7 +459,7 @@ run_misty(
 misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
 
 ```
-# 9.1 Interpretations
+## 9.1 Interpretations
 High intra.R2 → pathway activity is strongly linked to a cell’s own identity.
 High gain.R2 → spatial neighborhood adds predictive power beyond cell identity.
 
@@ -472,7 +472,7 @@ misty_results_complete %>%
   plot_view_contributions()
 
 ```
-# 9.2 Pathway-Cell Type Interactions 
+## 9.2 Pathway-Cell Type Interactions 
 
 ```{r, eval = FALSE}
 #Pathway-pathway (juxta):
@@ -521,7 +521,7 @@ misty_results_complete %>%
   plot_interaction_heatmap("para.composition.50", clean = TRUE)
 
 ```
-# 9.3 Alternative Mode: Bypass Intra
+## 9.3 Alternative Mode: Bypass Intra
 To test purely spatial predictive power (ignoring intrinsic identity):
 ```{r, eval = FALSE}
 run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"),
