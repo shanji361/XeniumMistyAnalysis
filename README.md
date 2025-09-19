@@ -345,6 +345,7 @@ Setting up different spatial views for MISTy analysis.
 comp_views <- create_initial_view(composition_xenium) 
 
 # Create juxtaview and paraview from pathway activity
+#The juxtaview distance was set to 20 μm to capture immediate neighbors, reflecting the approximate average diameter of the annotated lung cell types in the sample. This ensures that only cells in direct contact or very close proximity contribute to the juxtaview signal. The paraview distance was set to 50 μm to encompass a slightly broader neighborhood, capturing regional microenvironmental influences beyond immediate neighbors.
 path_act_views <- create_initial_view(est_path_act_wide) %>%
   add_juxtaview(geometry, neighbor.thr = 20) %>% 
   add_paraview(geometry, l = 50, family = "gaussian")
