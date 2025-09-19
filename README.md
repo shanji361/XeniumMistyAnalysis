@@ -381,7 +381,8 @@ misty_results_com_path_act %>%
 
 ```
 ![IntraGain](com_path_act_IntraGain.png)
-# --- Extend Views with Cell Type Composition ---
+# 8.3 Extend Views with Cell Type Composition 
+```{r, eval = FALSE}
 # Create composition neighborhood views
 comp_neighborhood_views <- create_initial_view(composition_xenium) %>%
   add_juxtaview(geometry, neighbor.thr = 20) %>%
@@ -406,27 +407,38 @@ misty_results_complete <- collect_results("result/xenium_lung/complete_analysis/
 misty_results_complete %>%
   plot_improvement_stats("intra.R2") %>%
   plot_improvement_stats("gain.R2")
+```
 
+```{r, eval = FALSE}
 # Plot view contributions
 misty_results_complete %>% 
   plot_view_contributions()
+```
+# 8.4 Heatmaps of Interactions
 
-# --- Heatmaps of Interactions ---
-# 1. Neighbor pathway activity → pathway activity
+```{r, eval = FALSE}
+# Neighbor pathway activity → pathway activity
 misty_results_complete %>%
   plot_interaction_heatmap(view = "juxta.path.20", clean = TRUE)
+```
 
-# 2. Neighbor cell type → pathway activity
+```{r, eval = FALSE}
+# Neighbor cell type → pathway activity
 misty_results_complete %>%
   plot_interaction_heatmap(view = "juxta.composition.20", clean = TRUE)
+```
 
-# 3. Regional pathway activity → pathway activity
+```{r, eval = FALSE}
+# Regional pathway activity → pathway activity
 misty_results_complete %>%
   plot_interaction_heatmap(view = "para.path.50", clean = TRUE)
+```
 
-# 4. Regional cell type composition → pathway activity
+```{r, eval = FALSE}
+# Regional cell type composition → pathway activity
 misty_results_complete %>%
   plot_interaction_heatmap(view = "para.composition.50", clean = TRUE)
+```
 
 ## 9 Extended MISTy Anlysis
 The final final_misty_views object includes five complementary spatial views that capture both intrinsic and contextual information:
