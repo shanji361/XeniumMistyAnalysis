@@ -378,7 +378,8 @@ misty_results_com_path_act %>%
   )
 
 ```
-![IntraGain](com_path_act_IntraGain.png)
+![ComPathActIntra](43-comPathActIntra.png)
+![ComPathActGain](44-comPathActGain.png)
 
 ## 8.3 Extended Views: Adding Cell-Type Composition 
 
