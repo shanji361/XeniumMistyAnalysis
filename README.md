@@ -319,7 +319,7 @@ composition_xenium <- as_tibble(cell_type_onehot)
 
 MISTy (Multiview Intercellular SpaTial modeling framework) is a computational framework designed to explore how different biological factors interact within spatially resolved transcriptomics data. This analysis applies MISTy to human lung Xenium data to examine how variations in cell-type composition and pathway activity shape spatial gene expression patterns.
 
-### Citation  
+#### Citation  
 
 > <sub><b>Tanevski, J., Flores, R.O.R., Gabor, A. et al.</b> (2022).  
 > <i>Explainable multiview framework for dissecting spatial relationships from highly multiplexed data</i>.  
@@ -328,7 +328,7 @@ MISTy (Multiview Intercellular SpaTial modeling framework) is a computational fr
 
 ---
 
-### Tutorial Reference  
+#### Tutorial Reference  
 
 > <sub>Workflow adapted from:  
 > <a href="https://saezlab.github.io/mistyR/articles/FunctionalAndStructuralPipeline.html">Functional and Structural Pipeline — mistyR documentation</a></sub>  
