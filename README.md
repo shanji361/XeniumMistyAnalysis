@@ -380,11 +380,11 @@ misty_results_com_path_act %>%
 ```
 ![IntraGain](com_path_act_IntraGain.png)
 
-# 9. Extended MISTy Analysis  
+## 8.3 Extended Views: Adding Cell-Type Composition 
 
 The `final_misty_views` object integrates **five complementary spatial views**, enabling the simultaneous assessment of both intrinsic and contextual determinants of pathway activity. These views are defined as follows:  
 
-## Spatial Views  
+### Spatial Views  
 
 1. **intra** – captures each cell’s intrinsic features (self-identity and composition).  
 2. **juxta.path.20** – represents the average pathway activity of immediate neighbors within a 20 μm radius.  
@@ -420,7 +420,7 @@ misty_results_complete <- collect_results(file.path(save_dir, "misty_results_com
 ```
 
 
-## 9.1 Interpretations
+## 8.4 Interpretations
 
 - **High intra.R²** → Pathway activity is determined by a cell’s intrinsic identity.  
 - **High gain.R²** → Incorporating spatial neighborhood information provides additional predictive power beyond intrinsic identity.  
@@ -440,7 +440,7 @@ misty_results_complete %>%
 ```
 ![33-CompleteContributions](33-completeContributions.png)
 
-## 9.2 Pathway-Cell Type Interactions 
+## 8.5 Pathway-Cell Type and Pathway-Pathway Interactions 
 
 ```{r, eval = FALSE}
 #Pathway-pathway (juxta):
@@ -507,7 +507,7 @@ misty_results_complete %>%
 ```
 ![CompleteParaComposition50](25-completeParaComposition50.png)
 
-## 9.3 Alternative Mode: Bypass Intra
+## 8.6 Alternative Mode: Bypassing Intrinsic Identity 
 To test purely spatial predictive power (ignoring intrinsic identity):
 ```{r, eval = FALSE}
 run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"),
