@@ -440,7 +440,9 @@ misty_results_complete %>%
 ```
 ![33-CompleteContributions](33-completeContributions.png)
 
-## 8.5 Pathway-Cell Type and Pathway-Pathway Interactions 
+## 8.5 Local Scale Predictions (20μm)
+Pathway → Pathway
+Cell → Cell
 
 ```{r, eval = FALSE}
 #Pathway-pathway (juxta):
@@ -448,6 +450,7 @@ misty_results_complete %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE)
 ```
 ![32-CompleteJuxtaPath20](32-completeJuxtaPath20.png)
+
 
 Heatmap showing how well cell type composition within 20μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Color intensity represents importance values: darker colors indicate stronger positive predictive relationships, lighter colors indicate negative relationships, and white indicates no predictive relationship. Each cell represents the predictive strength of a neighborhood cell type for a focal cell type.
 Interpretation Example: The dark colored square at the intersection between stromal cells (predictor) and NKT cells (target) indicates that focal points with many stromal cells within their 20μm neighborhood are highly predictive of having high NKT cell abundance at that central location. 
@@ -459,6 +462,32 @@ misty_results_complete %>%
 ```
 
 ![31-CompleteJuxtaComposition20](31-completeJuxtaComposition20.png)
+
+
+## 8.6 Regional Scale Predictions (50μm)
+Pathway → Pathway
+Cell → Cell
+
+```{r, eval = FALSE}
+#Pathway-pathway (para):
+misty_results_complete %>%
+  plot_interaction_heatmap("para.path.50", clean = TRUE)
+
+```
+
+![CompleteParaPath50](26-completeParaPath50.png)
+
+
+Following heatmap shows how the broader spatial neighborhood composition predicts local cell type abundance.
+```{r, eval= FALSE}
+#Cell type–pathway (para):
+misty_results_complete %>%
+  plot_interaction_heatmap("para.composition.50", clean = TRUE)
+```
+![CompleteParaComposition50](25-completeParaComposition50.png)
+
+
+## 8.7 Spatial Validation
 
 
 ```{r, eval = FALSE}
@@ -494,22 +523,8 @@ spatPlot2D(xenium_lungcancer_test, spat_unit = "cell",
 
 ![27-SpatPlot2D](27-spatPlot2D.png)
 
-```{r, eval = FALSE}
-#Pathway-pathway (para):
-misty_results_complete %>%
-  plot_interaction_heatmap("para.path.50", clean = TRUE)
 
-```
 
-![CompleteParaPath50](26-completeParaPath50.png)
-
-Following heatmap shows how the broader spatial neighborhood composition predicts local cell type abundance.
-```{r, eval= FALSE}
-#Cell type–pathway (para):
-misty_results_complete %>%
-  plot_interaction_heatmap("para.composition.50", clean = TRUE)
-```
-![CompleteParaComposition50](25-completeParaComposition50.png)
 
 ## 8.6 Alternative Mode: Bypassing Intrinsic Identity 
 To test purely spatial predictive power (ignoring intrinsic identity):
