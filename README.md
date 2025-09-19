@@ -328,7 +328,7 @@ MISTy (Multiview Intercellular SpaTial modeling framework) is a computational fr
 
 ---
 
-#### Tutorial Reference  
+#### MISTy Tutorial Reference  
 
 > <sub>Workflow adapted from:  
 > <a href="https://saezlab.github.io/mistyR/articles/FunctionalAndStructuralPipeline.html">Functional and Structural Pipeline — mistyR documentation</a></sub>  
