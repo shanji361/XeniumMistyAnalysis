@@ -402,18 +402,26 @@ run_misty(final_misty_views, "result/xenium_lung/complete_analysis")
 
 # Collect NEW results
 misty_results_complete <- collect_results("result/xenium_lung/complete_analysis/")
+```
+
+```{r, eval = FALSE}
 
 # Plot improvement statistics
 misty_results_complete %>%
   plot_improvement_stats("intra.R2") %>%
   plot_improvement_stats("gain.R2")
 ```
+![42-completeIntra](42-completeIntra.png)
+![41-completeGain](41-completeGain.png)
 
 ```{r, eval = FALSE}
 # Plot view contributions
 misty_results_complete %>% 
   plot_view_contributions()
 ```
+
+![40-completeContributions](40-completeContributions.png)
+
 ## 8.4 Heatmaps of Interactions
 
 ```{r, eval = FALSE}
@@ -422,11 +430,15 @@ misty_results_complete %>%
   plot_interaction_heatmap(view = "juxta.path.20", clean = TRUE)
 ```
 
+![39-completeJuxtaPath20](39-completeJuxtaPath20.png)
+
 ```{r, eval = FALSE}
 # Neighbor cell type → pathway activity
 misty_results_complete %>%
   plot_interaction_heatmap(view = "juxta.composition.20", clean = TRUE)
 ```
+
+![38-completeJuxtaComposition20](38-completeJuxtaComposition20.png)
 
 ```{r, eval = FALSE}
 # Regional pathway activity → pathway activity
@@ -434,11 +446,15 @@ misty_results_complete %>%
   plot_interaction_heatmap(view = "para.path.50", clean = TRUE)
 ```
 
+![37-completeParaPath50](37-completeParaPath50.png)
+
 ```{r, eval = FALSE}
 # Regional cell type composition → pathway activity
 misty_results_complete %>%
   plot_interaction_heatmap(view = "para.composition.50", clean = TRUE)
 ```
+
+![36-completeParaComposition50](36-completeParaComposition50.png)
 
 # 9. Extended MISTy Analysis  
 
@@ -463,6 +479,8 @@ run_misty(
 misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
 
 ```
+
+
 ## 9.1 Interpretations
 
 - **High intra.R²** → Pathway activity is determined by a cell’s intrinsic identity.  
@@ -472,31 +490,52 @@ misty_results_complete <- collect_results(file.path(save_dir, "misty_results_com
 misty_results_complete %>%
   plot_improvement_stats("intra.R2") %>%
   plot_improvement_stats("gain.R2")
+```
+![35-completeIntra](35-completeIntra.png)
+![34-completeGain](34-completeGain.png)
 
+```{r, eval= FALSE}
 misty_results_complete %>%
   plot_view_contributions()
 
 ```
+![33-CompleteContributions](33-completeContributions.png)
+
 ## 9.2 Pathway-Cell Type Interactions 
 
 ```{r, eval = FALSE}
 #Pathway-pathway (juxta):
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE)
+```
+![32-CompleteJuxtaPath20](32-completeJuxtaPath20.png)
+
+```{r, eval = FALSE}
 #Cell type–pathway (juxta):
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
+```
+
+![31-CompleteJuxtaComposition20](31-completeJuxtaComposition20.png)
+
+```{r, eval = FALSE}
+
 #Example: B cells and TRAIL pathway (immune-mediated apoptosis).
 
 spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny", 
                feats = "trail", gradient_style = "sequential", 
                cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
                background_color = "black", point_size = 1)
+```
+![30-SpatFeatPlot2D](30-spatFeatPlot2D.png)
+
+```{r, eval = FALSE}
 spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
            cell_color = "subannot_clus", select_cell_groups = "B cells",
            point_size = 1, other_point_size = 1, other_cell_color = "#434343",
            background_color = "black")
 ```
+![29-SpatPlot2D](29-spatPlot2D.png)
 
 ```{r, eval = FALSE}
 Example: LUAD cancer cells and EGFR pathway (oncogenic signaling).
@@ -505,12 +544,17 @@ spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "
                feats = "egfr", gradient_style = "sequential", 
                cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
                background_color = "black", point_size = 1)
+```
+![28-SpatFeatPlot2D](28-spatFeatPlot2D.png)
+
+```{r, eval = FALSE}
 spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
            cell_color = "subannot_clus", select_cell_groups = "Alveolar Epithelial cells (LUAD CANCER)",
            point_size = 1, other_point_size = 1, other_cell_color = "#434343",
            background_color = "black")
 
 ```
+![27-SpatPlot2D](27-spatPlot2D.png)
 
 ```{r, eval = FALSE}
 #Pathway-pathway (para):
@@ -519,13 +563,15 @@ misty_results_complete %>%
 
 ```
 
+![CompleteParaPath50](26-completeParaPath50.png)
 
 ```{r, eval= FALSE}
 #Cell type–pathway (para):
 misty_results_complete %>%
   plot_interaction_heatmap("para.composition.50", clean = TRUE)
-
 ```
+![CompleteParaComposition50](25-completeParaComposition50.png)
+
 ## 9.3 Alternative Mode: Bypass Intra
 To test purely spatial predictive power (ignoring intrinsic identity):
 ```{r, eval = FALSE}
@@ -533,18 +579,28 @@ run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"),
           model.function = linear_model, bypass.intra = TRUE)
 
 misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_results_lm_complete"))
+```
 
+```{r, eval = FALSE}
 misty_results_complete_linear %>%
   plot_improvement_stats("gain.R2") %>%
   plot_view_contributions()
-
+```
+![CompleteGainLinear](24-completeGainLinear.png)
+![CompleteContributionsLinear](23-completeContributionsLinear.png)
+```{r, eval = FALSE}
 misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE)
-
+```
+![CompleteJuxtaPath20](22-compelteJuxtaPath20.png)
+```
+```{r, eval = FALSE}
 misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
 
 ```
+![CompleteJuxtaComposition20](21-completeJuxtaComposition20.png)
+
 Example: NK/T cells and NFκB pathway (immune activation near tumor borders).
 
 ```{r, eval = FALSE}
