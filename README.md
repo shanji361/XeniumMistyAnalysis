@@ -500,6 +500,7 @@ misty_results_complete %>%
 
 ![CompleteParaPath50](26-completeParaPath50.png)
 
+Following heatmap shows how the broader spatial neighborhood composition predicts local cell type abundance.
 ```{r, eval= FALSE}
 #Cell type–pathway (para):
 misty_results_complete %>%
