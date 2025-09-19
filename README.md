@@ -381,150 +381,168 @@ misty_results_com_path_act %>%
 
 ```
 ![IntraGain](com_path_act_IntraGain.png)
+# --- Extend Views with Cell Type Composition ---
+# Create composition neighborhood views
+comp_neighborhood_views <- create_initial_view(composition_xenium) %>%
+  add_juxtaview(geometry, neighbor.thr = 20) %>%
+  add_paraview(geometry, l = 50, family = "gaussian")
 
-```{r, eval=FALSE}
+# Extend existing pathway views with composition neighborhoods
+final_misty_views <- com_path_act_views %>%
+  add_views(create_view("juxtaview.composition.20",
+                        comp_neighborhood_views[["juxtaview.20"]]$data,
+                        "juxta.composition.20")) %>%
+  add_views(create_view("paraview.composition.50",
+                        comp_neighborhood_views[["paraview.50"]]$data,
+                        "para.composition.50"))
+
+# Run updated MISTy with all views
+run_misty(final_misty_views, "result/xenium_lung/complete_analysis")
+
+# Collect NEW results
+misty_results_complete <- collect_results("result/xenium_lung/complete_analysis/")
+
+# Plot improvement statistics
+misty_results_complete %>%
+  plot_improvement_stats("intra.R2") %>%
+  plot_improvement_stats("gain.R2")
 
 # Plot view contributions
-#Shows which spatial view (intra, juxta, para) was most important overall
-misty_results_com_path_act %>% 
+misty_results_complete %>% 
   plot_view_contributions()
-```
-![Contributions](com_path_act_Contributions.png)
 
-```{r, eval=FALSE}
-# Plot interaction heatmap
-misty_results_com_path_act %>%
+# --- Heatmaps of Interactions ---
+# 1. Neighbor pathway activity → pathway activity
+misty_results_complete %>%
+  plot_interaction_heatmap(view = "juxta.path.20", clean = TRUE)
+
+# 2. Neighbor cell type → pathway activity
+misty_results_complete %>%
+  plot_interaction_heatmap(view = "juxta.composition.20", clean = TRUE)
+
+# 3. Regional pathway activity → pathway activity
+misty_results_complete %>%
+  plot_interaction_heatmap(view = "para.path.50", clean = TRUE)
+
+# 4. Regional cell type composition → pathway activity
+misty_results_complete %>%
+  plot_interaction_heatmap(view = "para.composition.50", clean = TRUE)
+
+## 9 Extended MISTy Anlysis
+The final final_misty_views object includes five complementary spatial views that capture both intrinsic and contextual information:
+
+intra – A cell’s own intrinsic composition (identity).
+juxta.path.20 – Neighboring pathway activity within ≤20 μm.
+para.path.50 – Regional pathway activity within ≤50 μm.
+juxta.composition.20 – Neighboring cell-type composition within ≤20 μm.
+para.composition.50 – Regional cell-type composition within ≤50 μm.
+
+```{r, eval = FALSE}
+run_misty(
+  views = final_misty_views,
+  cv.folds = 10,
+  results.folder = file.path(save_dir, "misty_results_complete")
+)
+
+misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
+
+```
+# 9.1 Interpretations
+High intra.R2 → pathway activity is strongly linked to a cell’s own identity.
+High gain.R2 → spatial neighborhood adds predictive power beyond cell identity.
+
+```{r, eval= FALSE}
+misty_results_complete %>%
+  plot_improvement_stats("intra.R2") %>%
+  plot_improvement_stats("gain.R2")
+
+misty_results_complete %>%
+  plot_view_contributions()
+
+```
+# 9.2 Pathway-Cell Type Interactions 
+
+```{r, eval = FALSE}
+#Pathway-pathway (juxta):
+misty_results_complete %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE)
+#Cell type–pathway (juxta):
+misty_results_complete %>%
+  plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
+#Example: B cells and TRAIL pathway (immune-mediated apoptosis).
+
+spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny", 
+               feats = "trail", gradient_style = "sequential", 
+               cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
+               background_color = "black", point_size = 1)
+spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
+           cell_color = "subannot_clus", select_cell_groups = "B cells",
+           point_size = 1, other_point_size = 1, other_cell_color = "#434343",
+           background_color = "black")
 ```
-![Juxta](com_path_act_Juxta.png)
 
-## 8.3 Alternative MISTy Analysis (Bypass Intra)
-Running MISTy analysis without intraview self-prediction.
+```{r, eval = FALSE}
+Example: LUAD cancer cells and EGFR pathway (oncogenic signaling).
 
-```{r, eval=FALSE}
-# Run MISTy bypassing intraview self-prediction
-run_misty(com_path_act_views, "result/xenium_lung", 
+spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny", 
+               feats = "egfr", gradient_style = "sequential", 
+               cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
+               background_color = "black", point_size = 1)
+spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
+           cell_color = "subannot_clus", select_cell_groups = "Alveolar Epithelial cells (LUAD CANCER)",
+           point_size = 1, other_point_size = 1, other_cell_color = "#434343",
+           background_color = "black")
+
+```
+
+```{r, eval = FALSE}
+#Pathway-pathway (para):
+misty_results_complete %>%
+  plot_interaction_heatmap("para.path.50", clean = TRUE)
+
+```
+
+
+```{r, eval= FALSE}
+#Cell type–pathway (para):
+misty_results_complete %>%
+  plot_interaction_heatmap("para.composition.50", clean = TRUE)
+
+```
+# 9.3 Alternative Mode: Bypass Intra
+To test purely spatial predictive power (ignoring intrinsic identity):
+```{r, eval = FALSE}
+run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"),
           model.function = linear_model, bypass.intra = TRUE)
 
-# Collect and visualize results
-misty_results_com_path_act_linear <- collect_results("result/xenium_lung")
+misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_results_lm_complete"))
 
-misty_results_com_path_act_linear %>%
+misty_results_complete_linear %>%
   plot_improvement_stats("gain.R2") %>%
   plot_view_contributions()
-```
-![Linear Gain](com_path_act_linear_Gain.png)
-```{r, eval=FALSE}
-misty_results_com_path_act_linear %>%
-  plot_interaction_heatmap("juxta.path.20", clean = TRUE) 
-```
-![Linear Juxta](com_path_act_linear_Juxta.png)
-# 9. Visualization and Results
-## 9.1 Add Normalized Pathway Data to Giotto Object
-```{r, eval=FALSE}
-# Add raw pathway data
-xenium_lungcancer_test@expression[["cell"]][["progeny"]][["raw"]] <- t(est_path_act_wide)
 
-# Create and add normalized pathway data (z-score normalization)
-est_path_act_normalized <- scale(est_path_act_wide)
-xenium_lungcancer_test@expression[["cell"]][["progeny"]][["normalized"]] <- t(est_path_act_normalized)
+misty_results_complete_linear %>%
+  plot_interaction_heatmap("juxta.path.20", clean = TRUE)
+
+misty_results_complete_linear %>%
+  plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
+
 ```
-## 9.2 Spatial Visualization
-### Cell Type Distribution
-```{r, eval=FALSE}
-# Plot spatial distribution of cell types
-spatPlot2D(xenium_lungcancer_test,
-           spat_unit = "cell", 
-           cell_color = "subannot_clus",
-           show_image = TRUE,
-           point_size = 1.1,
-           point_alpha = 0.8, 
-           cell_color_gradient = c("blue", "orange"))
+
+```{r, eval = FALSE}
+Example: NK/T cells and NFκB pathway (immune activation near tumor borders).
+spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny",
+               feats = "nfkb", gradient_style = "sequential",
+               cell_color_gradient = c("royalblue3", "orangered", "yellow"),
+               background_color = "black", point_size = 1)
+
+spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
+           cell_color = "subannot_clus", select_cell_groups = "NK / T cells",
+           point_size = 1, other_point_size = 1, other_cell_color = "#434343",
+           background_color = "black")
+
 ```
-![2D Spatial Plot 11](11-spatPlot2D.png)
-### Pathway Activity Visualization
-```{r, eval=FALSE}
-# Plot TRAIL pathway activity
-spatFeatPlot2D(xenium_lungcancer_test,
-               spat_unit = "cell", 
-               feat_type = "progeny",
-               feats = c("trail"),
-               show_image = TRUE,
-               point_size = 1.3,
-               cow_n_col = 1, 
-               cell_color_gradient = c("blue", "red"))
-```
-![2D Spatial Feature Plot 12](12-spatFeatPlot2D.png)
-```{r, eval=FALSE}
-# Highlight specific cell types (e.g., B cells)
-spatPlot2D(xenium_lungcancer_test,
-           spat_unit = "cell",
-           cell_color = "subannot_clus",
-           select_cell_groups = "B cell", 
-           show_image = TRUE,
-           point_size = 1.3)
-```
-![2D Spatial Plot 13](13-spatPlot2D.png)
-```{r, eval=FALSE}
-# Plot VEGF and WNT pathways
-spatFeatPlot2D(xenium_lungcancer_test,
-               spat_unit = "cell", 
-               feat_type = "progeny",
-               feats = c("vegf", "wnt"),
-               show_image = TRUE,
-               point_size = 0.8,
-               cow_n_col = 2,  
-               cell_color_gradient = c("blue", "green"))
-```
-![2D Spatial Feature Plot 14](14-spatFeatPlot2D.png)
-```{r, eval=FALSE}
-# Plot TNF-alpha and TRAIL pathways
-spatFeatPlot2D(xenium_lungcancer_test,
-               spat_unit = "cell", 
-               feat_type = "progeny",
-               feats = c("tnfa", "trail"),
-               show_image = TRUE,
-               point_size = 0.8,
-               cow_n_col = 2,  
-               cell_color_gradient = c("blue", "green"))
-```
-![2D Spatial Feature Plot 15](15-spatFeatPlot2D.png)
-```{r, eval=FALSE}
-# Plot TGF-beta and Androgen pathways
-spatFeatPlot2D(xenium_lungcancer_test,
-               spat_unit = "cell", 
-               feat_type = "progeny",
-               feats = c("tgfb", "androgen"),
-               show_image = TRUE,
-               point_size = 0.8,
-               cow_n_col = 2,  
-               cell_color_gradient = c("blue", "green"))
-```
-![2D Spatial Feature Plot 16](16-spatFeatPlot2D.png)
-```{r, eval=FALSE}
-# Plot NF-kB and p53 pathways
-spatFeatPlot2D(xenium_lungcancer_test,
-               spat_unit = "cell", 
-               feat_type = "progeny",
-               feats = c("nfkb", "p53"),
-               show_image = TRUE,
-               point_size = 0.8,
-               cow_n_col = 2,  
-               cell_color_gradient = c("blue", "green"))
-```
-![2D Spatial Feature Plot 17](17-spatFeatPlot2D.png)
-```{r, eval=FALSE}
-# Plot EGFR and Estrogen pathways
-spatFeatPlot2D(xenium_lungcancer_test,
-               spat_unit = "cell", 
-               feat_type = "progeny",
-               feats = c("egfr", "estrogen"),
-               show_image = TRUE,
-               point_size = 0.8,
-               cow_n_col = 2,  
-               cell_color_gradient = c("blue", "green"))
-```
-![2D Spatial Feature Plot 18](18-spatFeatPlot2D.png)
+
 ```{r, eval=FALSE}
 devtools::session_info()
 ```
