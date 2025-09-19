@@ -397,57 +397,6 @@ final_misty_views <- com_path_act_views %>%
 
 ```
 
-```{r, eval = FALSE}
-
-# Plot improvement statistics
-#misty_results_complete %>%
-#  plot_improvement_stats("intra.R2") %>%
-#  plot_improvement_stats("gain.R2")
-```
-![42-completeIntra](42-completeIntra.png)
-![41-completeGain](41-completeGain.png)
-
-```{r, eval = FALSE}
-# Plot view contributions
-#misty_results_complete %>% 
-#  plot_view_contributions()
-```
-
-![40-completeContributions](40-completeContributions.png)
-
-## 8.4 Heatmaps of Interactions
-
-```{r, eval = FALSE}
-# Neighbor pathway activity → pathway activity
-#misty_results_complete %>%
-#  plot_interaction_heatmap(view = "juxta.path.20", clean = TRUE)
-```
-
-![39-completeJuxtaPath20](39-completeJuxtaPath20.png)
-
-```{r, eval = FALSE}
-# Neighbor cell type → pathway activity
-#misty_results_complete %>%
-#  plot_interaction_heatmap(view = "juxta.composition.20", clean = TRUE)
-```
-
-![38-completeJuxtaComposition20](38-completeJuxtaComposition20.png)
-
-```{r, eval = FALSE}
-# Regional pathway activity → pathway activity
-#misty_results_complete %>%
-#  plot_interaction_heatmap(view = "para.path.50", clean = TRUE)
-```
-
-![37-completeParaPath50](37-completeParaPath50.png)
-
-```{r, eval = FALSE}
-# Regional cell type composition → pathway activity
-#misty_results_complete %>%
-#  plot_interaction_heatmap(view = "para.composition.50", clean = TRUE)
-```
-
-![36-completeParaComposition50](36-completeParaComposition50.png)
 
 # 9. Extended MISTy Analysis  
 
