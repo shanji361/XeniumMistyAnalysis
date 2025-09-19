@@ -394,7 +394,7 @@ The `final_misty_views` object integrates **five complementary spatial views**, 
 5. **para.composition.50** – Measures how well cell composition within 50μm neighborhoods (predictors) predicts target features at focal points.
 
 Together, these views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
-```{r, eval = FALSE}
+
 ```{r, eval = FALSE}
 # Create composition neighborhood views
 comp_views <- create_initial_view(composition_xenium) %>%
