@@ -379,24 +379,6 @@ misty_results_com_path_act %>%
 
 ```
 ![IntraGain](com_path_act_IntraGain.png)
-## 8.3 Extend Views with Cell Type Composition 
-```{r, eval = FALSE}
-# Create composition neighborhood views
-comp_views <- create_initial_view(composition_xenium) %>%
-  add_juxtaview(geometry, neighbor.thr = 20) %>%
-  add_paraview(geometry, l = 50, family = "gaussian")
-
-# Extend existing pathway views with composition neighborhoods
-final_misty_views <- com_path_act_views %>%
-  add_views(create_view("juxtaview.composition.20",
-                        comp_views[["juxtaview.20"]]$data,
-                        "juxta.composition.20")) %>%
-  add_views(create_view("paraview.composition.50",
-                        comp_views[["paraview.50"]]$data,
-                        "para.composition.50"))
-
-```
-
 
 # 9. Extended MISTy Analysis  
 
@@ -412,6 +394,21 @@ The `final_misty_views` object integrates **five complementary spatial views**, 
 
 Together, these views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
 ```{r, eval = FALSE}
+```{r, eval = FALSE}
+# Create composition neighborhood views
+comp_views <- create_initial_view(composition_xenium) %>%
+  add_juxtaview(geometry, neighbor.thr = 20) %>%
+  add_paraview(geometry, l = 50, family = "gaussian")
+
+# Extend existing pathway views with composition neighborhoods
+final_misty_views <- com_path_act_views %>%
+  add_views(create_view("juxtaview.composition.20",
+                        comp_views[["juxtaview.20"]]$data,
+                        "juxta.composition.20")) %>%
+  add_views(create_view("paraview.composition.50",
+                        comp_views[["paraview.50"]]$data,
+                        "para.composition.50"))
+
 run_misty(
   views = final_misty_views,
   cv.folds = 10,
