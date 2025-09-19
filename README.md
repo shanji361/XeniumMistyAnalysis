@@ -592,7 +592,7 @@ misty_results_complete_linear %>%
 misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE)
 ```
-![CompleteJuxtaPath20](22-compelteJuxtaPath20.png)
+![CompleteJuxtaPath20](22-completeJuxtaPath20.png)
 ```
 ```{r, eval = FALSE}
 misty_results_complete_linear %>%
@@ -624,7 +624,7 @@ devtools::session_info()
 
 ```
 Session info 
- setting value
+ setting  value
  version  R version 4.4.1 (2024-06-14 ucrt)
  os       Windows 11 x64 (build 26100)
  system   x86_64, mingw32
@@ -633,12 +633,12 @@ Session info
  collate  English_United States.utf8
  ctype    English_United States.utf8
  tz       America/New_York
- date     2025-07-10
+ date     2025-09-19
  rstudio  2024.09.0+375 Cranberry Hibiscus (desktop)
  pandoc   3.2 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
-Packages 
- package             * version date (UTC) lib source
+Packages
+ package              * version  date (UTC) lib source
  abind                  1.4-8    2024-09-12 [1] CRAN (R 4.4.1)
  arrow                  18.0.0   2024-10-28 [1] https://apache.r-universe.dev (R 4.4.1)
  assertthat             0.2.1    2019-03-21 [1] CRAN (R 4.4.2)
@@ -736,7 +736,7 @@ Packages
  mistyR               * 1.12.0   2024-05-01 [1] Bioconductor 3.19 (R 4.4.0)
  msigdbr              * 7.5.1    2022-03-30 [1] CRAN (R 4.4.2)
  munsell                0.5.1    2024-04-01 [1] CRAN (R 4.4.1)
- OmnipathR              3.12.4   2024-10-02 [1] Bioconductor 3.19 (R 4.4.1)
+ OmnipathR            * 3.12.4   2024-10-02 [1] Bioconductor 3.19 (R 4.4.1)
  parallelly             1.38.0   2024-07-27 [1] CRAN (R 4.4.1)
  pillar                 1.9.0    2023-03-22 [1] CRAN (R 4.4.1)
  pkgbuild               1.4.4    2024-03-17 [1] CRAN (R 4.4.1)
@@ -747,7 +747,7 @@ Packages
  png                    0.1-8    2022-11-29 [1] CRAN (R 4.4.0)
  prettyunits            1.2.0    2023-09-24 [1] CRAN (R 4.4.1)
  profvis                0.4.0    2024-09-20 [1] CRAN (R 4.4.1)
- progeny                1.26.0   2024-05-01 [1] Bioconductor 3.19 (R 4.4.0)
+ progeny              * 1.26.0   2024-05-01 [1] Bioconductor 3.19 (R 4.4.0)
  progress               1.2.3    2023-12-06 [1] CRAN (R 4.4.2)
  progressr              0.14.0   2023-08-10 [1] CRAN (R 4.4.1)
  promises               1.3.0    2024-04-05 [1] CRAN (R 4.4.1)
@@ -766,7 +766,6 @@ Packages
  remotes                2.5.0    2024-03-17 [1] CRAN (R 4.4.1)
  reshape2               1.4.4    2020-04-09 [1] CRAN (R 4.4.1)
  reticulate           * 1.39.0   2024-09-05 [1] CRAN (R 4.4.1)
- rex                    1.2.1    2021-11-26 [1] CRAN (R 4.4.3)
  rjson                  0.2.23   2024-09-16 [1] CRAN (R 4.4.1)
  rlang                  1.1.4    2024-06-04 [1] CRAN (R 4.4.1)
  rlist                  0.4.6.2  2021-09-03 [1] CRAN (R 4.4.2)
@@ -780,15 +779,15 @@ Packages
  scales                 1.3.0    2023-11-28 [1] CRAN (R 4.4.1)
  scattermore            1.2      2023-06-12 [1] CRAN (R 4.4.1)
  scran                  1.34.0   2024-10-29 [1] Bioconduc~
- sctransform            0.4.1    2023-10-19 [1] CRAN (R 4.4.2)
+ sctransform          * 0.4.1    2023-10-19 [1] CRAN (R 4.4.2)
  scuttle                1.16.0   2024-10-29 [1] Bioconduc~
  selectr                0.4-2    2019-11-20 [1] CRAN (R 4.4.2)
  sessioninfo            1.2.2    2021-12-06 [1] CRAN (R 4.4.1)
  shiny                  1.9.1    2024-08-01 [1] CRAN (R 4.4.1)
- SingleCellExperiment   1.28.0   2024-10-29 [1] Bioconduc~
+ SingleCellExperiment * 1.28.0   2024-10-29 [1] Bioconduc~
  snakecase              0.11.1   2023-08-27 [1] CRAN (R 4.4.2)
  SparseArray            1.6.0    2024-10-29 [1] Bioconduc~
- SpatialExperiment      1.16.0   2024-10-29 [1] Bioconduc~
+ SpatialExperiment    * 1.16.0   2024-10-29 [1] Bioconduc~
  statmod                1.5.0    2023-01-06 [1] CRAN (R 4.4.1)
  stringi                1.8.4    2024-05-06 [1] CRAN (R 4.4.0)
  stringr              * 1.5.1    2023-11-14 [1] CRAN (R 4.4.1)
@@ -813,7 +812,6 @@ Packages
  withr                  3.0.1    2024-07-31 [1] CRAN (R 4.4.1)
  xfun                   0.48     2024-10-03 [1] CRAN (R 4.4.1)
  xml2                   1.3.6    2023-12-04 [1] CRAN (R 4.4.1)
- xmlparsedata           1.0.5    2021-03-06 [1] CRAN (R 4.4.3)
  xtable                 1.8-4    2019-04-21 [1] CRAN (R 4.4.1)
  XVector                0.44.0   2024-05-01 [1] Bioconduc~
  yaml                   2.3.10   2024-07-26 [1] CRAN (R 4.4.1)
@@ -822,7 +820,7 @@ Packages
  [1] C:/Users/your_username/AppData/Local/R/win-library/4.4
  [2] C:/Program Files/R/R-4.4.1/library
 
-Python configuration 
+Python configuration
  python:         C:/Users/your_username/anaconda3/envs/giotto_env/python.exe
  libpython:      C:/Users/your_username/anaconda3/envs/giotto_env/python310.dll
  pythonhome:     C:/Users/your_username/anaconda3/envs/giotto_env
@@ -832,6 +830,5 @@ Python configuration
  numpy_version:  2.1.3
  
  NOTE: Python version was forced by use_python() function
-
 
 ```
