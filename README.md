@@ -338,14 +338,14 @@ Workflow guidance adapted from:
 
 ## 8.1 Create MISTy Views
 
-Setting up different spatial views for MISTy analysis.
+Spatial views for MISTy are set with the juxtaview at 20 μm to capture immediate neighbors (approximately the average cell diameter) and the paraview at 50 μm to capture a broader regional context. These views are then combined to assess spatial variance in pathway activity across the sample: intra.R2 represents the percentage of variance explained by direct neighbors alone, while gain.R2 represents the additional percentage of variance explained by the broader spatial environment.
 
 ```{r, eval=FALSE}
 # Create intraview from cell-type composition
 comp_views <- create_initial_view(composition_xenium) 
 
 # Create juxtaview and paraview from pathway activity
-#The juxtaview distance was set to 20 μm to capture immediate neighbors, reflecting the approximate average diameter of the annotated lung cell types in the sample. This ensures that only direct neighbor cells contribute to the juxtaview signal. The paraview distance was set to 50 μm to encompass a slightly broader neighborhood, capturing regional microenvironmental influences beyond immediate neighbors.
+
 path_act_views <- create_initial_view(est_path_act_wide) %>%
   add_juxtaview(geometry, neighbor.thr = 20) %>% 
   add_paraview(geometry, l = 50, family = "gaussian")
@@ -371,12 +371,12 @@ misty_results_com_path_act <- collect_results("result/xenium_lung/comp_path_act/
 
 misty_results_com_path_act %>%
   plot_improvement_stats(
-    measure = "intra.R2" #shows the percent of spatial variance in pathway activity levels that can be explained by direct neighbors alone 
+    measure = "intra.R2" 
   )
 
 misty_results_com_path_act %>%
   plot_improvement_stats(
-    measure = "gain.R2" #shows how many percent of the spatial variance of pathway activity levels is gained by considering spatial environments 
+    measure = "gain.R2" 
   )
 
 
