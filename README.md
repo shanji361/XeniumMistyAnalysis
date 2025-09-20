@@ -682,15 +682,11 @@ misty_results_complete_linear %>%
 
 
 ## 8.7 Spatial Validation
-Example 1: B cells and TRAIL pathway
+Example 1: Visualize B cells and TRAIL pathway activity. TRAIL is involved in immune-mediated apoptosis, expect high activity near immune cells.
+
 
 ```{r, eval = FALSE}
-
-
-# TRAIL is involved in immune-mediated apoptosis - expect high activity near immune cells
-
 # Visualize TRAIL pathway activity
-
 spatFeatPlot2D(xenium_lungcancer_test,
                spat_unit = "cell", 
                expression_values = "progeny", 
@@ -699,8 +695,17 @@ spatFeatPlot2D(xenium_lungcancer_test,
                gradient_style = "sequential", 
                cell_color_gradient = c("blue", "orangered", "yellow"), 
                background_color = "black", 
-               point_size = 2, 
-               save_param = list(base_height = 6,base_width = 12))
+               point_size = 1, 
+               save_plot = TRUE,   # Enable automatic saving
+               save_param = list(
+                 base_height = 8, 
+                 base_width = 12, 
+                 dpi = 600,
+                 units = "in",
+                 save_format = "png",
+                 save_name = "14_TRAILPathway",
+                 save_dir = save_dir  # Save to current working directory
+               ))
 
 ```
 
@@ -708,28 +713,34 @@ spatFeatPlot2D(xenium_lungcancer_test,
 
 ```{r, eval = FALSE}
 # Visualize B cell locations
-
 spatPlot2D(xenium_lungcancer_test,
            spat_unit = "cell", 
            cell_color = "subannot_clus", 
            show_image = TRUE, 
            select_cell_groups = "B cells", 
-           point_size = 2, 
-           other_point_size = 1, 
+           point_size = 1, 
+           other_point_size = 0.7, 
            other_cell_color = "#434343", 
            background_color = "black", 
-           save_param = list(base_height = 6,base_width = 12)
-)
+           save_plot = TRUE,   # Enable automatic saving
+           save_param = list(
+             base_height = 8, 
+             base_width = 12, 
+             dpi = 600,
+             units = "in",
+             save_format = "png",
+             save_name = "15_BCellLocations",
+             save_dir = save_dir  # Save to current working directory
+           ))
+
 ```
 
 <img src="15_BCellLocations.png" width="600" height="400" style="object-fit: contain;">
 
-Example 2: LUAD cancer cells and EGFR pathway
+Example 2: Visualize LUAD cancer cells and EGFR pathway activity. EGFR is frequently dysregulated in lung adenocarcinoma - expect high activity in cancer regions
+
 ```{r, eval = FALSE}
-# EGFR is frequently dysregulated in lung adenocarcinoma - expect high activity in cancer regions
-
-# Visualize EGFR pathway activity
-
+#Visualize EGFR pathway activity
 spatFeatPlot2D(xenium_lungcancer_test,
                spat_unit = "cell", 
                expression_values = "progeny", 
@@ -738,8 +749,17 @@ spatFeatPlot2D(xenium_lungcancer_test,
                gradient_style = "sequential", 
                cell_color_gradient = c("blue", "orangered", "green"), 
                background_color = "black", 
-               point_size = 2, 
-               save_param = list(base_height = 6,base_width = 12))
+               point_size = 1, 
+               save_plot = TRUE,   # Enable automatic saving
+               save_param = list(
+                 base_height = 8, 
+                 base_width = 12, 
+                 dpi = 600,
+                 units = "in",
+                 save_format = "png",
+                 save_name = "16_EGFRPathway",
+                 save_dir = save_dir  # Save to current working directory
+               ))
 
 ```
 
@@ -747,21 +767,25 @@ spatFeatPlot2D(xenium_lungcancer_test,
 
 ```{r, eval = FALSE}
 # Visualize LUAD cancer cell locations
-
 spatPlot2D(xenium_lungcancer_test,
            spat_unit = "cell", 
            cell_color = "subannot_clus", 
            show_image = TRUE, 
            select_cell_groups = "Alveolar Epithelial cells (LUAD CANCER)", 
-           point_size = 2, 
-           other_point_size = 1, 
+           point_size = 1.1, 
+           other_point_size = 0.7, 
            other_cell_color = "#434343", 
            background_color = "black", 
-           save_param = list(base_height = 6,base_width = 12)
-)
-
-
-
+           save_plot = TRUE,   # Enable automatic saving
+           save_param = list(
+             base_height = 8, 
+             base_width = 12, 
+             dpi = 600,
+             units = "in",
+             save_format = "png",
+             save_name = "17_LUADCancerLocations",
+             save_dir = save_dir  # Save to current working directory
+           ))
 ```
 
 ![17_LUADCancerLocations](17_LUADCancerLocations.png)
@@ -778,10 +802,17 @@ spatFeatPlot2D(xenium_lungcancer_test,
                gradient_style = "sequential", 
                cell_color_gradient = c("blue","red", "yellow","green"), 
                background_color = "black", 
-               point_size = 1.9, 
-               save_param = list(base_height = 6,base_width = 12))
-
-
+               point_size = 1, 
+               save_plot = TRUE,   # Enable automatic saving
+               save_param = list(
+                 base_height = 8, 
+                 base_width = 12, 
+                 dpi = 600,
+                 units = "in",
+                 save_format = "png",
+                 save_name = "18_NFKBPathway",
+                 save_dir = save_dir  # Save to current working directory
+               ))
 ```
 
 ![18_NFKBPathway](18_NFKBPathway.png)
@@ -795,13 +826,20 @@ spatPlot2D(xenium_lungcancer_test,
            show_image = TRUE, 
            cell_color = "subannot_clus", 
            select_cell_groups = "NK / T cells", 
-           point_size = 2, 
-           other_point_size = 1.5, 
+           point_size = 1, 
+           other_point_size = 0.6, 
            other_cell_color = "#434343", 
            background_color = "black", 
-           save_param = list(base_height = 6,base_width = 12)
-)
-
+           save_plot = TRUE,   # Enable automatic saving
+           save_param = list(
+             base_height = 8, 
+             base_width = 12, 
+             dpi = 600,
+             units = "in",
+             save_format = "png",
+             save_name = "19_NKTCellLocations",
+             save_dir = save_dir  # Save to current working directory
+           ))
 
 ```
 ![19_NKTCellLocations](19_NKTCellLocations.png)
