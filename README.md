@@ -374,7 +374,7 @@ g <- annotateGiotto(gobject = g,
                     spat_unit = "cell", 
                     annotation_vector = cell_types,
                     cluster_column = 'leiden_clus', 
-                    name = 'broad_celltypes')
+                    name = 'subannot_clus')
 
 # Store annotated object
 xenium_lungcancer_test <- g
@@ -382,23 +382,17 @@ xenium_lungcancer_test <- g
 # 7. Pathway Activity Analysis
 ## 7.1 Prepare Data
 ```{r, eval=FALSE}
-# Extract raw expression matrix
-raw_matrix <- xenium_lungcancer_test@expression$cell$rna$raw[]
-symbols <- rownames(raw_matrix)
 
-# Extract spatial coordinates
+norm_matrix <- Giotto::getExpression(xenium_lungcancer_test, values = "normalized", output = "matrix")
+
 geometry <- getSpatialLocations(
   gobject = xenium_lungcancer_test, 
-  spat_unit = "cell",
+  spat_unit = "cell",  #default
   output = "data.table"
 )
-
-#MISTy expects the spatial coordinate columns to be named row and col, not sdimx and sdimy
 geometry <- geometry[, c("sdimx", "sdimy")]
 setnames(geometry, c("sdimx", "sdimy"), c("row", "col"))
 
-# Prepare expression matrix for pathway analysis
-expression <- as.matrix(xenium_lungcancer_test@expression$cell$rna$raw[])
 ```
 ## 7.2 Run PROGENy Pathway Analysis
 We use PROGENy to estimate pathway activity scores for each cell in the human lung cancer sample, capturing functional signaling rather than just gene expression. These activity scores are provided to MISTy later, which models how cells influence each other and contribute to the tumor microenvironment. By combining pathway activity with spatial coordinates, MISTy can estimate cell-cell interactions and functional contributions based on physical proximity and tissue context. 
@@ -407,7 +401,7 @@ We use PROGENy to estimate pathway activity scores for each cell in the human lu
 model <- get_progeny(organism = "human", top = 500)
 
 # Estimate pathway activity using multivariate linear model
-est_path_act <- run_mlm(expression, model, .mor = NULL) 
+est_path_act <- run_mlm(norm_matrix, model, .mor = NULL) 
 
 # Convert to wide format for downstream analysis
 est_path_act_wide <- est_path_act %>% 
@@ -419,8 +413,11 @@ colnames(est_path_act_wide) <- est_path_act_wide %>%
   clean_names(parsing_option = 0) %>% 
   colnames(.)
 
-# Add pathway results to Giotto object
-xenium_lungcancer_test@expression[["cell"]][["rna"]][["progeny"]] <- t(est_path_act_wide)
+
+# Add progeny results to object
+path_act_exprobj = createExprObj(t(est_path_act_wide), name = "progeny")
+xenium_lungcancer_test <- setExpression(xenium_lungcancer_test, path_act_exprobj, name = "progeny") #cell and rna are default
+
 ```
 
 ## 7.3 Prepare Cell Type Composition Matrix
