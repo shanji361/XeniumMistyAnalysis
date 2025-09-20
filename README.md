@@ -182,7 +182,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
   )
   
   g <- overlapToMatrix(g)
-  # g <- addStatistics(g, expression_values = "raw")
+  g <- addStatistics(g, expression_values = "raw")
   
   cell_stats <- pDataDT(g)
   ggplot2::ggplot(cell_stats, ggplot2::aes(total_expr)) +
