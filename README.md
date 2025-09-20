@@ -704,7 +704,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
 
 ```
 
-<img src="14_TRAILPathway.png" width="1000" height="900" style="object-fit: cover; margin: 0; padding: 0; display: block;">
+<img src="14_TRAILPathway.png" width="600" height="600" style="object-fit: cover; margin: 0; padding: 0; display: block;">
 
 
 
