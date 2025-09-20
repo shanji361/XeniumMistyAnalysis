@@ -88,14 +88,123 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 <summary>Click to expand the omitted preprocessing steps</summary>
 
 - **Creating the Giotto object:** Initialized using `createGiottoXeniumObject()` from the raw Xenium directory.
+  ```{r, eval= FALSE}
+  g <- createGiottoXeniumObject(xenium_dir = data_path)
+  ```
 - **Setting analysis instructions:** Configured save directory and plot-saving behavior via the `instructions()` function.
+  ```{r, eval=FALSE}
+  instructions(g, "save_dir") <- save_dir
+  instructions(g, "save_plot") <- TRUE
+  ```
 - **Adding spatial information:** Added centroid positions for `"cell"` and `"nucleus"` polygon types with `addSpatialCentroidLocations()`.
+  ```{r, eval = FALSE}
+  
+  g <- addSpatialCentroidLocations(g, poly_info = "cell")
+  g <- addSpatialCentroidLocations(g, poly_info = "nucleus")
+  ```
 - **Spatial visualization:** Generated basic spatial plots using `spatInSituPlotPoints()` with and without image overlays.
-- **Manual data import:** Loaded raw transcript and expression data using `importXenium()`, and adjusted the expression file type to `"mtx"`.
-- **Metadata and expression integration:** Loaded and assigned expression matrices and cell metadata to the Giotto object using `setGiotto()`.
-- **Image processing:** Loaded multiple morphology image channels using `createGiottoLargeImageList()`, adjusted contrast, and attached them to the object.
+  ```{r, eval = FALSE}
+  spatInSituPlotPoints(g,
+                     polygon_feat_type = "cell",
+                     feats = list(rna = head(featIDs(g))), # must be named list
+                     use_overlap = FALSE, 
+                     polygon_color = "cyan", 
+                     polygon_line_size = 0.1
+  )
+
+
+  ```
+- **Metadata and image integration:**Expression matrices and cell metadata were loaded into the Giotto object using `setGiotto()`. Multiple morphology image channels were imported via `createGiottoLargeImageList()`, with brightness adjusted for selected channels, and then attached to the Giotto object for combined spatial and morphological analysis.
+  
+  ```{r, eval = FALSE}
+  
+  # Check if morphology images exist in your Xenium directory
+  xenium_dir <- "data/xenium_lung"  # Directory, not file
+  image_files <- list.files(xenium_dir, pattern = "morphology", full.names = TRUE)
+  
+  
+  
+  img_paths <- c(
+    sprintf("data/xenium_lung/morphology_focus/morphology_focus_%04d.tif", 0:3),
+    "data/xenium_lung/he_mini.tif"
+  )
+  
+  img_list <- createGiottoLargeImageList(
+    img_paths, 
+    # naming is based on the channel metadata above
+    names = c("DAPI", "18S", "ATP1A1/CD45/E-Cadherin", "alphaSMA/Vimentin", "HE"),
+    use_rast_ext = TRUE,
+    verbose = FALSE
+  )
+  
+  # make some images brighter
+  img_list[[1]]@max_window <- 5000
+  img_list[[2]]@max_window <- 5000
+  img_list[[3]]@max_window <- 5000
+  
+  # append images to gobject
+  g <- setGiotto(g, img_list)
+
+  ```
+
 - **Quality control and normalization:** Computed overlaps, filtered low-quality data, normalized the expression matrix, and added per-cell statistics.
+  ```{r, eval = FALSE}
+    
+  g <- calculateOverlap(g,
+                        spatial_info = "cell",
+                        feat_info = "rna"
+  )
+  
+  g <- overlapToMatrix(g)
+  # g <- addStatistics(g, expression_values = "raw")
+  
+  cell_stats <- pDataDT(g)
+  ggplot2::ggplot(cell_stats, ggplot2::aes(total_expr)) +
+    ggplot2::geom_histogram(binwidth = 5)
+  
+  
+  # very permissive filtering, mainly for removing 0 values
+  g <- filterGiotto(g,
+                    expression_threshold = 1,
+                    feat_det_in_min_cells = 1,
+                    min_det_feats_per_cell = 5
+  )
+  
+  
+  g <- normalizeGiotto(g)
+  # overwrite original results with those for normalized values
+  g <- addStatistics(g)
+
+  ```
+  
 - **Dimensionality reduction and clustering:** Ran PCA, UMAP, and Leiden clustering, followed by visualization of the clusters in 2D and 3D plots.
+  ```{r, eval = FALSE}
+  
+  g <- runPCA(g, feats_to_use = NULL)
+  
+  
+  screePlot(g, ncp = 30)
+  
+  
+  g <- runUMAP(g, 
+               dimensions_to_use = seq(15), 
+               n_neighbors = 40 # default
+  )
+  
+  Giotto::plotPCA(g)
+  plotUMAP(g)
+  
+  
+  g <- createNearestNetwork(g,
+                            dimensions_to_use = seq(15), 
+                            k = 40
+  )
+  
+  
+  g <- doLeidenCluster(g)
+
+
+  ```
 
 </details>
 
