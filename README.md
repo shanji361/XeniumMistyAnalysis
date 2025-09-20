@@ -703,7 +703,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                save_param = list(base_height = 6,base_width = 12))
 
 ```
-<img src="14_TRAILPathway.png" width="1200" height="900" style="object-fit: contain;">
+<img src="14_TRAILPathway.png" width="1200" height="1000" style="object-fit: cover;">
 
 
 
