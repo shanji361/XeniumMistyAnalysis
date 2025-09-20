@@ -468,49 +468,6 @@ MISTy (Multiview Intercellular SpaTial modeling framework) is a computational fr
 
 Spatial views for MISTy are set with the juxtaview at 20 μm (approximately the average cell diameter) to capture immediate neighbors and the paraview at 50 μm to capture a broader regional context. These views are then combined to assess spatial variance in pathway activity across the sample: intra.R2 represents the spatial variance of pathway activity across all cells in the tissue that can be explained by each cell's own intrinsic features, while gain.R2 represents the additional percentage of variance explained when spatial context is added to the model, including both immediate neighbors (juxtaview) and broader spatial environment (paraview).
 
-```{r, eval=FALSE}
-
-# Create juxtaview and paraview from pathway activity
-
-path_act_views <- create_initial_view(est_path_act_wide) %>%
-  add_juxtaview(geometry, neighbor.thr = 20) %>% 
-  add_paraview(geometry, l = 50, family = "gaussian")
-
-# Combine composition and pathway activity views
-com_path_act_views <- comp_views %>%
-  add_views(create_view("juxtaview.path.20", 
-                        path_act_views[["juxtaview.20"]]$data, 
-                        "juxta.path.20")) %>% 
-  add_views(create_view("paraview.path.50", 
-                        path_act_views[["paraview.50"]]$data, 
-                        "para.path.50"))
-```
-## 8.2 Run MISTy Analysis
-```{r, eval=FALSE}
-# Run MISTy analysis
-run_misty(com_path_act_views, "result/xenium_lung/comp_path_act")
-
-# Collect results
-misty_results_com_path_act <- collect_results("result/xenium_lung/comp_path_act/")
-
-# Plot improvement statistics
-
-misty_results_com_path_act %>%
-  plot_improvement_stats(
-    measure = "intra.R2" 
-  )
-
-misty_results_com_path_act %>%
-  plot_improvement_stats(
-    measure = "gain.R2" 
-  )
-
-```
-![ComPathActIntra](43-comPathActIntra.png)
-![ComPathActGain](44-comPathActGain.png)
-
-## 8.3 Extended Views: Adding Cell-Type Composition 
-
 The `final_misty_views` object integrates **five complementary spatial views**, enabling the simultaneous assessment of both intrinsic and contextual determinants of pathway activity. These views are defined as follows:  
 
 ### Spatial Views  
@@ -523,14 +480,35 @@ The `final_misty_views` object integrates **five complementary spatial views**, 
 
 Together, these views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
 
-```{r, eval = FALSE}
-# Create composition neighborhood views
+```{r, eval=FALSE}
+
+path_act_views <- create_initial_view(est_path_act_wide) %>%
+  add_juxtaview(geometry, neighbor.thr = 20) %>% 
+  add_paraview(geometry, l = 50, family = "gaussian")
+
+
+# Create cell composition spatial views
 comp_views <- create_initial_view(composition_xenium) %>%
   add_juxtaview(geometry, neighbor.thr = 20) %>%
   add_paraview(geometry, l = 50, family = "gaussian")
 
-# Extend existing pathway views with composition neighborhoods
-final_misty_views <- com_path_act_views %>%
+
+# Combine pathway and composition views into comprehensive view object
+# Creates 5 predictor views:
+# (1) intra: Cell's own composition (intrinsic cell type identity)
+# (2) juxta.path.20: Average pathway activity of immediate neighbors (≤20μm)
+# (3) para.path.50: Smoothed pathway activity of broader environment (≤50μm)
+# (4) juxta.composition.20: Cell type composition of immediate neighbors (≤20μm)
+# (5) para.composition.50: Cell type composition of broader environment (≤50μm)
+
+
+final_misty_views <- comp_views %>%
+  add_views(create_view("juxtaview.path.20", 
+                        path_act_views[["juxtaview.20"]]$data, 
+                        "juxta.path.20")) %>% 
+  add_views(create_view("paraview.path.50", 
+                        path_act_views[["paraview.50"]]$data, 
+                        "para.path.50")) %>%
   add_views(create_view("juxtaview.composition.20",
                         comp_views[["juxtaview.20"]]$data,
                         "juxta.composition.20")) %>%
@@ -538,15 +516,62 @@ final_misty_views <- com_path_act_views %>%
                         comp_views[["paraview.50"]]$data,
                         "para.composition.50"))
 
+```
+## 8.2 Run MISTy Analysis
+```{r, eval=FALSE}
+
+# Standard MISTy analysis (with intrinsic view)
 run_misty(
-  views = final_misty_views,
-  cv.folds = 10,
-  results.folder = file.path(save_dir, "misty_results_complete")
+  views = final_misty_views,  # Updated to use complete views
+  cv.folds = 10,  
+  #target.subset = pathway_names, # Warning appears because we're predicting pathway activities 
+  # from cell type compositions - this is expected cross-modal prediction in Xenium spatial data
+  results.folder = file.path(save_dir, "misty_results_complete") # Updated folder name
 )
 
-misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
+# Spatial-only analysis (bypass intrinsic view)
+# Tests purely spatial predictive power without cell's own composition
+run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"), 
+          model.function = linear_model, bypass.intra = TRUE)
 
 ```
+
+## 8.3 Collect MISTy Results
+
+
+```{r, eval = FALSE}
+
+misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
+misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_results_lm_complete"))
+misty_results_com_path_act <- collect_results("result/xenium_lung/comp_path_act/")
+
+
+misty_results_complete %>%
+  plot_improvement_stats("intra.R2") %>%
+  plot_improvement_stats("gain.R2")
+
+
+```
+![1A_CompleteIntra](1A_CompleteIntra.png)
+![1B_CompleteGain](1B_CompleteGain.png)
+
+```{r, eval = FALSE}
+# Spatial-only analysis performance
+# In bypass.intra mode, gain.R2 shows purely spatial predictive power
+misty_results_complete_linear %>%
+  plot_improvement_stats("gain.R2")
+```
+![2_SpatialGain](2_SpatialGain.png)
+
+```{r, eval = FALSE}
+# Pathway-only results
+misty_results_com_path_act %>%
+  plot_improvement_stats("intra.R2") %>%
+  plot_improvement_stats("gain.R2") 
+
+```
+![3A_PathwayOnlyIntra](3A_PathwayOnlyIntra.png)
+![3B_PathwayOnlyGain](3B_PathwayOnlyGain.png)
 
 
 ## 8.4 Interpretations
@@ -555,34 +580,34 @@ misty_results_complete <- collect_results(file.path(save_dir, "misty_results_com
 - **High gain.R²** → Incorporating spatial neighborhood information provides additional predictive power beyond intrinsic identity.  
 
 ```{r, eval= FALSE}
-misty_results_complete %>%
-  plot_improvement_stats("intra.R2") %>%
-  plot_improvement_stats("gain.R2")
-```
-![35-completeIntra](35-completeIntra.png)
-![34-completeGain](34-completeGain.png)
 
-```{r, eval= FALSE}
-misty_results_complete %>%
+misty_results_complete %>% 
+  plot_view_contributions() 
+```
+![4_CompleteContributions](4_CompleteContributions.png)
+
+```{r, eval = FALSE}
+# Spatial-only analysis - view contributions without intrinsic information
+misty_results_complete_linear %>%
   plot_view_contributions()
 
 ```
-![33-CompleteContributions](33-completeContributions.png)
 
-## 8.5 Local Scale Predictions (20μm)
+![5_SpatialContributions](5_SpatialContributions.png)
 
-This section shows pathway-to-cell and cell-to-cell interaction MISTy plots at the local 20μm scale, capturing immediate neighborhood effects.
+
+## 8.5 Interaction Heatmaps
+
+Heatmap showing how well cell type composition within 20μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Color intensity represents importance values: darker colors indicate stronger positive predictive relationships, lighter colors indicate negative relationships, and white indicates no predictive relationship. Each cell represents the predictive strength of a neighborhood cell type for a focal cell type.
+Interpretation Example: The dark colored square at the intersection between stromal cells (predictor) and NKT cells (target) indicates that focal points with many stromal cells within their 20μm neighborhood are highly predictive of having high NKT cell abundance at that central location. 
 
 ```{r, eval = FALSE}
 
-misty_results_complete %>%
-  plot_interaction_heatmap("juxta.path.20", clean = TRUE)
+
 ```
 ![32-CompleteJuxtaPath20](32-completeJuxtaPath20.png)
 
 
-Heatmap showing how well cell type composition within 20μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Color intensity represents importance values: darker colors indicate stronger positive predictive relationships, lighter colors indicate negative relationships, and white indicates no predictive relationship. Each cell represents the predictive strength of a neighborhood cell type for a focal cell type.
-Interpretation Example: The dark colored square at the intersection between stromal cells (predictor) and NKT cells (target) indicates that focal points with many stromal cells within their 20μm neighborhood are highly predictive of having high NKT cell abundance at that central location. 
 
 ```{r, eval = FALSE}
 #Cell type–pathway (juxta):
