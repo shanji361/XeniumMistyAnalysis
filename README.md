@@ -685,37 +685,44 @@ misty_results_complete_linear %>%
 
 
 ```{r, eval = FALSE}
-#Example: B cells and TRAIL pathway (immune-mediated apoptosis).
-spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny", 
-               feats = "trail", gradient_style = "sequential", 
-               cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
-               background_color = "black", point_size = 1)
-spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
-           cell_color = "subannot_clus", select_cell_groups = "B cells",
-           point_size = 1, other_point_size = 1, other_cell_color = "#434343",
-           background_color = "black")
-```
-![30-SpatFeatPlot2D](30-spatFeatPlot2D.png)
 
-![29-SpatPlot2D](29-spatPlot2D.png)
+# Example 1 : B cells and TRAIL pathway
+# TRAIL is involved in immune-mediated apoptosis - expect high activity near immune cells
+
+# Visualize TRAIL pathway activity
+
+spatFeatPlot2D(xenium_lungcancer_test,
+               spat_unit = "cell", 
+               expression_values = "progeny", 
+               show_image = TRUE, 
+               feats = "trail", 
+               gradient_style = "sequential", 
+               cell_color_gradient = c("blue", "orangered", "yellow"), 
+               background_color = "black", 
+               point_size = 2, 
+               save_param = list(base_height = 6,base_width = 12))
+
+```
+![14_TRAILPathway](14_TRAILPathway.png)
+
 
 
 ```{r, eval = FALSE}
-#Example: LUAD cancer cells and EGFR pathway (oncogenic signaling).
-spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny", 
-               feats = "egfr", gradient_style = "sequential", 
-               cell_color_gradient = c("royalblue3", "orangered", "yellow"), 
-               background_color = "black", point_size = 1)
+# Visualize B cell locations
 
-spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
-           cell_color = "subannot_clus", select_cell_groups = "Alveolar Epithelial cells (LUAD CANCER)",
-           point_size = 1, other_point_size = 1, other_cell_color = "#434343",
-           background_color = "black")
-
+spatPlot2D(xenium_lungcancer_test,
+           spat_unit = "cell", 
+           cell_color = "subannot_clus", 
+           show_image = TRUE, 
+           select_cell_groups = "B cells", 
+           point_size = 2, 
+           other_point_size = 1, 
+           other_cell_color = "#434343", 
+           background_color = "black", 
+           save_param = list(base_height = 6,base_width = 12)
+)
 ```
-![28-SpatFeatPlot2D](28-spatFeatPlot2D.png)
-
-![27-SpatPlot2D](27-spatPlot2D.png)
+![15_BCellLocations](15_BCellLocations.png)
 
 
 
