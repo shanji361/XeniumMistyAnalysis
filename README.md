@@ -703,7 +703,8 @@ spatFeatPlot2D(xenium_lungcancer_test,
                save_param = list(base_height = 6,base_width = 12))
 
 ```
-![14_TRAILPathway](14_TRAILPathway.png)
+<img src="14_TRAILPathway.png" width="600" height="400" style="object-fit: contain;">
+
 
 
 
@@ -722,7 +723,8 @@ spatPlot2D(xenium_lungcancer_test,
            save_param = list(base_height = 6,base_width = 12)
 )
 ```
-![15_BCellLocations](15_BCellLocations.png)
+
+<img src="15_BCellLocations.png" width="600" height="400" style="object-fit: contain;">
 
 Example 2: LUAD cancer cells and EGFR pathway
 ```{r, eval = FALSE}
