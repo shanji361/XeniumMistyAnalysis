@@ -240,8 +240,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 Following Giotto object creation, preprocessing, and clustering, the analysis moves to identifying cluster-specific marker genes. The Scran method is applied to detect genes enriched in each Leiden cluster, allowing likely cell types to be inferred. 
 
 ```{r, eval=FALSE}
-# # Identifying marker genes for each cluster using the scran method,
-# so that we can assign a likely cell type to each cluster based on known marker gene expression.
+
 res_scran <- findMarkers_one_vs_all(g, 
                                     cluster_column = "leiden_clus", 
                                     method = "scran",
