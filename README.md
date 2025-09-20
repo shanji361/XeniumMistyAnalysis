@@ -604,27 +604,53 @@ Interpretation Example: The dark colored square at the intersection between stro
 ```{r, eval = FALSE}
 
 
+# Pathway-pathway interactions at close range (≤20μm)
+# Shows how neighbor cells' pathway activities influence target cell pathways
+misty_results_complete %>%
+  plot_interaction_heatmap("juxta.path.20", clean = TRUE)
+
 ```
-![32-CompleteJuxtaPath20](32-completeJuxtaPath20.png)
+![6_CompletePathwayJuxta](6_CompletePathwayJuxta.png)
 
 
 
 ```{r, eval = FALSE}
-#Cell type–pathway (juxta):
+
+# Cell type-pathway interactions at close range (≤20μm) 
+# Shows how neighbor cell types influence target cell pathway activities
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
+
 ```
 
-![31-CompleteJuxtaComposition20](31-completeJuxtaComposition20.png)
+![7_CompleteCompositionJuxta](7_CompleteCompositionJuxta.png)
 
 
-## 8.6 Regional Scale Predictions (50μm)
-This section shows pathway-to-cell and cell-to-cell interaction MISTy plots at the regional 50μm scale, capturing broader neighborhood effects.
 
 ```{r, eval = FALSE}
-#Pathway-pathway (para):
+
+# Pathway-pathway interactions at broader range (≤50μm)
+# Shows how regional pathway environment influences target cell pathways
 misty_results_complete %>%
   plot_interaction_heatmap("para.path.50", clean = TRUE)
+```
+![8_CompletePathwayPara](8_CompletePathwayPara.png)
+
+```{r, eval = FALSE}
+
+# Cell type-pathway interactions at broader range (≤50μm)
+# Shows how regional cellular composition influences target cell pathway activities
+misty_results_complete %>%
+  plot_interaction_heatmap("para.composition.50", clean = TRUE)
+```
+
+![9_CompleteCompositionPara](9_CompleteCompositionPara.png)
+
+
+
+## Spatial Only Anlysis Heatmaps
+
+```{r, eval = FALSE}
 
 ```
 
