@@ -386,10 +386,6 @@ xenium_lungcancer_test <- g
 raw_matrix <- xenium_lungcancer_test@expression$cell$rna$raw[]
 symbols <- rownames(raw_matrix)
 
-# Check for duplicate gene symbols
-d.index <- which(duplicated(symbols))
-print(d.index) # no duplicates found
-
 # Extract spatial coordinates
 geometry <- getSpatialLocations(
   gobject = xenium_lungcancer_test, 
