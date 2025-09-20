@@ -80,9 +80,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 
 # 4. Giotto Object Creation 
 
-## Prerequisite Steps (Omitted)
-
-> **Note:** The following preprocessing steps are **omitted here** for brevity, as they are already covered in [the Giotto 2024 workshop tutorial (sections 10.1 to 10.7)](https://drieslab.github.io/giotto_workshop_2024/xenium-1.html#aggregate-analyses-workflow):
+> **Note:** The following code demonstrates the setup of a Giotto object, including loading expression data, cell metadata, and morphology images. These preprocessing steps are adapted from [the Giotto 2024 Workshop tutorial (sections 10.1 to 10.7)](https://drieslab.github.io/giotto_workshop_2024/xenium-1.html#aggregate-analyses-workflow)and are included here for completeness.
 
 <details>
 <summary>Click to expand the omitted preprocessing steps</summary>
