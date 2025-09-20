@@ -79,7 +79,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 
 
 # 4. Giotto Object Creation 
-
+## 4.1 Creating and Setting Up the Giotto Object
 > **Note:** The following code demonstrates the setup of a Giotto object, including loading expression data, cell metadata, and morphology images. These preprocessing steps are adapted from [the Giotto 2024 Workshop tutorial (sections 10.1 to 10.7)](https://drieslab.github.io/giotto_workshop_2024/xenium-1.html#aggregate-analyses-workflow) and are included here for completeness.
 
 <details>
@@ -208,7 +208,9 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 
 
 # 5. Marker Gene Analysis
-Following Giotto object creation, preprocessing, and clustering, the analysis moves to identifying cluster-specific marker genes. The Scran method is applied to detect genes enriched in each Leiden cluster, allowing likely cell types to be inferred. The top two ranked marker genes per cluster are then visualized using violin plots, showing the normalized expression of these markers across all clusters.
+## 5.1 Finding Cluster Specific Marker Genes 
+Following Giotto object creation, preprocessing, and clustering, the analysis moves to identifying cluster-specific marker genes. The Scran method is applied to detect genes enriched in each Leiden cluster, allowing likely cell types to be inferred. 
+
 ```{r, eval=FALSE}
 # # Identifying marker genes for each cluster using the scran method,
 # so that we can assign a likely cell type to each cluster based on known marker gene expression.
@@ -220,9 +222,11 @@ res_scran <- findMarkers_one_vs_all(g,
 
 #Sort the marker genes by cluster and, within each cluster, select the top two ranked marker genes.
 rankgenes_scran <- res_scran[order(cluster, ranking), head(.SD, 2), by = cluster]
+```
 
-# Create violin plots for top marker genes
-
+## 5.2 Visualizing Top Ranked Marker Genes
+The top two ranked marker genes per cluster are then visualized using violin plots, showing the normalized expression of these markers across all clusters.
+```{r, eval = FALSE}
 violinPlot(g, 
            feats = unique(rankgenes_scran$feats), #unique
            cluster_column = "leiden_clus", 
@@ -239,7 +243,6 @@ violinPlot(g,
 Manual cell type assignment was guided by the identification of cluster-specific marker genes using the scran method. To ensure that these predicted assignments accurately reflected the underlying biology, expression patterns were validated using dot plots and UMAP-based visualizations.
 
 In the dot plot, the Y-axis represents marker genes corresponding to major cell types, while the X-axis shows cluster numbers (1–12) identified from the analysis. Dot size indicates the percentage of cells within a cluster expressing a given gene (with reference values of 25%, 50%, and 75%), and dot color reflects the average expression level of the gene in that cluster, scaled from 0.0 to 8.0 (normalized expression values).
-
 
 
 
