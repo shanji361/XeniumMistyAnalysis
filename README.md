@@ -100,16 +100,44 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
   g <- addSpatialCentroidLocations(g, poly_info = "cell")
   g <- addSpatialCentroidLocations(g, poly_info = "nucleus")
   ```
-- **Spatial visualization:** Generated basic spatial plots using `spatInSituPlotPoints()` with and without image overlays.
+- **Load Expression Data and Cell Metadata:** Imported Xenium data, loaded gene expression matrices and cell metadata, then integrated them into Giotto object to enable downstreatm anlysis.
   ```{r, eval = FALSE}
-  spatInSituPlotPoints(g,
-                     polygon_feat_type = "cell",
-                     feats = list(rna = head(featIDs(g))), # must be named list
-                     use_overlap = FALSE, 
-                     polygon_color = "cyan", 
-                     polygon_line_size = 0.1
-  )
+    
+  x <- importXenium(data_path) 
+  
+  force(x)
+  
+  x$qv <- 20 # default
+  tx <- x$load_transcripts()
+  
+  plot(tx[[1]])
+  
+  # remove to save space
+  rm(tx) 
 
+  # change to mtx instead of .h5 which is not in the mini dataset
+  x$filetype$expression <- "mtx" 
+  
+  ex <- x$load_expression()
+  featType(ex)
+  
+  force(g)
+  
+  featType(ex[[2]]) <- c("NegControlProbe")
+  featType(ex[[3]]) <- c("NegControlCodeword")
+  featType(ex[[4]]) <- c("UnassignedCodeword")
+  
+  g2 <- g
+  # append the expression info
+  g2 <- setGiotto(g2, ex)
+  
+  # load cell metadata
+  cx <- x$load_cellmeta()
+  g2 <- setGiotto(g2, cx)
+  
+  force(g2)
+  #remove to save space 
+  rm(g2) 
 
   ```
 - **Metadata and image integration:** Expression matrices and cell metadata were loaded into the Giotto object using `setGiotto()`. Multiple morphology image channels were imported via `createGiottoLargeImageList()`, with brightness adjusted for selected channels, and then attached to the Giotto object for combined spatial and morphological analysis.
@@ -175,7 +203,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 
   ```
   
-- **Dimensionality reduction and clustering:** Ran PCA, UMAP, and Leiden clustering, followed by visualization of the clusters in 2D and 3D plots.
+- **Dimensionality reduction and clustering:** Ran PCA, UMAP, and Leiden clustering.
   ```{r, eval = FALSE}
   
   g <- runPCA(g, feats_to_use = NULL)
