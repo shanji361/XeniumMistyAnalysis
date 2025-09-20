@@ -655,7 +655,7 @@ misty_results_complete %>%
 misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.path.20", clean = TRUE) 
 ```
-![10_SpatialPathwayJuxta](11_SpatialPathwayJuxta.png)
+![10_SpatialPathwayJuxta](10_SpatialPathwayJuxta.png)
 
 ```{r, eval = FALSE}
 misty_results_complete_linear %>%
@@ -682,11 +682,11 @@ misty_results_complete_linear %>%
 
 
 ## 8.7 Spatial Validation
-
+Example 1: B cells and TRAIL pathway
 
 ```{r, eval = FALSE}
 
-# Example 1 : B cells and TRAIL pathway
+
 # TRAIL is involved in immune-mediated apoptosis - expect high activity near immune cells
 
 # Visualize TRAIL pathway activity
@@ -724,54 +724,89 @@ spatPlot2D(xenium_lungcancer_test,
 ```
 ![15_BCellLocations](15_BCellLocations.png)
 
-
-
-
-## 8.6 Alternative Mode: Bypassing Intrinsic Identity 
-To test purely spatial predictive power (ignoring intrinsic identity):
+Example 2: LUAD cancer cells and EGFR pathway
 ```{r, eval = FALSE}
-run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"),
-          model.function = linear_model, bypass.intra = TRUE)
+# EGFR is frequently dysregulated in lung adenocarcinoma - expect high activity in cancer regions
 
-misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_results_lm_complete"))
-```
+# Visualize EGFR pathway activity
 
-```{r, eval = FALSE}
-misty_results_complete_linear %>%
-  plot_improvement_stats("gain.R2") %>%
-  plot_view_contributions()
-```
-![CompleteGainLinear](24-completeGainLinear.png)
-![CompleteContributionsLinear](23-completeContributionsLinear.png)
-```{r, eval = FALSE}
-misty_results_complete_linear %>%
-  plot_interaction_heatmap("juxta.path.20", clean = TRUE)
-```
-![CompleteJuxtaPath20](22-completeJuxtaPath20.png)
-```
-```{r, eval = FALSE}
-misty_results_complete_linear %>%
-  plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
+spatFeatPlot2D(xenium_lungcancer_test,
+               spat_unit = "cell", 
+               expression_values = "progeny", 
+               show_image = TRUE, 
+               feats = "egfr",  
+               gradient_style = "sequential", 
+               cell_color_gradient = c("blue", "orangered", "green"), 
+               background_color = "black", 
+               point_size = 2, 
+               save_param = list(base_height = 6,base_width = 12))
 
 ```
-![CompleteJuxtaComposition20](21-completeJuxtaComposition20.png)
 
+![16_EGFRPathway](16_EGFRPathway.png)
 
 ```{r, eval = FALSE}
-#Example: NK/T cells and NFκB pathway (immune activation near tumor borders).
-spatPlot2D(xenium_lungcancer_test, spat_unit = "cell", 
-           cell_color = "subannot_clus", select_cell_groups = "NK / T cells",
-           point_size = 1, other_point_size = 1, other_cell_color = "#434343",
-           background_color = "black")
-spatFeatPlot2D(xenium_lungcancer_test, spat_unit = "cell", expression_values = "progeny",
-               feats = "nfkb", gradient_style = "sequential",
-               cell_color_gradient = c("royalblue3", "orangered", "yellow"),
-               background_color = "black", point_size = 1)
+# Visualize LUAD cancer cell locations
+
+spatPlot2D(xenium_lungcancer_test,
+           spat_unit = "cell", 
+           cell_color = "subannot_clus", 
+           show_image = TRUE, 
+           select_cell_groups = "Alveolar Epithelial cells (LUAD CANCER)", 
+           point_size = 2, 
+           other_point_size = 1, 
+           other_cell_color = "#434343", 
+           background_color = "black", 
+           save_param = list(base_height = 6,base_width = 12)
+)
+
+
 
 ```
-![NK/T Cells](20-spatPlot2D.png)
 
-![NFKB](19-spatFeatPlot2D.png)
+![17_LUADCancerLocations](17_LUADCancerLocations.png)
+Example 3 : NK/T cells and NFKB PATHWAY. NFκB is key in immune activation - expect high activity in immune cell regions. In lung cancer, NK/T cells often cluster near tumor boundaries
+
+```{r, eval = FALSE}
+# Visualize NFκB pathway activity
+
+spatFeatPlot2D(xenium_lungcancer_test,
+               spat_unit = "cell", 
+               show_image = TRUE, 
+               expression_values = "progeny", 
+               feats = "nfkb",  
+               gradient_style = "sequential", 
+               cell_color_gradient = c("blue","red", "yellow","green"), 
+               background_color = "black", 
+               point_size = 1.9, 
+               save_param = list(base_height = 6,base_width = 12))
+
+
+```
+
+![18_NFKBPathway](18_NFKBPathway.png)
+
+```{r, eval = FALSE}
+
+# Visualize NK/T cell locations
+
+spatPlot2D(xenium_lungcancer_test,
+           spat_unit = "cell", 
+           show_image = TRUE, 
+           cell_color = "subannot_clus", 
+           select_cell_groups = "NK / T cells", 
+           point_size = 2, 
+           other_point_size = 1.5, 
+           other_cell_color = "#434343", 
+           background_color = "black", 
+           save_param = list(base_height = 6,base_width = 12)
+)
+
+
+```
+![19_NKTCellLocations](19_NKTCellLocations.png)
+
+
 ```{r, eval=FALSE}
 devtools::session_info()
 ```
