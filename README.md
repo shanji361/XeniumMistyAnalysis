@@ -80,7 +80,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 
 # 4. Giotto Object Creation 
 
-> **Note:** The following code demonstrates the setup of a Giotto object, including loading expression data, cell metadata, and morphology images. These preprocessing steps are adapted from [the Giotto 2024 Workshop tutorial (sections 10.1 to 10.7)](https://drieslab.github.io/giotto_workshop_2024/xenium-1.html#aggregate-analyses-workflow)and are included here for completeness.
+> **Note:** The following code demonstrates the setup of a Giotto object, including loading expression data, cell metadata, and morphology images. These preprocessing steps are adapted from [the Giotto 2024 Workshop tutorial (sections 10.1 to 10.7)](https://drieslab.github.io/giotto_workshop_2024/xenium-1.html#aggregate-analyses-workflow) and are included here for completeness.
 
 <details>
 <summary>Click to expand for the detailed steps</summary>
@@ -112,7 +112,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 
 
   ```
-- **Metadata and image integration:**Expression matrices and cell metadata were loaded into the Giotto object using `setGiotto()`. Multiple morphology image channels were imported via `createGiottoLargeImageList()`, with brightness adjusted for selected channels, and then attached to the Giotto object for combined spatial and morphological analysis.
+- **Metadata and image integration:** Expression matrices and cell metadata were loaded into the Giotto object using `setGiotto()`. Multiple morphology image channels were imported via `createGiottoLargeImageList()`, with brightness adjusted for selected channels, and then attached to the Giotto object for combined spatial and morphological analysis.
   
   ```{r, eval = FALSE}
   
