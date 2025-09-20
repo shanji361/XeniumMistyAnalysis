@@ -208,8 +208,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 
 
 # 5. Marker Gene Analysis
-Following Giotto object creation, preprocessing, and clustering, the analysis proceeds to marker gene identification.
-## 5.1 Find Cluster-Specific Markers
+Following Giotto object creation, preprocessing, and clustering, the analysis moves to identifying cluster-specific marker genes. The Scran method is applied to detect genes enriched in each Leiden cluster, allowing likely cell types to be inferred. The top two ranked marker genes per cluster are then visualized using violin plots, showing the normalized expression of these markers across all clusters.
 ```{r, eval=FALSE}
 # # Identifying marker genes for each cluster using the scran method,
 # so that we can assign a likely cell type to each cluster based on known marker gene expression.
