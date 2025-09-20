@@ -703,8 +703,8 @@ spatFeatPlot2D(xenium_lungcancer_test,
                save_param = list(base_height = 6,base_width = 12))
 
 ```
-<img src="14_TRAILPathway.png" style="max-width: 100%; height: auto;">
 
+![14_TRAILPathway](14_TRAILPathway.png)
 
 ```{r, eval = FALSE}
 # Visualize B cell locations
