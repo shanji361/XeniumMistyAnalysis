@@ -652,18 +652,33 @@ misty_results_complete %>%
 
 ```{r, eval = FALSE}
 
+misty_results_complete_linear %>%
+  plot_interaction_heatmap("juxta.path.20", clean = TRUE) 
 ```
+![10_SpatialPathwayJuxta](11_SpatialPathwayJuxta.png)
 
-![CompleteParaPath50](26-completeParaPath50.png)
+```{r, eval = FALSE}
+misty_results_complete_linear %>%
+  plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
+
+```
+![11_SpatialCompositionJuxta](11_SpatialCompositionJuxta.png)
 
 
 Following heatmap shows how the broader spatial neighborhood composition predicts local cell type abundance.
 ```{r, eval= FALSE}
-#Cell type–pathway (para):
-misty_results_complete %>%
-  plot_interaction_heatmap("para.composition.50", clean = TRUE)
+misty_results_complete_linear %>%
+  plot_interaction_heatmap("para.path.50", clean = TRUE) 
 ```
-![CompleteParaComposition50](25-completeParaComposition50.png)
+![12_SpatialPathwayPara](12_SpatialPathwayPara.png)
+
+```{r, eval= FALSE}
+misty_results_complete_linear %>%
+  plot_interaction_heatmap("para.composition.50", clean = TRUE)
+
+```
+![13_SpatialCompositioPara](13_SpatialCompositionPara.png)
+
 
 
 ## 8.7 Spatial Validation
