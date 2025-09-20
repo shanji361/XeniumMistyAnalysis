@@ -75,6 +75,7 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 ```
 
 ![H&E Image](he.png)
+*Image from Section 10 of the, [2024 Giotto workshop](https://drieslab.github.io/giotto_workshop_2024/xenium-1.html#aggregate-analyses-workflow).*
 
 
 # 4. Giotto Object Creation 
