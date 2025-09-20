@@ -247,8 +247,8 @@ res_scran <- findMarkers_one_vs_all(g,
                                     expression_values = "normalized"
 )
 
-#Sort the marker genes by cluster and, within each cluster, select the top two ranked marker genes.
-rankgenes_scran <- res_scran[order(cluster, ranking), head(.SD, 2), by = cluster]
+# top 2 genes per cluster
+topgenes_scran <- res_scran[, head(.SD, 2), by = 'cluster']
 ```
 
 ## 5.2 Visualizing Top Ranked Marker Genes
@@ -356,7 +356,7 @@ cell_types <- c(
   "Stromal (Fibroblasts/ Pericytes)",      
   "Myeloid (Macrophages / Monocytes) and Dendritic cells",      
   "B cells",           
-  "Bronchial Epithelial (Ciliated) cells", #tumor?    
+  "Bronchial Epithelial (Ciliated) cells", #possibility of tumor 
   "Endothelial cells", 
   "Basal cells",      
   "Alveolar Epithelial cells (LUAD CANCER)",
