@@ -206,10 +206,9 @@ unzip(file.path(save_dir, "workshop_xenium.zip"),
 
 </details>
 
-We now continue from the step of identifying **cluster-specific marker genes** using the **Scran** method.
-
 
 # 5. Marker Gene Analysis
+Following Giotto object creation, preprocessing, and clustering, the analysis proceeds to marker gene identification.
 ## 5.1 Find Cluster-Specific Markers
 ```{r, eval=FALSE}
 # # Identifying marker genes for each cluster using the scran method,
