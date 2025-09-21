@@ -552,8 +552,8 @@ misty_results_complete %>%
 
 
 ```
-![1A_CompleteIntra](1A_CompleteIntra.png)
-![1B_CompleteGain](1B_CompleteGain.png)
+![1_CompleteIntra](1_CompleteIntra.png)
+![2_CompleteGain](2_CompleteGain.png)
 
 ```{r, eval = FALSE}
 # Spatial-only analysis performance
@@ -561,18 +561,19 @@ misty_results_complete %>%
 misty_results_complete_linear %>%
   plot_improvement_stats("gain.R2")
 ```
-![2_SpatialGain](2_SpatialGain.png)
+![3_SpatialGain](3_SpatialGain.png)
 
 ```{r, eval = FALSE}
 # Pathway-only results
-misty_results_com_path_act %>%
-  plot_improvement_stats("intra.R2") %>%
-  plot_improvement_stats("gain.R2") 
+#misty_results_com_path_act %>%
+#  plot_improvement_stats("intra.R2") %>%
+#  plot_improvement_stats("gain.R2")
 
-```
 ![3A_PathwayOnlyIntra](3A_PathwayOnlyIntra.png)
 ![3B_PathwayOnlyGain](3B_PathwayOnlyGain.png)
 
+
+```
 
 ## 8.4 Interpretations
 
