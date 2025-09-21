@@ -480,6 +480,7 @@ The `final_misty_views` object integrates **five complementary spatial views**, 
 
 Together, these views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
 
+In create_view(), the first parameter, full name, serves as a descriptive, human-readable identifier that makes the code self-documenting and aids in debugging. It is stored in MISTY's internal metadata but is primarily intended for code clarity and organization. The second parameter, data, contains the actual data.frame or tibble with the variables or features that will act as predictors in spatial modeling, forming the core numerical content that MISTY analyzes to identify spatial relationships. The third parameter, abbreviated name (abbrev), functions as the software’s working handle, used throughout MISTY’s computational pipeline for indexing results, generating plots with functions such as plot_interaction_heatmap(), and organizing internal data structures. If abbrev is not provided, it defaults to the value of the full name. 
 ```{r, eval=FALSE}
 
 path_act_views <- create_initial_view(est_path_act_wide) %>%
@@ -502,19 +503,13 @@ comp_views <- create_initial_view(composition_xenium) %>%
 # (5) para.composition.50: Cell type composition of broader environment (≤50μm)
 
 
-final_misty_views <- comp_views %>%
-  add_views(create_view("juxtaview.path.20", 
-                        path_act_views[["juxtaview.20"]]$data, 
-                        "juxta.path.20")) %>% 
-  add_views(create_view("paraview.path.50", 
-                        path_act_views[["paraview.50"]]$data, 
-                        "para.path.50")) %>%
-  add_views(create_view("juxtaview.composition.20",
-                        comp_views[["juxtaview.20"]]$data,
-                        "juxta.composition.20")) %>%
-  add_views(create_view("paraview.composition.50",
-                        comp_views[["paraview.50"]]$data,
-                        "para.composition.50"))
+final_misty_views <- path_act_views %>%
+  add_views(create_view("juxtaview.composition.20", 
+                        comp_views[["juxtaview.20"]]$data, 
+                        "juxta.composition.20")) %>% 
+  add_views(create_view("paraview.composition.50", 
+                        comp_views[["paraview.50"]]$data, 
+                        "para.composition.50")) 
 
 ```
 ## 8.2 Run MISTy Analysis
@@ -543,7 +538,6 @@ run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"),
 
 misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
 misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_results_lm_complete"))
-misty_results_com_path_act <- collect_results("result/xenium_lung/comp_path_act/")
 
 
 misty_results_complete %>%
@@ -563,17 +557,7 @@ misty_results_complete_linear %>%
 ```
 ![3_SpatialGain](3_SpatialGain.png)
 
-```{r, eval = FALSE}
-# Pathway-only results
-#misty_results_com_path_act %>%
-#  plot_improvement_stats("intra.R2") %>%
-#  plot_improvement_stats("gain.R2")
 
-![3A_PathwayOnlyIntra](3A_PathwayOnlyIntra.png)
-![3B_PathwayOnlyGain](3B_PathwayOnlyGain.png)
-
-
-```
 
 ## 8.4 Interpretations
 
@@ -608,7 +592,7 @@ Interpretation Example: The dark colored square at the intersection between stro
 # Pathway-pathway interactions at close range (≤20μm)
 # Shows how neighbor cells' pathway activities influence target cell pathways
 misty_results_complete %>%
-  plot_interaction_heatmap("juxta.path.20", clean = TRUE)
+  plot_interaction_heatmap("juxta.20", clean = TRUE)
 
 ```
 ![6_CompletePathwayJuxta](6_CompletePathwayJuxta.png)
@@ -633,7 +617,7 @@ misty_results_complete %>%
 # Pathway-pathway interactions at broader range (≤50μm)
 # Shows how regional pathway environment influences target cell pathways
 misty_results_complete %>%
-  plot_interaction_heatmap("para.path.50", clean = TRUE)
+  plot_interaction_heatmap("para.50", clean = TRUE)
 ```
 ![8_CompletePathwayPara](8_CompletePathwayPara.png)
 
@@ -654,7 +638,7 @@ misty_results_complete %>%
 ```{r, eval = FALSE}
 
 misty_results_complete_linear %>%
-  plot_interaction_heatmap("juxta.path.20", clean = TRUE) 
+  plot_interaction_heatmap("juxta.20", clean = TRUE) 
 ```
 ![10_SpatialPathwayJuxta](10_SpatialPathwayJuxta.png)
 
@@ -669,7 +653,7 @@ misty_results_complete_linear %>%
 Following heatmap shows how the broader spatial neighborhood composition predicts local cell type abundance.
 ```{r, eval= FALSE}
 misty_results_complete_linear %>%
-  plot_interaction_heatmap("para.path.50", clean = TRUE) 
+  plot_interaction_heatmap("para.50", clean = TRUE) 
 ```
 ![12_SpatialPathwayPara](12_SpatialPathwayPara.png)
 
