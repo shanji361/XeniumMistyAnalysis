@@ -472,15 +472,104 @@ The `final_misty_views` object integrates **five complementary spatial views**, 
 
 ### Spatial Views  
 
-1. **intra** – Measures how well each cell's intrinsic features (predictors) predict that same cell's target features (self-prediction).
-2. **juxta.path.20** – Measures how well pathway activity within 20μm neighborhoods (predictors) predicts target features at focal points.
-3. **para.path.50** – Measures how well pathway activity within 50μm neighborhoods (predictors) predicts target features at focal points.
-4. **juxta.composition.20** –  Measures how well cell composition within 20μm neighborhoods (predictors) predicts target features at focal points.
-5. **para.composition.50** – Measures how well cell composition within 50μm neighborhoods (predictors) predicts target features at focal points.
+## Defined Views
+1. **intra**  
+   - Measures how well each cell's *intrinsic features* (predictors) predict that same cell's target features (*self-prediction*).  
 
-Together, these views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
+2. **juxta.path.20**  
+   - Measures how well *pathway activity* within **20 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-In create_view(), the first parameter, full name, serves as a descriptive, human-readable identifier that makes the code self-documenting and aids in debugging. It is stored in MISTY's internal metadata but is primarily intended for code clarity and organization. The second parameter, data, contains the actual data.frame or tibble with the variables or features that will act as predictors in spatial modeling, forming the core numerical content that MISTY analyzes to identify spatial relationships. The third parameter, abbreviated name (abbrev), functions as the software’s working handle, used throughout MISTY’s computational pipeline for indexing results, generating plots with functions such as plot_interaction_heatmap(), and organizing internal data structures. If abbrev is not provided, it defaults to the value of the full name. 
+3. **para.path.50**  
+   - Measures how well *pathway activity* within **50 μm neighborhoods** (predictors) predicts target features at focal points.  
+
+4. **juxta.composition.20**  
+   - Measures how well *cell composition* within **20 μm neighborhoods** (predictors) predicts target features at focal points.  
+
+5. **para.composition.50**  
+   - Measures how well *cell composition* within **50 μm neighborhoods** (predictors) predicts target features at focal points.  
+
+**Summary:**  
+Together, these spatial views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
+
+---
+
+# Function: `create_view()`  
+
+- **Full name**  
+  - A descriptive, human-readable identifier.  
+  - Enhances code readability, debugging, and self-documentation.  
+  - Stored in MISTY’s internal metadata but primarily used for organization.  
+
+- **Data**  
+  - A `data.frame` or `tibble` containing the actual variables or features.  
+  - Provides the numerical core that MISTY analyzes to identify spatial relationships.  
+
+- **Abbreviated name (`abbrev`)**  
+  - The working handle used internally by MISTY.  
+  - Important for indexing results, generating plots (e.g., `plot_interaction_heatmap()`), and organizing outputs.  
+  - Defaults to the value of `full name` if not specified.  
+
+---
+
+# Parameter Roles: `add_paraview()` vs `run_misty()`  
+
+## Core Difference
+- **`add_paraview()`**  
+  - Parameters define how **spatial neighborhoods** are mathematically constructed and weighted.  
+  - Determines *which cells influence one another* and *by how much*.  
+  - Shapes **spatial feature engineering** (data creation).  
+
+- **`run_misty()`**  
+  - Parameters control **model validation** and evaluation.  
+  - Determines how engineered data is analyzed and how relationships are extracted.  
+  - Shapes the **predictive modeling workflow** (data analysis).  
+
+---
+
+## Example: `run_misty()` → `model.function` parameter  
+- **`random_forest_model` (default):**  
+  - Captures non-linear interactions.  
+  - Produces robust feature importance rankings.  
+  - Suitable for complex spatial gene regulatory networks.  
+
+- **`gradient_boosting_model`:**  
+  - Builds hierarchical dependencies via sequential learning.  
+  - Useful for stepwise or sequential spatial processes.  
+
+- **`linear_model`:**  
+  - Assumes linearity.  
+  - Offers interpretable coefficients.  
+  - May miss higher-order spatial interactions.  
+
+- **`svm_model` or `mlp_model`:**  
+  - Capture alternative non-linear patterns.  
+  - Provide flexibility for diverse spatial data structures.  
+
+---
+
+## Example: `add_paraview()` → `family` parameter  
+- **`gaussian`:**  
+  - Smooth, bell-shaped neighborhoods.  
+  - Influence decreases gradually.  
+  - Suitable for diffusion-like biological processes.  
+
+- **`exponential`:**  
+  - Steeper decay of influence with distance.  
+  - Models rapid decline in direct cell–cell signaling.  
+
+- **`linear`:**  
+  - Uniform decline in influence.  
+  - Useful for mechanical or structural tissue effects.  
+
+---
+
+## Summary Statement  
+- **`add_paraview()` parameters** → shape the *construction* of spatial features.  
+- **`run_misty()` parameters** → guide the *analysis* of those features.  
+
+---
+
+
 ```{r, eval=FALSE}
 
 path_act_views <- create_initial_view(est_path_act_wide) %>%
