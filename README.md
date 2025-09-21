@@ -583,8 +583,8 @@ misty_results_complete_linear %>%
 
 ## 8.5 Interaction Heatmaps
 
-Heatmap showing how well cell type composition within 20μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Color intensity represents importance values: darker colors indicate stronger positive predictive relationships, lighter colors indicate negative relationships, and white indicates no predictive relationship. Each cell represents the predictive strength of a neighborhood cell type for a focal cell type.
-Interpretation Example: The dark colored square at the intersection between stromal cells (predictor) and NKT cells (target) indicates that focal points with many stromal cells within their 20μm neighborhood are highly predictive of having high NKT cell abundance at that central location. 
+Heatmap showing how well cell type composition within 20μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Higher importance values indicate stronger positive predictive relationships, while negative values indicate inverse relationships. An importance of zero signifies no predictive relationship. Self-prediction cells are shown in gray. Each cell represents the predictive influence of a neighboring cell type on a focal cell type.
+Interpretation Example: A high-importance colored square at the intersection of a predictor and target indicates that the predictor is strongly associated with high values of the target in the local neighborhood.
 
 
 ### 8.5.1 Heatmap Customization Function 
@@ -593,7 +593,7 @@ Because MISTy does not support customizable heatmap colors, the plot_misty_heatm
 
 plot_misty_heatmap() filters this data for a specified view and generates a heatmap using ggplot2, with predictors on the X-axis, targets on the Y-axis, and fill colors representing importance values. The function supports customization of color gradients, midpoint values, and applies a slight tilt to the X-axis labels for readability. Because the plot is built entirely from scratch, users can further modify visual elements using additional ggplot2 commands. Example usage: a basic heatmap for the view "para.50" can be generated with plot_misty_heatmap(misty_results_complete_linear, view_name = "para.50"), while a customized version with green-to-red coloring and a specific midpoint can be created using plot_misty_heatmap(misty_results_complete_linear, view_name = "para.50", low_color = "blue", mid_color = "green", high_color = "orange", midpoint = 0.1). 
 
-- Function to create a customized colored MISTy interaction heatmap:
+Function to create a customized colored MISTy interaction heatmap:
   ```{r, eval= FALSE}
 
   plot_misty_heatmap <- function(misty_results, view_name, low_color = "blue", mid_color = "white", high_color = "red", midpoint = 0) {
