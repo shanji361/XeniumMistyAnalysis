@@ -599,14 +599,14 @@ In this section, we demonstrate how to construct juxtaview and paraview spatial 
 2. **juxta.path.10**  
    - Measures how well *pathway activity* within **10 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-3. **para.path.20**  
-   - Measures how well *pathway activity* within **20 μm neighborhoods** (predictors) predicts target features at focal points.  
+3. **para.path.15**  
+   - Measures how well *pathway activity* within **15 μm neighborhoods** (predictors) predicts target features at focal points.  
 
 4. **juxta.composition.10**  
    - Measures how well *cell composition* within **10 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-5. **para.composition.20**  
-   - Measures how well *cell composition* within **20 μm neighborhoods** (predictors) predicts target features at focal points.  
+5. **para.composition.15**  
+   - Measures how well *cell composition* within **15 μm neighborhoods** (predictors) predicts target features at focal points.  
 
 
 Together, these spatial views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
