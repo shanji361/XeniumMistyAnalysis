@@ -595,10 +595,10 @@ In this section, we demonstrate how to construct juxtaview and paraview spatial 
 1. **intra**  
    - Measures how well each cell's *intrinsic features* (predictors) predict that same cell's target features (*self-prediction*).  
 
-2. **juxta.path.10**  
+2. **juxta.10**  
    - Measures how well *pathway activity* within **10 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-3. **para.path.15**  
+3. **para.15**  
    - Measures how well *pathway activity* within **15 μm neighborhoods** (predictors) predicts target features at focal points.  
 
 4. **juxta.composition.10**  
