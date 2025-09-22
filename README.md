@@ -589,7 +589,8 @@ Based on this analysis, a paraview radius of 15 µm is chosen, as it captures 
 
 
 ### 8.1.2 Creating Juxtaview and Paraview Spatial Views
---
+---
+
 In this section, we demonstrate how to construct juxtaview and paraview spatial views using both pathway activity and cell composition data. The resulting `final_misty_views` object integrates **five complementary spatial views**, enabling the simultaneous assessment of both intrinsic and contextual determinants of pathway activity. These views are defined as follows: 
 
 1. **intra**  
@@ -622,7 +623,6 @@ path_act_views <- create_initial_view(est_path_act_wide) %>%
 comp_views <- create_initial_view(composition_xenium) %>%
   add_juxtaview(geometry, neighbor.thr = 20) %>%
   add_paraview(geometry, l = 50, family = "gaussian")
-
 
 
 final_misty_views <- path_act_views %>%
