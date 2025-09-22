@@ -544,7 +544,7 @@ for (thr in test_thresholds) {
 # Threshold 20: 16.5 average neighbors per cell
 
 ```
-The output of the neighbor threshold analysis shows how the average number of neighbors per cell increases with larger juxtaview radii. We will select 10 µm for the juxtaview, as an average of ~3.9 neighbors per cell strikes a good balance for capturing tight, immediate cell–cell interactions. Choosing a smaller threshold would risk missing relevant neighbors, while a larger one would start including more distant cells that are less relevant for direct interactions. Next, we determine the effective radius of influence for the broader tissue structure in add_paraview(). We test a range of paraview radii and evaluate the number of neighbors contributing to the spatial weighting at different thresholds:
+The output of the neighbor threshold analysis shows how the average number of neighbors per cell increases with larger juxtaview radii. We will select 10 µm for the juxtaview, as an average of ~3.9 neighbors per cell strikes a good balance for capturing tight, immediate cell–cell interactions. Choosing a smaller threshold would risk missing relevant neighbors, while a larger one would start including more distant cells that are less relevant for direct interactions. Next, we determine the effective radius of influence for the broader tissue structure in add_paraview(). We test a range of paraview radii and evaluate the number of neighbors contributing to the spatial weighting at different thresholds. Note: strong neighbors (weight > 0.5) are cells within ~8–10 μm of the target cell, while significant neighbors (weight > 0.1) are usually within ~15–18 μm.
 
 
 ```{r, eval = FALSE}
