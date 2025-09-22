@@ -478,7 +478,7 @@ These views are combined to assess spatial variance in pathway activity:
 - gain.R2: additional variance explained when spatial context (juxtaview + paraview) is included
  
 
-### 8.1.1 Optional: Find Suitable Juxtaview and Paraview Radii for Your Dataset
+### 8.1.1 (Optional): Find Suitable Juxtaview and Paraview Radii for Your Dataset
 ---
 The following code is optional. Run it only if you want to find an appropriate juxtaview and paraview radii based on the spatial distribution of your cells. 
 
@@ -589,6 +589,7 @@ Based on this analysis, a paraview radius of 15 µm is chosen, as it captures 
 
 
 ### 8.1.2 Creating Juxtaview and Paraview Spatial Views
+--
 In this section, we demonstrate how to construct juxtaview and paraview spatial views using both pathway activity and cell composition data. The resulting `final_misty_views` object integrates **five complementary spatial views**, enabling the simultaneous assessment of both intrinsic and contextual determinants of pathway activity. These views are defined as follows: 
 
 1. **intra**  
