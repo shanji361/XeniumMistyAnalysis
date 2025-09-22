@@ -479,7 +479,7 @@ These views are combined to assess spatial variance in pathway activity:
  
 
 ### 8.1.1 Optional: Find Suitable Juxtaview and Paraview Radii for Your Dataset
-
+---
 The following code is optional. Run it only if you want to find an appropriate juxtaview and paraview radii based on the spatial distribution of your cells. 
 
 neighbor.thr parameter in `add_juxtaview()` is the maximum distance between two cells for them to be considered neighbors in the juxtaview. To select an appropriate neighbor.thr for the juxtaview, we first calculate the distribution of distances between each cell and its nearest neighbor. This gives a data-driven starting point for candidate thresholds.
