@@ -482,6 +482,9 @@ These views are combined to assess spatial variance in pathway activity:
 ---
 The following code is optional. Run it only if you want to find an appropriate juxtaview and paraview radii based on the spatial distribution of your cells. 
 
+The neighbor.thr parameter in add_juxtaview() sets the maximum distance between two cells for them to be considered neighbors in the juxtaview. Here, we calculate the distribution of distances to each cell’s nearest neighbor to suggest reasonable thresholds. For more details about parameters in `add_juxtaview()` `or add_paraview()` please see the [MISTy documentation](https://saezlab.github.io/mistyR/reference/index.html).
+.
+
 neighbor.thr parameter in `add_juxtaview()` is the maximum distance between two cells for them to be considered neighbors in the juxtaview. To select an appropriate neighbor.thr for the juxtaview, we first calculate the distribution of distances between each cell and its nearest neighbor. This gives a data-driven starting point for candidate thresholds.
 
 ```{r, eval = FALSE}
