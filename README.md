@@ -466,33 +466,149 @@ MISTy (Multiview Intercellular SpaTial modeling framework) is a computational fr
 
 ## 8.1 Create MISTy Views
 
-Spatial views for MISTy are set with the juxtaview at 20 μm (approximately the average cell diameter in lung cancer tissue) to capture immediate neighbors and the paraview at 50 μm to capture a broader regional context. These views are then combined to assess spatial variance in pathway activity across the sample: intra.R2 represents the spatial variance of pathway activity across all cells in the tissue that can be explained by each cell's own intrinsic features, while gain.R2 represents the additional percentage of variance explained when spatial context is added to the model, including both immediate neighbors (juxtaview) and broader spatial environment (paraview).
+Spatial views for MISTy are set with:
 
-The `final_misty_views` object integrates **five complementary spatial views**, enabling the simultaneous assessment of both intrinsic and contextual determinants of pathway activity. These views are defined as follows:  
+- Juxtaview: 10 µm (captures immediate neighbors; see optional section 8.1.2 to tailor for your dataset)
 
-### Spatial Views  
+- Paraview: 15 µm (captures broader regional context)
 
-## Defined Views
+These views are combined to assess spatial variance in pathway activity:
+
+- intra.R2: variance explained by each cell's intrinsic features
+
+- gain.R2: additional variance explained when spatial context (juxtaview + paraview) is included
+ 
+
+### 8.1.1 Optional: Find Suitable Juxtaview and Paraview Radii for Your Dataset
+
+The following code is optional. Run it only if you want to find an appropriate juxtaview and paraview radii based on the spatial distribution of your cells. 
+
+neighbor.thr parameter in `add_juxtaview()` is the maximum distance between two cells for them to be considered neighbors in the juxtaview. To select an appropriate neighbor.thr for the juxtaview, we first calculate the distribution of distances between each cell and its nearest neighbor. This gives a data-driven starting point for candidate thresholds.
+
+```{r, eval = FALSE}
+  # Calculate pairwise distances between all cells
+  geom_dist <- as.matrix(dist(geometry))
+  
+  # Distance to nearest neighbor for each cell (excluding self)
+  nearest_neighbor_dist <- apply(geom_dist, 1, function(x) sort(x)[2])
+  
+  # Calculate summary statistics
+  mean_nn_dist <- mean(nearest_neighbor_dist)
+  sd_nn_dist <- sd(nearest_neighbor_dist)
+  
+  # Suggested thresholds to test
+  suggested_thresholds <- c(
+    mean_nn_dist,                    # Average nearest neighbor distance
+    mean_nn_dist + sd_nn_dist,       # One standard deviation above mean
+    mean_nn_dist + 2*sd_nn_dist,     # Two standard deviations above mean
+    quantile(nearest_neighbor_dist, 0.75),  # 75th percentile
+    quantile(nearest_neighbor_dist, 0.90)   # 90th percentile
+  )
+  
+  # Display suggested thresholds
+  cat(sprintf("Mean nearest neighbor distance: %.1f μm\n", suggested_thresholds[1]),
+      sprintf("Mean + 1 SD: %.1f μm\n", suggested_thresholds[2]),
+      sprintf("Mean + 2 SD: %.1f μm\n", suggested_thresholds[3]),
+      sprintf("75th percentile: %.1f μm\n", suggested_thresholds[4]),
+      sprintf("90th percentile: %.1f μm\n", suggested_thresholds[5]))
+```
+
+```{r, eval = FALSE}
+  # Output:
+  # Mean nearest neighbor distance: 6.5 μm
+  # Mean + 1 SD: 8.7 μm
+  # Mean + 2 SD: 11.0 μm
+  # 75th percentile: 7.4 μm
+  # 90th percentile: 9.1 μm
+```
+
+Based on the nearest-neighbor distance summary, we test how many neighbors each cell would have on average for different candidate thresholds. This helps identify a threshold that captures immediate neighbors without including too many distant cells.
+
+```{r, eval = FALSE}
+  # Candidate thresholds in μm
+  test_thresholds <- c(6, 8, 10, 12, 15, 20)
+  
+  # Calculate average number of neighbors for each threshold
+  for (thr in test_thresholds) {
+    neighbor_matrix <- geom_dist <= thr & geom_dist > 0
+    avg_neighbors <- mean(rowSums(neighbor_matrix))
+    cat(sprintf("Threshold %d: %.1f average neighbors per cell\n", thr, avg_neighbors))
+  }
+```
+
+```{r, eval = FALSE}
+  # Output:
+  # Threshold 6: 0.9 average neighbors per cell
+  # Threshold 8: 2.3 average neighbors per cell
+  # Threshold 10: 3.9 average neighbors per cell
+  # Threshold 12: 5.9 average neighbors per cell
+  # Threshold 15: 9.4 average neighbors per cell
+  # Threshold 20: 16.5 average neighbors per cell
+
+```
+The output of the neighbor threshold analysis shows how the average number of neighbors per cell increases with larger juxtaview radii. We will select 10 µm for the juxtaview, as an average of ~3.9 neighbors per cell strikes a good balance for capturing tight, immediate cell–cell interactions. Choosing a smaller threshold would risk missing relevant neighbors, while a larger one would start including more distant cells that are less relevant for direct interactions. Next, we determine the effective radius of influence for the broader tissue structure in add_paraview(). We test a range of paraview radii and evaluate the number of neighbors contributing to the spatial weighting at different thresholds:
+
+
+```{r, eval = FALSE}
+para_radii <- c(11, 12, 15, 18, 20)
+
+para_analysis <- data.frame()
+
+for (radius in para_radii) {
+    
+    # Calculate Gaussian weights
+    weight_matrix <- exp(-(geom_dist^2)/(2 * radius^2))
+    diag(weight_matrix) <- 0
+    
+    # Calculate only significant and strong neighbors
+    significant_neighbors <- rowSums(weight_matrix > 0.1)
+    strong_neighbors <- rowSums(weight_matrix > 0.5)
+    
+    result <- data.frame(
+        radius = radius,
+        avg_significant_neighbors = mean(significant_neighbors),  
+        avg_strong_neighbors = mean(strong_neighbors)
+    )
+    
+    para_analysis <- rbind(para_analysis, result)
+}
+
+print(para_analysis)
+```
+
+```{r, eval = FALSE}
+  # Output:
+  # radius avg_significant_neighbors avg_strong_neighbors
+  # 1     11                  22.83120             6.883919
+  # 2     12                  26.98429             8.245740
+  # 3     15                  41.16613            12.955272
+  # 4     18                  57.87913            18.541534
+  # 5     20                  70.39963            22.720980
+```
+
+Based on this analysis, a paraview radius of 15 µm is chosen, as it captures a moderate number of neighbors—enough to model broader tissue interactions without including overly distant cells. This complements the juxtaview radius by balancing local vs. tissue-level spatial influence.
+
+
+###8.1.2 Creating Juxtaview and Paraview Spatial Views
+In this section, we demonstrate how to construct juxtaview and paraview spatial views using both pathway activity and cell composition data. The resulting `final_misty_views` object integrates **five complementary spatial views**, enabling the simultaneous assessment of both intrinsic and contextual determinants of pathway activity. These views are defined as follows: 
+
 1. **intra**  
    - Measures how well each cell's *intrinsic features* (predictors) predict that same cell's target features (*self-prediction*).  
 
-2. **juxta.path.20**  
+2. **juxta.path.10**  
+   - Measures how well *pathway activity* within **10 μm neighborhoods** (predictors) predicts target features at focal points.  
+
+3. **para.path.20**  
    - Measures how well *pathway activity* within **20 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-3. **para.path.50**  
-   - Measures how well *pathway activity* within **50 μm neighborhoods** (predictors) predicts target features at focal points.  
+4. **juxta.composition.10**  
+   - Measures how well *cell composition* within **10 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-4. **juxta.composition.20**  
+5. **para.composition.20**  
    - Measures how well *cell composition* within **20 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-5. **para.composition.50**  
-   - Measures how well *cell composition* within **50 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-**Summary:**  
 Together, these spatial views provide a comprehensive framework for quantifying how both **cell-intrinsic states** and **spatially organized neighborhoods** influence cellular signaling and functional heterogeneity in the tissue microenvironment.  
-
----
-
 
 
 ```{r, eval=FALSE}
@@ -508,14 +624,6 @@ comp_views <- create_initial_view(composition_xenium) %>%
   add_paraview(geometry, l = 50, family = "gaussian")
 
 
-# Combine pathway and composition views into comprehensive view object
-# Creates 5 predictor views:
-# (1) intra: Cell's own composition (intrinsic cell type identity)
-# (2) juxta.path.20: Average pathway activity of immediate neighbors (≤20μm)
-# (3) para.path.50: Smoothed pathway activity of broader environment (≤50μm)
-# (4) juxta.composition.20: Cell type composition of immediate neighbors (≤20μm)
-# (5) para.composition.50: Cell type composition of broader environment (≤50μm)
-
 
 final_misty_views <- path_act_views %>%
   add_views(create_view("juxtaview.composition.20", 
@@ -526,6 +634,9 @@ final_misty_views <- path_act_views %>%
                         "para.composition.50")) 
 
 ```
+
+
+
 ## 8.2 Run MISTy Analysis
 ```{r, eval=FALSE}
 
