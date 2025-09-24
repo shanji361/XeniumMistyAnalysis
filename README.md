@@ -669,6 +669,9 @@ With `bypass.intra` (default = FALSE):
 - **intra.R²** → Variance explained by intrinsic features within the same cell.
 - **gain.R²** →  Additional variance explained by spatial context beyond intrinsic features.
 
+With `bypass.intra` (default = TRUE):
+- **gain.R²** → Total variance explained by spatial context.
+  
 ```{r, eval = FALSE}
 #Plot intra.R2 and gain.R2 values
 misty_results_complete %>%
@@ -678,9 +681,6 @@ misty_results_complete %>%
 
 ![1_CompleteIntra](1_CompleteIntra.png)
 ![2_CompleteGain](2_CompleteGain.png)
-
-With `bypass.intra` (default = TRUE):
-- **gain.R²** → Total variance explained by spatial context.
   
 ```{r, eval = FALSE}
 #Plot gain.R2 values (bypassed intraview)
