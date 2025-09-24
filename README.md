@@ -670,6 +670,7 @@ misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_resu
 - **High intra.R²** → Pathway activity is determined by a cell’s intrinsic identity.  
 - **High gain.R²** → Incorporating spatial neighborhood information provides additional predictive power beyond intrinsic identity.  
 
+
 ```{r, eval = FALSE}
 
 misty_results_complete %>%
