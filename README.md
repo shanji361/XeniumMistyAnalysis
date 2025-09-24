@@ -690,15 +690,15 @@ misty_results_complete_linear %>%
 
 ![3_SpatialGain](3_SpatialGain.png)
 
+View contributions with intrinsic information for `misty_results_complete` MISTy object 
+
 ```{r, eval= FALSE}
-# View contributions with intrinsic information
 misty_results_complete %>% 
   plot_view_contributions() 
 ```
 ![4_CompleteContributions](4_CompleteContributions.png)
-
+View contributions without intrinsic information for `misty_results_complete_linear` MISTy object
 ```{r, eval = FALSE}
-# View contributions without intrinsic information
 misty_results_complete_linear %>%
   plot_view_contributions()
 ```
@@ -710,7 +710,7 @@ misty_results_complete_linear %>%
 After evaluating model performance, MISTy's interaction heatmaps reveal the specific spatial relationships that drive predictive performance. These visualizations shows which spatial features (predictors) most strongly influence target expression patterns.
 
 ### 8.5.1 Intrinsic-Adjusted Spatial Heatmaps
-Heatmaps generated from MISTy result object misty_results_complete that includes intrinsic baseline models (bypass.intra = FALSE).
+Heatmaps generated from MISTy object `misty_results_complete` that includes intrinsic baseline models (bypass.intra = FALSE).
 
 ```{r, eval = FALSE}
 # Pathway-pathway interactions at close range (≤10μm)
@@ -751,7 +751,7 @@ misty_results_complete %>%
 
 
 ### 8.5.2 Pure Spatial Relationship Heatmaps
-Heatmaps generated from MISTy result object misty_results_complete_linear that excludes intrinsic baseline models (bypass.intra = TRUE).
+Heatmaps generated from MISTy object `misty_results_complete_linear` that excludes intrinsic baseline models (bypass.intra = TRUE).
 
 ```{r, eval = FALSE}
 misty_results_complete_linear %>%
