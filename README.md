@@ -649,18 +649,18 @@ run_misty(
 
 # Spatial-only analysis (bypass intrinsic view)
 # Tests purely spatial predictive power without cell's own composition
-run_misty(final_misty_views, file.path(save_dir, "misty_results_complete_bypassedintra"), bypass.intra = TRUE)
-
+run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"), 
+          model.function = linear_model, bypass.intra = TRUE)
 ```
 
 ## 8.3 Collect MISTy Results
 
-`misty_results_complete` is a MISTy result object containing aggregated model performance metrics and spatial interaction data from random forest models trained with intrinsic baseline comparisons (bypass.intra = FALSE). `misty_results_complete_bypassed` is a MISTy result object containing aggregated model performance metrics and spatial interaction data from random forest models trained without intrinsic baseline interference (bypass.intra = TRUE).
+`misty_results_complete` is a MISTy result object containing aggregated model performance metrics and spatial interaction data from random forest models trained with intrinsic baseline comparisons (bypass.intra = FALSE). `misty_results_complete_linear` is a MISTy result object containing aggregated model performance metrics and spatial interaction data from linear models trained without intrinsic baseline interference (bypass.intra = TRUE).
 
 ```{r, eval = FALSE}
-
 misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
-misty_results_complete_bypassed <- collect_results(file.path(save_dir, "misty_results_complete_bypassedintra"))
+misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_results_lm_complete"))
+
 ```
 
 ## 8.4 Model Performance and Contributions
@@ -684,7 +684,7 @@ With `bypass.intra` (default = TRUE):
   
 ```{r, eval = FALSE}
 #Plot gain.R2 values (bypassed intraview)
-misty_results_complete_bypassed %>%
+misty_results_complete_linear %>%
   plot_improvement_stats("gain.R2")
 ```
 
@@ -699,7 +699,7 @@ misty_results_complete %>%
 
 ```{r, eval = FALSE}
 # View contributions without intrinsic information
-misty_results_complete_bypassed %>%
+misty_results_complete_linear %>%
   plot_view_contributions()
 ```
 
@@ -751,16 +751,16 @@ misty_results_complete %>%
 
 
 ### 8.5.2 Pure Spatial Relationship Heatmaps
-Heatmaps generated from MISTy result object misty_results_complete_bypassed that excludes intrinsic baseline models (bypass.intra = TRUE).
+Heatmaps generated from MISTy result object misty_results_complete_linear that excludes intrinsic baseline models (bypass.intra = TRUE).
 
 ```{r, eval = FALSE}
-misty_results_complete_bypassed %>%
+misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.10", clean = TRUE) 
 ```
 ![10_SpatialPathwayJuxta](10_SpatialPathwayJuxta.png)
 
 ```{r, eval = FALSE}
-misty_results_complete_bypassed %>%
+misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
 
 ```
@@ -769,13 +769,13 @@ misty_results_complete_bypassed %>%
 
 Following heatmap shows how the broader spatial neighborhood composition predicts local cell type abundance.
 ```{r, eval= FALSE}
-misty_results_complete_bypassed %>%
+misty_results_complete_linear %>%
   plot_interaction_heatmap("para.15", clean = TRUE) 
 ```
 ![12_SpatialPathwayPara](12_SpatialPathwayPara.png)
 
 ```{r, eval= FALSE}
-misty_results_complete_bypassed %>%
+misty_results_complete_linear %>%
   plot_interaction_heatmap("para.composition.15", clean = TRUE)
 
 ```
