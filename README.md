@@ -663,31 +663,29 @@ run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"),
 
 misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
 misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_results_lm_complete"))
+```
 
+## 8.4 Model Performance and Contributions
+
+- **High intra.R²** → Pathway activity is determined by a cell’s intrinsic identity.  
+- **High gain.R²** → Incorporating spatial neighborhood information provides additional predictive power beyond intrinsic identity.  
+
+```{r, eval = FALSE}
 
 misty_results_complete %>%
   plot_improvement_stats("intra.R2") %>%
   plot_improvement_stats("gain.R2")
 
-
 ```
+
 ![1_CompleteIntra](1_CompleteIntra.png)
 ![2_CompleteGain](2_CompleteGain.png)
 
 ```{r, eval = FALSE}
-# Spatial-only analysis performance
-# In bypass.intra mode, gain.R2 shows purely spatial predictive power
 misty_results_complete_linear %>%
   plot_improvement_stats("gain.R2")
 ```
 ![3_SpatialGain](3_SpatialGain.png)
-
-
-
-## 8.4 Interpretations
-
-- **High intra.R²** → Pathway activity is determined by a cell’s intrinsic identity.  
-- **High gain.R²** → Incorporating spatial neighborhood information provides additional predictive power beyond intrinsic identity.  
 
 ```{r, eval= FALSE}
 
@@ -700,7 +698,6 @@ misty_results_complete %>%
 # Spatial-only analysis - view contributions without intrinsic information
 misty_results_complete_linear %>%
   plot_view_contributions()
-
 ```
 
 ![5_SpatialContributions](5_SpatialContributions.png)
