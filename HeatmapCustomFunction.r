@@ -6,16 +6,16 @@
 
 # Function to create a customized colored MISTy interaction heatmap:
 
-#  plot_misty_heatmap <- function(misty_results, view_name, low_color = "blue", mid_color = "white", high_color = "red", midpoint = 0) {
-#    
-#    # Filter interaction data for the specified view
-#    interaction_data <- misty_results$importances.aggregated %>%
-#      filter(view == view_name)
-#    
-#    # Create heatmap
-#    ggplot(interaction_data, aes(x = Predictor, y = Target, fill = Importance)) +
-#      geom_tile() +
-#      scale_fill_gradient2(low = low_color, mid = mid_color, high = high_color, midpoint = midpoint) +
-#      theme_minimal() +
-#      theme(axis.text.x = element_text(angle = 45, hjust = 1))
-#  }
+  plot_misty_heatmap <- function(misty_results, view_name, low_color = "blue", mid_color = "white", high_color = "red", midpoint = 0) {
+    
+    # Filter interaction data for the specified view
+    interaction_data <- misty_results$importances.aggregated %>%
+      filter(view == view_name)
+    
+    # Create heatmap
+    ggplot(interaction_data, aes(x = Predictor, y = Target, fill = Importance)) +
+      geom_tile() +
+      scale_fill_gradient2(low = low_color, mid = mid_color, high = high_color, midpoint = midpoint) +
+      theme_minimal() +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  }
