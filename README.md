@@ -667,9 +667,9 @@ misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_resu
 
 ## 8.4 Model Performance and Contributions
 
-- **High intra.R²** → Pathway activity is determined by a cell’s intrinsic identity.  
-- **High gain.R²** → Incorporating spatial neighborhood information provides additional predictive power beyond intrinsic identity.  
-
+With `bypass.intra` (default = FALSE):
+- **intra.R²** → Variance explained by intrinsic features within the same cell.
+- **gain.R²** →  Additional variance explained by spatial context beyond intrinsic features.
 
 ```{r, eval = FALSE}
 
@@ -682,6 +682,9 @@ misty_results_complete %>%
 ![1_CompleteIntra](1_CompleteIntra.png)
 ![2_CompleteGain](2_CompleteGain.png)
 
+With `bypass.intra` (default = TRUE):
+- **gain.R²** → Total variance explained by spatial context.
+  
 ```{r, eval = FALSE}
 misty_results_complete_linear %>%
   plot_improvement_stats("gain.R2")
