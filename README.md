@@ -480,7 +480,9 @@ These views are combined to assess spatial variance in pathway activity:
 
 ### 8.1.1 (Optional): Find Suitable Juxtaview and Paraview Radii for Your Dataset
 ---
-The goal of this section is to determine suitable radii for defining juxtaviews (immediate neighborhoods) and paraviews (broader tissue environments). The analysis proceeds in two steps: first, by summarizing nearest-neighbor distances to suggest candidate thresholds for the juxtaview, and second, by testing different paraview radii to evaluate how many cells contribute under a Gaussian weighting scheme. The neighbor.thr parameter in `add_juxtaview()` sets the maximum distance between two cells for them to be considered neighbors, while the `l` (radius) parameter in `add_paraview()` defines the effective radius of influence for broader tissue neighborhoods. For additional details about the parameters, see the [MISTy documentation](https://saezlab.github.io/mistyR/reference/index.html).
+The goal of this section is to determine suitable radii for defining juxtaviews (immediate neighborhoods) and paraviews (broader tissue environments). The analysis proceeds in two steps: first, by summarizing nearest-neighbor distances to suggest candidate thresholds for the juxtaview, and second, by testing different paraview radii to evaluate how many cells contribute under a Gaussian weighting scheme. The neighbor.thr parameter in `add_juxtaview()` sets the maximum distance between two cells for them to be considered neighbors, while the `l` (radius) parameter in `add_paraview()` defines the effective radius of influence for broader tissue neighborhoods. 
+
+For additional details about the parameters, see the [MISTy documentation](https://saezlab.github.io/mistyR/reference/index.html).
 
 
 ```{r, eval = FALSE}
@@ -584,8 +586,9 @@ print(para_analysis)
   # 5     20                  70.39963            22.720980
 ```
 
-Based on this analysis, a paraview radius of 15 µm is chosen, as it captures a moderate number of neighbors—enough to model broader tissue interactions without including overly distant cells. This complements the juxtaview radius by balancing local vs. tissue-level spatial influence.
+Based on this analysis, a paraview radius of 15 µm is chosen, as it captures a moderate number of neighbors—enough to model broader tissue interactions without including overly distant cells. This complements the juxtaview radius by balancing local vs. tissue-level spatial influence. 
 
+**Note**: Experimenting with different radii (and other function parameters) is recommended, as this helps reveal how changes in neighborhood definitions influence the interpretation of the tissue. 
 
 ### 8.1.2 Creating Juxtaview and Paraview Spatial Views
 ---
@@ -613,24 +616,25 @@ Together, these spatial views provide a comprehensive framework for quantifying 
 
 ```{r, eval=FALSE}
 
+# Create spatial views for pathway activity data
 path_act_views <- create_initial_view(est_path_act_wide) %>%
-  add_juxtaview(geometry, neighbor.thr = 20) %>% 
-  add_paraview(geometry, l = 50, family = "gaussian")
+  add_juxtaview(geometry, neighbor.thr = 10) %>% 
+  add_paraview(geometry, l = 15, family = "gaussian")
 
 
-# Create cell composition spatial views
+# Create spatial views for cell composition data
 comp_views <- create_initial_view(composition_xenium) %>%
-  add_juxtaview(geometry, neighbor.thr = 20) %>%
-  add_paraview(geometry, l = 50, family = "gaussian")
+  add_juxtaview(geometry, neighbor.thr = 10) %>%
+  add_paraview(geometry, l = 15, family = "gaussian")
 
-
+# Combine pathway activity views with composition views
 final_misty_views <- path_act_views %>%
-  add_views(create_view("juxtaview.composition.20", 
-                        comp_views[["juxtaview.20"]]$data, 
-                        "juxta.composition.20")) %>% 
-  add_views(create_view("paraview.composition.50", 
-                        comp_views[["paraview.50"]]$data, 
-                        "para.composition.50")) 
+  add_views(create_view("juxtaview.composition.10", 
+                        comp_views[["juxtaview.10"]]$data)) %>% 
+  add_views(create_view("paraview.composition.15", 
+                        comp_views[["paraview.15"]]$data)) 
+
+
 
 ```
 
@@ -643,8 +647,6 @@ final_misty_views <- path_act_views %>%
 run_misty(
   views = final_misty_views,  # Updated to use complete views
   cv.folds = 10,  
-  #target.subset = pathway_names, # Warning appears because we're predicting pathway activities 
-  # from cell type compositions - this is expected cross-modal prediction in Xenium spatial data
   results.folder = file.path(save_dir, "misty_results_complete") # Updated folder name
 )
 
@@ -743,7 +745,7 @@ Function to create a customized colored MISTy interaction heatmap:
 # Pathway-pathway interactions at close range (≤20μm)
 # Shows how neighbor cells' pathway activities influence target cell pathways
 misty_results_complete %>%
-  plot_interaction_heatmap("juxta.20", clean = TRUE)
+  plot_interaction_heatmap("juxta.10", clean = TRUE)
 
 ```
 ![6_CompletePathwayJuxta](6_CompletePathwayJuxta.png)
@@ -755,7 +757,7 @@ misty_results_complete %>%
 # Cell type-pathway interactions at close range (≤20μm) 
 # Shows how neighbor cell types influence target cell pathway activities
 misty_results_complete %>%
-  plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
+  plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
 
 ```
 
@@ -768,7 +770,7 @@ misty_results_complete %>%
 # Pathway-pathway interactions at broader range (≤50μm)
 # Shows how regional pathway environment influences target cell pathways
 misty_results_complete %>%
-  plot_interaction_heatmap("para.50", clean = TRUE)
+  plot_interaction_heatmap("para.15", clean = TRUE)
 ```
 ![8_CompletePathwayPara](8_CompletePathwayPara.png)
 
@@ -777,7 +779,7 @@ misty_results_complete %>%
 # Cell type-pathway interactions at broader range (≤50μm)
 # Shows how regional cellular composition influences target cell pathway activities
 misty_results_complete %>%
-  plot_interaction_heatmap("para.composition.50", clean = TRUE)
+  plot_interaction_heatmap("para.composition.15", clean = TRUE)
 ```
 
 ![9_CompleteCompositionPara](9_CompleteCompositionPara.png)
@@ -789,13 +791,13 @@ misty_results_complete %>%
 ```{r, eval = FALSE}
 
 misty_results_complete_linear %>%
-  plot_interaction_heatmap("juxta.20", clean = TRUE) 
+  plot_interaction_heatmap("juxta.10", clean = TRUE) 
 ```
 ![10_SpatialPathwayJuxta](10_SpatialPathwayJuxta.png)
 
 ```{r, eval = FALSE}
 misty_results_complete_linear %>%
-  plot_interaction_heatmap("juxta.composition.20", clean = TRUE)
+  plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
 
 ```
 ![11_SpatialCompositionJuxta](11_SpatialCompositionJuxta.png)
@@ -804,13 +806,13 @@ misty_results_complete_linear %>%
 Following heatmap shows how the broader spatial neighborhood composition predicts local cell type abundance.
 ```{r, eval= FALSE}
 misty_results_complete_linear %>%
-  plot_interaction_heatmap("para.50", clean = TRUE) 
+  plot_interaction_heatmap("para.15", clean = TRUE) 
 ```
 ![12_SpatialPathwayPara](12_SpatialPathwayPara.png)
 
 ```{r, eval= FALSE}
 misty_results_complete_linear %>%
-  plot_interaction_heatmap("para.composition.50", clean = TRUE)
+  plot_interaction_heatmap("para.composition.15", clean = TRUE)
 
 ```
 ![13_SpatialCompositioPara](13_SpatialCompositionPara.png)
