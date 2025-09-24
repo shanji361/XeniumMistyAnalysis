@@ -482,7 +482,8 @@ These views are combined to assess spatial variance in pathway activity:
 ---
 The goal of this section is to determine suitable radii for defining juxtaviews (immediate neighborhoods) and paraviews (broader tissue environments). The analysis proceeds in two steps: first, by summarizing nearest-neighbor distances to suggest candidate thresholds for the juxtaview, and second, by testing different paraview radii to evaluate how many cells contribute under a Gaussian weighting scheme. The neighbor.thr parameter in `add_juxtaview()` sets the maximum distance between two cells for them to be considered neighbors, while the `l` (radius) parameter in `add_paraview()` defines the effective radius of influence for broader tissue neighborhoods. 
 
-For additional details about the parameters, see the [MISTy documentation](https://saezlab.github.io/mistyR/reference/index.html).
+> **Note**: Experimenting with different radii (and other function parameters) is recommended, as this helps reveal how changes in neighborhood definitions influence the interpretation of the tissue. For additional details about the parameters, see the [MISTy documentation](https://saezlab.github.io/mistyR/reference/index.html).
+
 
 
 ```{r, eval = FALSE}
@@ -587,8 +588,6 @@ print(para_analysis)
 ```
 
 Based on this analysis, a paraview radius of 15 µm is chosen, as it captures a moderate number of neighbors—enough to model broader tissue interactions without including overly distant cells. This complements the juxtaview radius by balancing local vs. tissue-level spatial influence. 
-
-> **Note**: Experimenting with different radii (and other function parameters) is recommended, as this helps reveal how changes in neighborhood definitions influence the interpretation of the tissue. 
 
 ### 8.1.2 Creating Juxtaview and Paraview Spatial Views
 ---
