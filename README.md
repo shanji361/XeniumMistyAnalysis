@@ -707,7 +707,7 @@ misty_results_complete_linear %>%
 
 ## 8.5 Interaction Heatmaps
 
-Heatmap showing how well cell type composition within 20μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Higher importance values indicate stronger positive predictive relationships, while negative values indicate inverse relationships. An importance of zero signifies no predictive relationship. Self-prediction cells are shown in gray. Each cell represents the predictive influence of a neighboring cell type on a focal cell type.
+Heatmap showing how well cell type composition within 10μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Higher importance values indicate stronger positive predictive relationships, while negative values indicate inverse relationships. An importance of zero signifies no predictive relationship. Self-prediction cells are shown in gray. Each cell represents the predictive influence of a neighboring cell type on a focal cell type.
 Interpretation Example: A high-importance colored square at the intersection of a predictor and target indicates that the predictor is strongly associated with high values of the target in the local neighborhood.
   
 ```{r, eval = FALSE}
@@ -715,7 +715,6 @@ Interpretation Example: A high-importance colored square at the intersection of 
 # Shows how neighbor cells' pathway activities influence target cell pathways
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.10", clean = TRUE)
-
 ```
 ![6_CompletePathwayJuxta](6_CompletePathwayJuxta.png)
 
@@ -725,7 +724,6 @@ misty_results_complete %>%
 # Shows how neighbor cell types influence target cell pathway activities
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
-
 ```
 
 ![7_CompleteCompositionJuxta](7_CompleteCompositionJuxta.png)
