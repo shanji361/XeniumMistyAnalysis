@@ -704,11 +704,12 @@ misty_results_complete_linear %>%
 
 ![5_SpatialContributions](5_SpatialContributions.png)
 
+Heatmaps showing how well cell type composition within 10μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Higher importance values indicate stronger positive predictive relationships, while negative values indicate inverse relationships. An importance of zero signifies no predictive relationship. Self-prediction cells are shown in gray. Each cell represents the predictive influence of a neighboring cell type on a focal cell type.
+Example: A high-importance colored square at the intersection of a predictor and target indicates that the predictor is strongly associated with high values of the target in the local neighborhood.
 
 ## 8.5 Interaction Heatmaps
 
-Heatmap showing how well cell type composition within 10μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Higher importance values indicate stronger positive predictive relationships, while negative values indicate inverse relationships. An importance of zero signifies no predictive relationship. Self-prediction cells are shown in gray. Each cell represents the predictive influence of a neighboring cell type on a focal cell type.
-Interpretation Example: A high-importance colored square at the intersection of a predictor and target indicates that the predictor is strongly associated with high values of the target in the local neighborhood.
+After evaluating model performance, MISTy's interaction heatmaps reveal the specific spatial relationships that drive predictive performance. These visualizations shows which spatial features (predictors) most strongly influence target expression patterns.
   
 ```{r, eval = FALSE}
 # Pathway-pathway interactions at close range (≤10μm)
