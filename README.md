@@ -690,15 +690,14 @@ misty_results_complete_linear %>%
 
 ![3_SpatialGain](3_SpatialGain.png)
 
-View contributions with intrinsic information for `misty_results_complete` MISTy object 
-
 ```{r, eval= FALSE}
+#View contributions with intrinsic information (random forest model MISTy object)
 misty_results_complete %>% 
   plot_view_contributions() 
 ```
 ![4_CompleteContributions](4_CompleteContributions.png)
-View contributions without intrinsic information for `misty_results_complete_linear` MISTy object
 ```{r, eval = FALSE}
+#View contributions without intrinsic information (linear model MISTy object)
 misty_results_complete_linear %>%
   plot_view_contributions()
 ```
