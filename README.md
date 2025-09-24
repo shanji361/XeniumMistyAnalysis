@@ -765,8 +765,6 @@ misty_results_complete_linear %>%
 ```
 ![11_SpatialCompositionJuxta](11_SpatialCompositionJuxta.png)
 
-
-Following heatmap shows how the broader spatial neighborhood composition predicts local cell type abundance.
 ```{r, eval= FALSE}
 misty_results_complete_linear %>%
   plot_interaction_heatmap("para.15", clean = TRUE) 
