@@ -753,12 +753,16 @@ misty_results_complete %>%
 Heatmaps generated from MISTy object `misty_results_complete_linear` that excludes intrinsic baseline models (bypass.intra = TRUE).
 
 ```{r, eval = FALSE}
+# Pathway-pathway interactions at close range (≤10μm)
+# Shows how neighbor cells' pathway activities influence target cell pathways
 misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.10", clean = TRUE) 
 ```
 ![10_SpatialPathwayJuxta](10_SpatialPathwayJuxta.png)
 
 ```{r, eval = FALSE}
+# Cell type-pathway interactions at close range (≤10μm) 
+# Shows how neighbor cell types influence target cell pathway activities
 misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
 
@@ -766,12 +770,16 @@ misty_results_complete_linear %>%
 ![11_SpatialCompositionJuxta](11_SpatialCompositionJuxta.png)
 
 ```{r, eval= FALSE}
+# Pathway-pathway interactions at broader range (≤15μm)
+# Shows how regional pathway environment influences target cell pathways
 misty_results_complete_linear %>%
   plot_interaction_heatmap("para.15", clean = TRUE) 
 ```
 ![12_SpatialPathwayPara](12_SpatialPathwayPara.png)
 
 ```{r, eval= FALSE}
+# Cell type-pathway interactions at broader range (≤15μm)
+# Shows how regional cellular composition influences target cell pathway activities
 misty_results_complete_linear %>%
   plot_interaction_heatmap("para.composition.15", clean = TRUE)
 
