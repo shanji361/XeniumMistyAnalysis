@@ -588,7 +588,7 @@ print(para_analysis)
 
 Based on this analysis, a paraview radius of 15 µm is chosen, as it captures a moderate number of neighbors—enough to model broader tissue interactions without including overly distant cells. This complements the juxtaview radius by balancing local vs. tissue-level spatial influence. 
 
-**Note**: Experimenting with different radii (and other function parameters) is recommended, as this helps reveal how changes in neighborhood definitions influence the interpretation of the tissue. 
+> **Note**: Experimenting with different radii (and other function parameters) is recommended, as this helps reveal how changes in neighborhood definitions influence the interpretation of the tissue. 
 
 ### 8.1.2 Creating Juxtaview and Paraview Spatial Views
 ---
