@@ -656,6 +656,8 @@ run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"),
 
 ## 8.3 Collect MISTy Results
 
+`misty_results_complete` is a MISTy result object containing aggregated model performance metrics and spatial interaction data from random forest models trained with intrinsic baseline comparisons (bypass.intra = FALSE). `misty_results_complete_linear` is a MISTy result object containing aggregated model performance metrics and spatial interaction data from linear models trained without intrinsic baseline interference (bypass.intra = TRUE).
+
 ```{r, eval = FALSE}
 
 misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
@@ -704,13 +706,13 @@ misty_results_complete_linear %>%
 
 ![5_SpatialContributions](5_SpatialContributions.png)
 
-Heatmaps showing how well cell type composition within 10μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Higher importance values indicate stronger positive predictive relationships, while negative values indicate inverse relationships. An importance of zero signifies no predictive relationship. Self-prediction cells are shown in gray. Each cell represents the predictive influence of a neighboring cell type on a focal cell type.
-Example: A high-importance colored square at the intersection of a predictor and target indicates that the predictor is strongly associated with high values of the target in the local neighborhood.
 
 ## 8.5 Interaction Heatmaps
-
 After evaluating model performance, MISTy's interaction heatmaps reveal the specific spatial relationships that drive predictive performance. These visualizations shows which spatial features (predictors) most strongly influence target expression patterns.
-  
+
+### 8.5.1 Intrinsic-Adjusted Spatial Heatmaps
+Heatmaps generated from MISTy result object misty_results_complete that includes intrinsic baseline models (bypass.intra = FALSE).
+
 ```{r, eval = FALSE}
 # Pathway-pathway interactions at close range (≤10μm)
 # Shows how neighbor cells' pathway activities influence target cell pathways
@@ -749,8 +751,8 @@ misty_results_complete %>%
 ![9_CompleteCompositionPara](9_CompleteCompositionPara.png)
 
 
-
-## 8.6 Spatial Only Anlysis Heatmaps
+### 8.5.2 Pure Spatial Relationship Heatmaps
+Heatmaps generated from MISTy result object misty_results_complete_linear that excludes intrinsic baseline models (bypass.intra = TRUE).
 
 ```{r, eval = FALSE}
 misty_results_complete_linear %>%
@@ -782,7 +784,7 @@ misty_results_complete_linear %>%
 
 
 
-## 8.7 Spatial Validation
+## 8.6 Spatial Validation
 Example 1: Visualize B cells and TRAIL pathway activity. TRAIL is involved in immune-mediated apoptosis, expect high activity near immune cells.
 
 
