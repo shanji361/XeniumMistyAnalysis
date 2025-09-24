@@ -633,8 +633,6 @@ final_misty_views <- path_act_views %>%
   add_views(create_view("paraview.composition.15", 
                         comp_views[["paraview.15"]]$data)) 
 
-
-
 ```
 
 
@@ -658,7 +656,6 @@ run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"),
 
 ## 8.3 Collect MISTy Results
 
-
 ```{r, eval = FALSE}
 
 misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
@@ -672,11 +669,10 @@ With `bypass.intra` (default = FALSE):
 - **gain.R²** →  Additional variance explained by spatial context beyond intrinsic features.
 
 ```{r, eval = FALSE}
-
+#Plot intra.R2 and gain.R2 values
 misty_results_complete %>%
   plot_improvement_stats("intra.R2") %>%
   plot_improvement_stats("gain.R2")
-
 ```
 
 ![1_CompleteIntra](1_CompleteIntra.png)
@@ -686,20 +682,22 @@ With `bypass.intra` (default = TRUE):
 - **gain.R²** → Total variance explained by spatial context.
   
 ```{r, eval = FALSE}
+#Plot gain.R2 values (bypassed intraview)
 misty_results_complete_linear %>%
   plot_improvement_stats("gain.R2")
 ```
+
 ![3_SpatialGain](3_SpatialGain.png)
 
 ```{r, eval= FALSE}
-
+# View contributions with intrinsic information
 misty_results_complete %>% 
   plot_view_contributions() 
 ```
 ![4_CompleteContributions](4_CompleteContributions.png)
 
 ```{r, eval = FALSE}
-# Spatial-only analysis - view contributions without intrinsic information
+# View contributions without intrinsic information
 misty_results_complete_linear %>%
   plot_view_contributions()
 ```
@@ -711,38 +709,9 @@ misty_results_complete_linear %>%
 
 Heatmap showing how well cell type composition within 20μm neighborhoods (predictors, X-axis) predicts cell type abundance at focal points (targets, Y-axis). Higher importance values indicate stronger positive predictive relationships, while negative values indicate inverse relationships. An importance of zero signifies no predictive relationship. Self-prediction cells are shown in gray. Each cell represents the predictive influence of a neighboring cell type on a focal cell type.
 Interpretation Example: A high-importance colored square at the intersection of a predictor and target indicates that the predictor is strongly associated with high values of the target in the local neighborhood.
-
-
-### 8.5.1 Heatmap Customization Function 
-
-Because MISTy does not support customizable heatmap colors, the plot_misty_heatmap() function was developed to allow independent visualization of interaction results. It directly accesses the raw data from the results object, bypassing MISTy’s built-in plotting functions. When collect_results() is executed, MISTy stores importance values in structured data frames, including $importances.aggregated, which contains predictor-target interaction strengths for each view.
-
-plot_misty_heatmap() filters this data for a specified view and generates a heatmap using ggplot2, with predictors on the X-axis, targets on the Y-axis, and fill colors representing importance values. The function supports customization of color gradients, midpoint values, and applies a slight tilt to the X-axis labels for readability. Because the plot is built entirely from scratch, users can further modify visual elements using additional ggplot2 commands. Example usage: a basic heatmap for the view "para.50" can be generated with plot_misty_heatmap(misty_results_complete_linear, view_name = "para.50"), while a customized version with green-to-red coloring and a specific midpoint can be created using plot_misty_heatmap(misty_results_complete_linear, view_name = "para.50", low_color = "blue", mid_color = "green", high_color = "orange", midpoint = 0.1). 
-
-Function to create a customized colored MISTy interaction heatmap:
-  ```{r, eval= FALSE}
-
-  plot_misty_heatmap <- function(misty_results, view_name, low_color = "blue", mid_color = "white", high_color = "red", midpoint = 0) {
-    
-    # Filter interaction data for the specified view
-    interaction_data <- misty_results$importances.aggregated %>%
-      filter(view == view_name)
-    
-    # Create heatmap
-    ggplot(interaction_data, aes(x = Predictor, y = Target, fill = Importance)) +
-      geom_tile() +
-      scale_fill_gradient2(low = low_color, mid = mid_color, high = high_color, midpoint = midpoint) +
-      theme_minimal() +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
-  }
-  
-  ```
-### 8.5.2 Heatmap Visualizations 
   
 ```{r, eval = FALSE}
-
-
-# Pathway-pathway interactions at close range (≤20μm)
+# Pathway-pathway interactions at close range (≤10μm)
 # Shows how neighbor cells' pathway activities influence target cell pathways
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.10", clean = TRUE)
@@ -750,11 +719,9 @@ misty_results_complete %>%
 ```
 ![6_CompletePathwayJuxta](6_CompletePathwayJuxta.png)
 
-
-
 ```{r, eval = FALSE}
 
-# Cell type-pathway interactions at close range (≤20μm) 
+# Cell type-pathway interactions at close range (≤10μm) 
 # Shows how neighbor cell types influence target cell pathway activities
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
@@ -763,11 +730,9 @@ misty_results_complete %>%
 
 ![7_CompleteCompositionJuxta](7_CompleteCompositionJuxta.png)
 
-
-
 ```{r, eval = FALSE}
 
-# Pathway-pathway interactions at broader range (≤50μm)
+# Pathway-pathway interactions at broader range (≤15μm)
 # Shows how regional pathway environment influences target cell pathways
 misty_results_complete %>%
   plot_interaction_heatmap("para.15", clean = TRUE)
@@ -776,7 +741,7 @@ misty_results_complete %>%
 
 ```{r, eval = FALSE}
 
-# Cell type-pathway interactions at broader range (≤50μm)
+# Cell type-pathway interactions at broader range (≤15μm)
 # Shows how regional cellular composition influences target cell pathway activities
 misty_results_complete %>%
   plot_interaction_heatmap("para.composition.15", clean = TRUE)
@@ -786,10 +751,9 @@ misty_results_complete %>%
 
 
 
-## Spatial Only Anlysis Heatmaps
+## 8.6 Spatial Only Anlysis Heatmaps
 
 ```{r, eval = FALSE}
-
 misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.10", clean = TRUE) 
 ```
