@@ -312,7 +312,7 @@ GiottoVisuals::dotPlot(
   save_param = list(base_height = 8,base_width = 5)
 )
 ```
-![Dot Plot](19-dotPlot.png)
+![Dot Plot](21_Dotplot.png)
 
 
 To complement the cluster-level overview from the dot plot, a smaller panel of representative marker genes (e.g., CD3E for T cells, SFTA2 for alveolar AT2 cells, PDGFRA for fibroblasts, CD68 for myeloid cells) was visualized using dimFeatPlot2D() on the UMAP. In these plots, the X and Y axes correspond to coordinates from the dimensional reduction (UMAP), each dot represents a single cell positioned based on transcriptional similarity, and the color scale (blue to green) indicates the expression level of the gene (0.0 to 10.0 normalized counts), with blue representing low or no expression and green representing high expression. Together, the dot plot and dimFeatPlot2D plots provide complementary perspectives that enabled manual annotation of clusters with their putative biological cell types.
