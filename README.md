@@ -640,14 +640,14 @@ final_misty_views <- path_act_views %>%
 ## 8.2 Run MISTy Analysis
 ```{r, eval=FALSE}
 
-# Standard MISTy analysis (with intrinsic view)
+# Standard MISTy analysis with random forest model (with intrinsic view)
 run_misty(
   views = final_misty_views,  # Updated to use complete views
   cv.folds = 10,  
   results.folder = file.path(save_dir, "misty_results_complete") # Updated folder name
 )
 
-# Spatial-only analysis (bypass intrinsic view)
+# Spatial-only analysis with linear model (bypass intrinsic view)
 # Tests purely spatial predictive power without cell's own composition
 run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"), 
           model.function = linear_model, bypass.intra = TRUE)
@@ -713,7 +713,7 @@ Heatmaps generated from MISTy object `misty_results_complete` that includes intr
 
 ```{r, eval = FALSE}
 # Pathway-pathway interactions at close range (≤10μm)
-# Shows how neighbor cells' pathway activities influence target cell pathways
+# Shows additional neighboring pathway environment predictive power on target pathways
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.10", clean = TRUE)
 ```
@@ -722,7 +722,7 @@ misty_results_complete %>%
 ```{r, eval = FALSE}
 
 # Cell type-pathway interactions at close range (≤10μm) 
-# Shows how neighbor cell types influence target cell pathway activities
+# Shows additional predictive power of neighboring cell type compositions on target pathways
 misty_results_complete %>%
   plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
 ```
@@ -732,7 +732,7 @@ misty_results_complete %>%
 ```{r, eval = FALSE}
 
 # Pathway-pathway interactions at broader range (≤15μm)
-# Shows how regional pathway environment influences target cell pathways
+# Shows additional regional pathway environment predictive power on target pathways
 misty_results_complete %>%
   plot_interaction_heatmap("para.15", clean = TRUE)
 ```
@@ -741,7 +741,7 @@ misty_results_complete %>%
 ```{r, eval = FALSE}
 
 # Cell type-pathway interactions at broader range (≤15μm)
-# Shows how regional cellular composition influences target cell pathway activities
+# Shows additional predictive power of regional cell type compositions on target pathways
 misty_results_complete %>%
   plot_interaction_heatmap("para.composition.15", clean = TRUE)
 ```
@@ -754,7 +754,7 @@ Heatmaps generated from MISTy object `misty_results_complete_linear` that exclud
 
 ```{r, eval = FALSE}
 # Pathway-pathway interactions at close range (≤10μm)
-# Shows how neighbor cells' pathway activities influence target cell pathways
+# Shows total neighboring pathway environment predictive power on target pathways
 misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.10", clean = TRUE) 
 ```
@@ -762,7 +762,7 @@ misty_results_complete_linear %>%
 
 ```{r, eval = FALSE}
 # Cell type-pathway interactions at close range (≤10μm) 
-# Shows how neighbor cell types influence target cell pathway activities
+# Shows total predictive power of neighboring cell type compositions on target pathways
 misty_results_complete_linear %>%
   plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
 
@@ -771,7 +771,7 @@ misty_results_complete_linear %>%
 
 ```{r, eval= FALSE}
 # Pathway-pathway interactions at broader range (≤15μm)
-# Shows how regional pathway environment influences target cell pathways
+# Shows total regional pathway environment predictive power on target pathways
 misty_results_complete_linear %>%
   plot_interaction_heatmap("para.15", clean = TRUE) 
 ```
@@ -779,7 +779,7 @@ misty_results_complete_linear %>%
 
 ```{r, eval= FALSE}
 # Cell type-pathway interactions at broader range (≤15μm)
-# Shows how regional cellular composition influences target cell pathway activities
+# Shows total predictive power of regional cell type compositions on target pathways
 misty_results_complete_linear %>%
   plot_interaction_heatmap("para.composition.15", clean = TRUE)
 
