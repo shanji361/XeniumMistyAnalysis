@@ -255,7 +255,7 @@ topgenes_scran <- res_scran[, head(.SD, 2), by = 'cluster']
 The top two ranked marker genes per cluster are then visualized using violin plots, showing the normalized expression of these markers across all clusters.
 ```{r, eval = FALSE}
 violinPlot(g, 
-           feats = unique(rankgenes_scran$feats), #unique
+           feats = unique(topgenes_scran$feats), #unique
            cluster_column = "leiden_clus", 
            save_param = list(base_height = 20,base_width = 10)
 )
