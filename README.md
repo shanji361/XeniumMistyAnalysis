@@ -254,14 +254,15 @@ topgenes_scran <- res_scran[, head(.SD, 2), by = 'cluster']
 ## 5.2 Visualizing Top Ranked Marker Genes
 The top two ranked marker genes per cluster are then visualized using violin plots, showing the normalized expression of these markers across all clusters.
 ```{r, eval = FALSE}
-violinPlot(g, 
-           feats = unique(topgenes_scran$feats), #unique
-           cluster_column = "leiden_clus", 
-           save_param = list(base_height = 20,base_width = 10)
+violinPlot(g,
+           feats = unique(topgenes_scran$feats),
+           cluster_column = "leiden_clus",
+           save_param = list(base_height = 30,base_width = 12, save_dir = save_dir)
 )
+
 ``` 
 
-![Violin Plot](violinPlot-10.png)
+![Violin Plot](20_ViolinPlot.png)
 
 
 # 6. Cell Type Annotation
