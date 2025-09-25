@@ -604,10 +604,10 @@ In this section, we demonstrate how to construct juxtaview and paraview spatial 
 3. **para.15**  
    - Measures how well *pathway activity* within **15 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-4. **juxta.composition.10**  
+4. **juxtaview.composition.10**  
    - Measures how well *cell composition* within **10 μm neighborhoods** (predictors) predicts target features at focal points.  
 
-5. **para.composition.15**  
+5. **paraview.composition.15**  
    - Measures how well *cell composition* within **15 μm neighborhoods** (predictors) predicts target features at focal points.  
 
 
@@ -725,7 +725,7 @@ misty_results_complete %>%
 # Cell type-pathway interactions at close range (≤10μm) 
 # Shows additional predictive power of neighboring cell type compositions on target pathways
 misty_results_complete %>%
-  plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
+  plot_interaction_heatmap("juxtaview.composition.10", clean = TRUE)
 ```
 
 ![7_CompleteCompositionJuxta](7_CompleteCompositionJuxta.png)
@@ -744,7 +744,7 @@ misty_results_complete %>%
 # Cell type-pathway interactions at broader range (≤15μm)
 # Shows additional predictive power of regional cell type compositions on target pathways
 misty_results_complete %>%
-  plot_interaction_heatmap("para.composition.15", clean = TRUE)
+  plot_interaction_heatmap("paraview.composition.15", clean = TRUE)
 ```
 
 ![9_CompleteCompositionPara](9_CompleteCompositionPara.png)
@@ -765,7 +765,7 @@ misty_results_complete_linear %>%
 # Cell type-pathway interactions at close range (≤10μm) 
 # Shows total predictive power of neighboring cell type compositions on target pathways
 misty_results_complete_linear %>%
-  plot_interaction_heatmap("juxta.composition.10", clean = TRUE)
+  plot_interaction_heatmap("juxtaview.composition.10", clean = TRUE)
 
 ```
 ![11_SpatialCompositionJuxta](11_SpatialCompositionJuxta.png)
@@ -782,7 +782,7 @@ misty_results_complete_linear %>%
 # Cell type-pathway interactions at broader range (≤15μm)
 # Shows total predictive power of regional cell type compositions on target pathways
 misty_results_complete_linear %>%
-  plot_interaction_heatmap("para.composition.15", clean = TRUE)
+  plot_interaction_heatmap("paraview.composition.15", clean = TRUE)
 
 ```
 ![13_SpatialCompositioPara](13_SpatialCompositionPara.png)
