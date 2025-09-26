@@ -1,6 +1,6 @@
 <!--
 ---
-title: "Xenium Human Lung Cancer Analysis with MISTy"
+title: "MISTy Analysis of Xenium Lung Cancer"
 output: 
   html_document:
     number_sections: true
@@ -8,13 +8,13 @@ output:
 pkgdown:
   as_is: true
 vignette: >
-  %\VignetteIndexEntry{Xenium Human Lung Cancer Analysis with MISTy}
+  %\VignetteIndexEntry{MISTy Analysis of Xenium Lung Cancer}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 -->
 # 1. Summary
-This tutorial analyzes a Xenium-derived human lung cancer dataset using Giotto and MISTy to examine how variations in cell-type composition and pathway activity shape spatial gene expression patterns.
+This tutorial demonstrates how MISTy, together with Giotto, can be applied to a Xenium-derived human lung cancer dataset to investigate how variations in cell-type composition and pathway activity shape spatial gene expression patterns.
 
 # 2. Environment Setup and Library Initialization
 **Setting up the working environment and loading necessary libraries.**
