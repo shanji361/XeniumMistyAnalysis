@@ -645,13 +645,17 @@ final_misty_views <- path_act_views %>%
 run_misty(
   views = final_misty_views,  # Updated to use complete views
   cv.folds = 10,  
-  results.folder = file.path(save_dir, "misty_results_complete") # Updated folder name
+  results.folder = file.path(save_dir, "misty_results_complete") 
 )
 
-# Spatial-only analysis with linear model (bypass intrinsic view)
+# Spatial-only analysis with linear model and bypass intrinsic view
 # Tests purely spatial predictive power without cell's own composition
-run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"), 
-          model.function = linear_model, bypass.intra = TRUE)
+run_misty(view = final_misty_views, 
+          cv.folds = 10, 
+          model.function = linear_model, 
+          results.folder = file.path(save_dir, "misty_results_lm_complete"), 
+          bypass.intra = TRUE)
+
 ```
 
 ## 8.3 Collect MISTy Results
@@ -869,6 +873,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                  save_dir = save_dir  # Save to current working directory
                ))
 
+
 ```
 
 ![16_EGFRPathway](16_EGFRPathway.png)
@@ -908,7 +913,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                expression_values = "progeny", 
                feats = "nfkb",  
                gradient_style = "sequential", 
-               cell_color_gradient = c("blue","red", "yellow","green"), 
+               cell_color_gradient = c("blue","purple", "red", "yellow"), 
                background_color = "black", 
                point_size = 1, 
                save_plot = TRUE,   # Enable automatic saving
