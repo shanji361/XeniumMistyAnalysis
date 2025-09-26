@@ -679,7 +679,7 @@ With `bypass.intra` (default = TRUE):
 - **gain.R²** → Total variance explained by spatial context.
   
 ```{r, eval = FALSE}
-#Plot intra.R2 and gain.R2 values
+#Plot intra.R2 and gain.R2 values (random forest model MISTy object)
 misty_results_complete %>%
   plot_improvement_stats("intra.R2") %>%
   plot_improvement_stats("gain.R2")
@@ -689,7 +689,7 @@ misty_results_complete %>%
 ![2_CompleteGain](2_CompleteGain.png)
   
 ```{r, eval = FALSE}
-#Plot gain.R2 values for linear model with bypassed intraview
+#Plot gain.R2 values (linear model MISTy object with bypassed intraview)
 misty_results_complete_linear %>%
   plot_improvement_stats("gain.R2")
 ```
@@ -703,7 +703,7 @@ misty_results_complete %>%
 ```
 ![4_CompleteContributions](4_CompleteContributions.png)
 ```{r, eval = FALSE}
-#View contributions without intrinsic information (linear model MISTy object)
+#View contributions without intrinsic information (linear model MISTy object with bypassed intraview)
 misty_results_complete_linear %>%
   plot_view_contributions()
 ```
@@ -809,7 +809,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "orangered", "yellow"), 
                background_color = "black", 
                point_size = 1, 
-               save_plot = TRUE,   # Enable automatic saving
+               save_plot = TRUE,   
                save_param = list(
                  base_height = 8, 
                  base_width = 12, 
@@ -835,7 +835,7 @@ spatPlot2D(xenium_lungcancer_test,
            other_point_size = 0.7, 
            other_cell_color = "#434343", 
            background_color = "black", 
-           save_plot = TRUE,   # Enable automatic saving
+           save_plot = TRUE,  
            save_param = list(
              base_height = 8, 
              base_width = 12, 
@@ -863,7 +863,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue", "orangered", "green"), 
                background_color = "black", 
                point_size = 1, 
-               save_plot = TRUE,   # Enable automatic saving
+               save_plot = TRUE,   
                save_param = list(
                  base_height = 8, 
                  base_width = 12, 
@@ -890,7 +890,7 @@ spatPlot2D(xenium_lungcancer_test,
            other_point_size = 0.7, 
            other_cell_color = "#434343", 
            background_color = "black", 
-           save_plot = TRUE,   # Enable automatic saving
+           save_plot = TRUE,   
            save_param = list(
              base_height = 8, 
              base_width = 12, 
@@ -917,7 +917,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                cell_color_gradient = c("blue","purple", "red", "yellow"), 
                background_color = "black", 
                point_size = 1, 
-               save_plot = TRUE,   # Enable automatic saving
+               save_plot = TRUE,   
                save_param = list(
                  base_height = 8, 
                  base_width = 12, 
@@ -944,7 +944,7 @@ spatPlot2D(xenium_lungcancer_test,
            other_point_size = 0.6, 
            other_cell_color = "#434343", 
            background_color = "black", 
-           save_plot = TRUE,   # Enable automatic saving
+           save_plot = TRUE,   
            save_param = list(
              base_height = 8, 
              base_width = 12, 
