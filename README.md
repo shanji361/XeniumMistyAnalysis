@@ -339,7 +339,7 @@ dimFeatPlot2D(g,
               dim_reduction_to_use = "umap",
               cow_n_col = 2,
               point_size = 0.2,
-              cell_color_gradient = c("blue", "orangered", "yellow"),
+              cell_color_gradient = c("blue", "green"),
               save_param = list(base_height = 10, base_width = 6))
 
 ```
