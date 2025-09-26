@@ -463,9 +463,9 @@ MISTy (Multiview Intercellular SpaTial modeling framework) is a computational fr
 
 ## 8.1 Create MISTy Views
 
-Spatial views for MISTy are set with:
+Spatial views for MISTy in this tutorial are set with:
 
-- Juxtaview: 10 µm (captures immediate neighbors; see optional section 8.1.2 to tailor for your dataset)
+- Juxtaview: 10 µm (captures immediate neighbors)
 
 - Paraview: 15 µm (captures broader regional context)
 
