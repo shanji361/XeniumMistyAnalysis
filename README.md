@@ -715,7 +715,7 @@ misty_results_complete_linear %>%
 After evaluating model performance, MISTy's interaction heatmaps reveal the specific spatial relationships that drive predictive performance. These visualizations shows which spatial features (predictors) most strongly influence target expression patterns.
 
 ### 8.5.1 Intrinsic-Adjusted Spatial Heatmaps
-The following heatmaps are generated from MISTy object `misty_results_complete` that includes intrinsic baseline models (bypass.intra = FALSE).
+The following heatmaps are generated from MISTy object `misty_results_complete` that uses random forest model with `bypass.intra = FALSE`.
 
 ```{r, eval = FALSE}
 # Pathway-pathway interactions at close range (≤10μm)
@@ -756,7 +756,7 @@ misty_results_complete %>%
 
 
 ### 8.5.2 Pure Spatial Relationship Heatmaps
-Heatmaps generated from MISTy object `misty_results_complete_linear` that excludes intrinsic baseline models (bypass.intra = TRUE).
+The following are heatmaps generated from MISTy object `misty_results_complete_linear` that uses the linear model with `bypass.intra = TRUE`.
 
 ```{r, eval = FALSE}
 # Pathway-pathway interactions at close range (≤10μm)
