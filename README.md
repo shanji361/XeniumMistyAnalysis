@@ -689,7 +689,7 @@ misty_results_complete %>%
 ![2_CompleteGain](2_CompleteGain.png)
   
 ```{r, eval = FALSE}
-#Plot gain.R2 values (bypassed intraview)
+#Plot gain.R2 values for linear model with bypassed intraview
 misty_results_complete_linear %>%
   plot_improvement_stats("gain.R2")
 ```
