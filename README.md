@@ -333,21 +333,18 @@ single_marker_genes <- c(
   "KIT"       # Mast cells
 )
 
-
-
-
-dimFeatPlot2D(g, 
-              expression_values = "normalized", 
-              feats = single_marker_genes, 
-              dim_reduction_to_use = "umap", 
-              cow_n_col = 2, 
-              point_size = 0.2, 
-              cell_color_gradient = c("blue", "green"), 
+dimFeatPlot2D(g,
+              expression_values = "normalized",
+              feats = single_marker_genes,
+              dim_reduction_to_use = "umap",
+              cow_n_col = 2,
+              point_size = 0.2,
+              cell_color_gradient = c("blue", "orangered", "yellow"),
               save_param = list(base_height = 10, base_width = 6))
 
 ```
 
-![Dimension Features Plot 2D](20-dimFeatPlot2D.png)
+![Dimension Features Plot 2D](10A_DimFeatPlot2d.png)
 
 ```{r, eval=FALSE}
 # Define cell types based on marker gene analysis
