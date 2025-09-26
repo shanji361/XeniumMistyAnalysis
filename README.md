@@ -13,7 +13,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 -->
-# 1. Summary
+# 1. Introduction
 This tutorial demonstrates how MISTy, together with Giotto, can be applied to a Xenium-derived human lung cancer dataset to investigate how variations in cell-type composition and pathway activity shape spatial gene expression patterns.
 
 # 2. Environment Setup and Library Initialization
