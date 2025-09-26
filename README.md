@@ -661,7 +661,10 @@ run_misty(view = final_misty_views,
 `misty_results_complete` is a MISTy result object containing aggregated model performance metrics and spatial interaction data from random forest models trained with intrinsic baseline comparisons (bypass.intra = FALSE). `misty_results_complete_linear` is a MISTy result object containing aggregated model performance metrics and spatial interaction data from linear models trained without intrinsic baseline interference (bypass.intra = TRUE).
 
 ```{r, eval = FALSE}
+# Collect aggregated results from the random forest model version of the complete anlysis 
 misty_results_complete <- collect_results(file.path(save_dir, "misty_results_complete"))
+
+# Collect aggregated results from the linear model version of the complete analysis  
 misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_results_lm_complete"))
 
 ```
