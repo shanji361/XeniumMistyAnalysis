@@ -795,7 +795,7 @@ misty_results_complete_linear %>%
 
 
 ## 8.6 Spatial Validation
-Example 1: Visualize B cells and TRAIL pathway activity. TRAIL is involved in immune-mediated apoptosis, expect high activity near immune cells.
+**Example 1:** Visualize B cells and TRAIL pathway activity. TRAIL is involved in immune-mediated apoptosis, and high activity is expected near immune cells.
 
 
 ```{r, eval = FALSE}
@@ -850,7 +850,7 @@ spatPlot2D(xenium_lungcancer_test,
 
 <img src="15_BCellLocations.png" width="600" height="400" style="object-fit: contain;">
 
-Example 2: Visualize LUAD cancer cells and EGFR pathway activity. EGFR is frequently dysregulated in lung adenocarcinoma - expect high activity in cancer regions
+**Example 2:** Visualize LUAD cancer cells and EGFR pathway activity. EGFR is frequently dysregulated in lung adenocarcinoma, and high activity is expected in cancer regions.
 
 ```{r, eval = FALSE}
 #Visualize EGFR pathway activity
@@ -903,7 +903,8 @@ spatPlot2D(xenium_lungcancer_test,
 ```
 
 ![17_LUADCancerLocations](17_LUADCancerLocations.png)
-Example 3 : NK/T cells and NFKB PATHWAY. NFκB is key in immune activation - expect high activity in immune cell regions. In lung cancer, NK/T cells often cluster near tumor boundaries
+**Example 3:** Visualize NK/T cells and NFKB pathway activity. NFκB plays a key role in immune activation, and high activity is expected in immune cell regions. In lung cancer, NK/T cells often cluster near tumor boundaries
+
 
 ```{r, eval = FALSE}
 # Visualize NFκB pathway activity
