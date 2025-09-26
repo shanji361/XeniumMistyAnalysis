@@ -816,7 +816,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                  units = "in",
                  save_format = "png",
                  save_name = "14_TRAILPathway",
-                 save_dir = save_dir  # Save to current working directory
+                 save_dir = save_dir  
                ))
 
 ```
@@ -842,7 +842,7 @@ spatPlot2D(xenium_lungcancer_test,
              units = "in",
              save_format = "png",
              save_name = "15_BCellLocations",
-             save_dir = save_dir  # Save to current working directory
+             save_dir = save_dir  
            ))
 
 ```
@@ -870,7 +870,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                  units = "in",
                  save_format = "png",
                  save_name = "16_EGFRPathway",
-                 save_dir = save_dir  # Save to current working directory
+                 save_dir = save_dir  
                ))
 
 
@@ -897,7 +897,7 @@ spatPlot2D(xenium_lungcancer_test,
              units = "in",
              save_format = "png",
              save_name = "17_LUADCancerLocations",
-             save_dir = save_dir  # Save to current working directory
+             save_dir = save_dir  
            ))
 ```
 
@@ -924,7 +924,7 @@ spatFeatPlot2D(xenium_lungcancer_test,
                  units = "in",
                  save_format = "png",
                  save_name = "18_NFKBPathway",
-                 save_dir = save_dir  # Save to current working directory
+                 save_dir = save_dir  
                ))
 ```
 
@@ -951,7 +951,7 @@ spatPlot2D(xenium_lungcancer_test,
              units = "in",
              save_format = "png",
              save_name = "19_NKTCellLocations",
-             save_dir = save_dir  # Save to current working directory
+             save_dir = save_dir  
            ))
 
 ```
