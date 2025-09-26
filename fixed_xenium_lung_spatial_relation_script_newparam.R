@@ -288,12 +288,20 @@ res_scran <- findMarkers_one_vs_all(g,
 topgenes_scran <- res_scran[, head(.SD, 2), by = 'cluster']
 
 
-# 
-# violinPlot(g, 
-#            feats = unique(rankgenes_scran$feats), 
-#            cluster_column = "leiden_clus", 
-#            save_param = list(base_height = 20,base_width = 10)
-# )
+if (dev.cur() != 1) dev.off()  # Close any open device
+png(file.path(save_dir, "20_ViolinPlot.png"), 
+    width = 12, height = 30, units = "in", res = 300)
+
+
+
+violinPlot(g,
+           feats = unique(topgenes_scran$feats),
+           cluster_column = "leiden_clus",
+           save_param = list(base_height = 30,base_width = 12, save_dir = save_dir)
+)
+
+dev.off()
+
 
 
 # writeChatGPTquery(
@@ -342,6 +350,51 @@ topgenes_scran <- res_scran[, head(.SD, 2), by = 'cluster']
 # )
 
 
+
+if (dev.cur() != 1) dev.off()  # Close any open device
+png(file.path(save_dir, "21_Dotplot.png"), 
+    width = 12, height = 8, units = "in", res = 300)
+
+
+GiottoVisuals::dotPlot(
+  g,
+  spat_unit = "cell",
+  feats = c(   "FOXJ1", "DNAAF1", "SCGB2A1", #Bronchial Epithelial (Ciliated/ Club)
+               "VWF", "PECAM1",              #Endothelial
+               "PDGFRA", "COL5A2",           #Fibroblast  
+               "PDGFRB",                     #Pericyte
+               "MYH11", "ACTA2",             #Smooth Muscle
+               "SOX2",                       #Basal cells
+               "SFTA2", "ACE2",              #Alveolar Epithelial Type 2 
+               "AGER", "PDPN",               #Alveolar Epithelial Type 1
+               "ERBB2", "EGFR", "EPCAM", "KRT7", #LUAD Cancer
+               "MET",  "MYC",                #Oncogenes
+               "NKG7", "CD3E",               #NKcell/ Tcells
+               "MS4A1", "CD19", "CD79A", "MZB1", #Bcell/ Plasma 
+               "CD68", "MRC1", "CD14",       #Macrophage (Tissue-Resident: Alveolar, Interstitial) / Monocytes
+               "CD83", "CD86",               #Dendritic 
+               "KIT", "MS4A2"                #Granulocytes (Mast/ etc...)
+  ), 
+  cluster_column = "leiden_clus",
+  dot_size = function(x) mean(x != 0) * 100,
+  dot_size_threshold = 0,
+  dot_scale = 6,
+  dot_color = mean,
+  dot_color_gradient = c("royalblue3", 'orangered', "yellow"),
+  gradient_style = "s",
+  expression_values = "normalized",
+  show_legend = TRUE,
+  legend_text = 10,
+  legend_symbol_size = 2,
+  background_color = "white",
+  axis_text = 10, 
+  default_save_name = "dotPlot",
+  save_param = list(base_height = 8,base_width = 12)
+)
+dev.off()
+
+
+
 # Representative single marker genes for broad cell types
 single_marker_genes <- c(
   "CD3E",     # NK / T cells
@@ -360,16 +413,22 @@ single_marker_genes <- c(
 # 
 # 
 # 
-# dimFeatPlot2D(g, 
-#               expression_values = "normalized", 
-#               feats = single_marker_genes, 
-#               dim_reduction_to_use = "umap", 
-#               cow_n_col = 2, 
-#               point_size = 0.2, 
-#               cell_color_gradient = c("blue", "green"), 
-#               save_param = list(base_height = 10, base_width = 6))
+
+if (dev.cur() != 1) dev.off()  # Close any open device
+png(file.path(save_dir, "10A_DimFeatPlot2D.png"), 
+    width = 18, height = 20, units = "in", res = 300)
 
 
+dimFeatPlot2D(g,
+              expression_values = "normalized",
+              feats = single_marker_genes,
+              dim_reduction_to_use = "umap",
+              cow_n_col = 3,
+              point_size = 1,
+              cell_color_gradient = c("blue", "green"),
+              save_param = list(base_height = 20, base_width = 18))
+
+dev.off()
 
 cell_types <- c(
   "NK / T cells",
@@ -518,13 +577,17 @@ final_misty_views <- path_act_views %>%
 run_misty(
   views = final_misty_views,  # Updated to use complete views
   cv.folds = 10,  
+  model.function = random_forest_model,
   results.folder = file.path(save_dir, "misty_results_complete") # Updated folder name
 )
 
 # Spatial-only analysis (bypass intrinsic view)
 # Tests purely spatial predictive power without cell's own composition
-run_misty(final_misty_views, file.path(save_dir, "misty_results_lm_complete"), bypass.intra = TRUE)
-
+run_misty(view = final_misty_views, 
+          cv.folds = 10, 
+          model.function = linear_model, 
+          results.folder = file.path(save_dir, "misty_results_lm_complete"), 
+          bypass.intra = TRUE)
 
 
 #collect results 
@@ -533,9 +596,6 @@ misty_results_complete <- collect_results(file.path(save_dir, "misty_results_com
 misty_results_complete_linear <- collect_results(file.path(save_dir, "misty_results_lm_complete"))
 
 
-misty_results_complete %>%
-  plot_improvement_stats("intra.R2") %>%
-  plot_improvement_stats("gain.R2")
 
 
 graphics.off()
@@ -560,10 +620,6 @@ misty_results_complete %>%
 
 dev.off()
 
-# Spatial-only analysis performance
-# In bypass.intra mode, gain.R2 shows purely spatial predictive power
-misty_results_complete_linear %>%
-  plot_improvement_stats("gain.R2")
 
 graphics.off()
 
@@ -576,8 +632,6 @@ misty_results_complete_linear %>%
 dev.off()
 
 
-misty_results_complete %>% 
-  plot_view_contributions() 
 
 graphics.off()
 
@@ -590,9 +644,6 @@ misty_results_complete %>%
 
 dev.off()
 
-# Spatial-only analysis - view contributions without intrinsic information
-misty_results_complete_linear %>%
-  plot_view_contributions()
 
 graphics.off()
 
@@ -615,16 +666,9 @@ dev.off()
 
 
 
-# Pathway-pathway interactions at close range (≤20μm)
-# Shows how neighbor cells' pathway activities influence target cell pathways
-misty_results_complete %>%
-  plot_interaction_heatmap("juxta.10", clean = TRUE)
-
 # clear all graphics devices
 graphics.off()
 
-misty_results_complete %>%
-  plot_interaction_heatmap("juxta.10", clean = TRUE)
 
 # Only if the above displays correctly, then save:
 if (dev.cur() != 1) dev.off()  # Close any open device
@@ -634,16 +678,12 @@ misty_results_complete %>%
   plot_interaction_heatmap("juxta.10", clean = TRUE)
 dev.off()
 
-# NEW: Cell type-pathway interactions at close range (≤20μm) 
-# Shows how neighbor cell types influence target cell pathway activities
-misty_results_complete %>%
-  plot_interaction_heatmap("juxtaview.composition.10", clean = TRUE)
+
 
 # clear all graphics devices
 graphics.off()
 
-misty_results_complete %>%
-  plot_interaction_heatmap("juxtaview.composition.10", clean = TRUE)
+
 
 # Only if the above displays correctly, then save:
 if (dev.cur() != 1) dev.off()  # Close any open device
@@ -653,16 +693,10 @@ misty_results_complete %>%
   plot_interaction_heatmap("juxtaview.composition.10", clean = TRUE)
 dev.off()
 
-# Pathway-pathway interactions at broader range (≤50μm)
-# Shows how regional pathway environment influences target cell pathways
-misty_results_complete %>%
-  plot_interaction_heatmap("para.15", clean = TRUE)
 
 # clear all graphics devices
 graphics.off()
 
-misty_results_complete %>%
-  plot_interaction_heatmap("para.15", clean = TRUE)
 
 # Only if the above displays correctly, then save:
 if (dev.cur() != 1) dev.off()  # Close any open device
@@ -672,17 +706,11 @@ misty_results_complete %>%
   plot_interaction_heatmap("para.15", clean = TRUE)
 dev.off()
 
-# NEW: Cell type-pathway interactions at broader range (≤50μm)
-# Shows how regional cellular composition influences target cell pathway activities
-misty_results_complete %>%
-  plot_interaction_heatmap("paraview.composition.15", clean = TRUE)
 
 # clear all graphics devices
 graphics.off()
 
 
-misty_results_complete %>%
-  plot_interaction_heatmap("paraview.composition.15", clean = TRUE)
 
 # Only if the above displays correctly, then save:
 if (dev.cur() != 1) dev.off()  # Close any open device
@@ -698,9 +726,7 @@ dev.off()
 # ==============================================================================
 
 
-misty_results_complete_linear %>%
-  plot_interaction_heatmap("juxta.10", clean = TRUE) 
-# Only if the above displays correctly, then save:
+
 if (dev.cur() != 1) dev.off()  # Close any open device
 png(file.path(save_dir, "10_SpatialPathwayJuxta.png"),
     width = 12, height = 8, units = "in", res = 300)
@@ -711,8 +737,6 @@ misty_results_complete_linear %>%
 dev.off()
 
 
-misty_results_complete_linear %>%
-  plot_interaction_heatmap("juxtaview.composition.10", clean = TRUE)
 
 if (dev.cur() != 1) dev.off()  # Close any open device
 png(file.path(save_dir, "11_SpatialCompositionJuxta.png"),
@@ -724,8 +748,6 @@ misty_results_complete_linear %>%
 dev.off()
 
 
-misty_results_complete_linear %>%
-  plot_interaction_heatmap("para.15", clean = TRUE) 
 
 if (dev.cur() != 1) dev.off()  # Close any open device
 png(file.path(save_dir, "12_SpatialPathwayPara.png"),
@@ -737,8 +759,8 @@ misty_results_complete_linear %>%
 dev.off()
 
 
-misty_results_complete_linear %>%
-  plot_interaction_heatmap("paraview.composition.15", clean = TRUE)
+
+
 
 if (dev.cur() != 1) dev.off()  # Close any open device
 png(file.path(save_dir, "13_SpatialCompositionPara.png"),
