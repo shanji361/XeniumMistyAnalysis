@@ -903,7 +903,7 @@ spatPlot2D(xenium_lungcancer_test,
 ```
 
 ![17_LUADCancerLocations](17_LUADCancerLocations.png)
-**Example 3:** Visualize NK/T cells and NFκB pathway activity. NFκB plays a key role in immune activation, and high activity is expected in immune cell regions. In lung cancer, NK/T cells often cluster near tumor boundaries
+**Example 3:** Visualize NK/T cells and NFκB pathway activity. NFκB plays a key role in immune activation, and high activity is expected in immune cell regions. In lung cancer, NK/T cells often cluster near tumor boundaries.
 
 
 ```{r, eval = FALSE}
