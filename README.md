@@ -640,9 +640,10 @@ final_misty_views <- path_act_views %>%
 
 # Standard MISTy analysis with random forest model (with intrinsic view)
 run_misty(
-  views = final_misty_views,  # Updated to use complete views
-  cv.folds = 10,  
-  results.folder = file.path(save_dir, "misty_results_complete") 
+          views = final_misty_views, 
+          cv.folds = 10,  
+          model.function = random_forest_model,
+          results.folder = file.path(save_dir, "misty_results_complete") 
 )
 
 # Spatial-only analysis with linear model and bypass intrinsic view
