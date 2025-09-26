@@ -309,7 +309,7 @@ GiottoVisuals::dotPlot(
   background_color = "white",
   axis_text = 10, 
   default_save_name = "dotPlot",
-  save_param = list(base_height = 8,base_width = 5)
+  save_param = list(base_height = 8,base_width = 12)
 )
 ```
 ![Dot Plot](21_Dotplot.png)
@@ -337,14 +337,14 @@ dimFeatPlot2D(g,
               expression_values = "normalized",
               feats = single_marker_genes,
               dim_reduction_to_use = "umap",
-              cow_n_col = 2,
-              point_size = 0.2,
+              cow_n_col = 3,
+              point_size = 1,
               cell_color_gradient = c("blue", "green"),
-              save_param = list(base_height = 10, base_width = 6))
+              save_param = list(base_height = 20, base_width = 18))
 
 ```
 
-![Dimension Features Plot 2D](10A_DimFeatPlot2d.png)
+![Dimension Features Plot 2D](10A_DimFeatPlot2D.png)
 
 ```{r, eval=FALSE}
 # Define cell types based on marker gene analysis
