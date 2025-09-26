@@ -14,7 +14,7 @@ vignette: >
 ---
 -->
 # 1. Summary
-This tutorial analyzes a Xenium-derived human lung cancer dataset using Giotto and MISTy to identify cell types, estimating pathway activities, and modeling spatial cell and pathway interactions to gain insights into the tumor microenvironment. 
+This tutorial analyzes a Xenium-derived human lung cancer dataset using Giotto and MISTy to examine how variations in cell-type composition and pathway activity shape spatial gene expression patterns.
 
 # 2. Environment Setup and Library Initialization
 **Setting up the working environment and loading necessary libraries.**
@@ -444,7 +444,7 @@ composition_xenium <- as_tibble(cell_type_onehot)
 ```
 # 8. MISTy Analysis
 
-MISTy (Multiview Intercellular SpaTial modeling framework) is a computational framework designed to explore how different biological factors interact within spatially resolved transcriptomics data. This analysis applies MISTy to human lung Xenium data to examine how variations in cell-type composition and pathway activity shape spatial gene expression patterns.
+MISTy (Multiview Intercellular SpaTial modeling framework) is a computational framework designed to explore how different biological factors interact within spatially resolved transcriptomics data.
 
 #### Citation  
 
