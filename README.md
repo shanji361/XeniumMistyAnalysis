@@ -14,7 +14,7 @@ vignette: >
 ---
 -->
 # 1. Summary
-This tutorial analyzes a Xenium-derived human lung cancer dataset using Giotto and MISTy to identify cell types, estimating pathway activities, and modeling spatial cell–cell interactions to gain insights into the tumor microenvironment. 
+This tutorial analyzes a Xenium-derived human lung cancer dataset using Giotto and MISTy to identify cell types, estimating pathway activities, and modeling spatial cell and pathway interactions to gain insights into the tumor microenvironment. 
 
 # 2. Environment Setup and Library Initialization
 **Setting up the working environment and loading necessary libraries.**
